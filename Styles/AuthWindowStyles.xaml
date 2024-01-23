@@ -1,5 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=System.Runtime">
 
     <Style x:Key="AuthLabel"  TargetType="TextBlock">
         <Setter Property="FontSize" Value="30"></Setter>
@@ -17,6 +17,30 @@
         <Setter Property="Foreground" Value="White"></Setter>
         <Setter Property="Margin" Value="0, 10, 0, 0"></Setter>
         <Setter Property="BorderThickness" Value="1"></Setter>
+    </Style>
+
+    <Style x:Key="LoginPlaceHolder" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="Margin" Value="0,0,210,10"></Setter>
+        <Setter Property="Foreground" Value="DarkGray"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=LoginText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="PasswordPlaceHolder" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="Margin" Value="0,0,200,10"></Setter>
+        <Setter Property="Foreground" Value="DarkGray"></Setter>
+        <Setter Property="Visibility" Value="Visible"/>
+
     </Style>
 
 

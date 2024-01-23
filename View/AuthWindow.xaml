@@ -13,11 +13,20 @@
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" Orientation="Vertical" Margin="20">
-           
+
             <TextBlock Style="{StaticResource AuthLabel}" Text="Авторизація" />
-            <TextBox x:Name="LoginText" Template="{StaticResource DefaultTextBox}"/>
-            <PasswordBox x:Name="PasswordText" Template="{StaticResource DefaultPasswordBox}"/>
+            <Grid>
+                <TextBox x:Name="LoginText" Template="{StaticResource DefaultTextBox}"/>
+                <TextBlock Text="Логін" Style="{StaticResource LoginPlaceHolder}"/>
+            </Grid>
+            <Grid>
+                <PasswordBox x:Name="PasswordText" Template="{StaticResource DefaultPasswordBox}" PasswordChanged="PasswordText_PasswordChanged"/>
+                <TextBlock x:Name="PasswordPlaceHolder" Text="Пароль" Style="{StaticResource PasswordPlaceHolder}"/>
+            </Grid>
+          
             <Button x:Name="BtnLogin" Content="Увійти" Style="{StaticResource LoginButton}" Template="{StaticResource DefaultButton}"/>
+
         </StackPanel>
     </Grid>
+ 
 </Window>

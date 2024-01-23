@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,9 +21,25 @@ namespace MedicalPlusFront
     /// </summary>
     public partial class AuthWindow : Window
     {
+        private TextBlock _passwordPlaceHolder;
+
         public AuthWindow()
         {
             InitializeComponent();
+        }
+
+        private void PasswordText_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (_passwordPlaceHolder == null)
+                _passwordPlaceHolder = (TextBlock)this.FindName("PasswordPlaceHolder");
+
+
+            string pass = ((PasswordBox)sender).Password;
+            if (string.IsNullOrEmpty(pass))
+                _passwordPlaceHolder.Visibility = Visibility.Visible;
+            else
+                _passwordPlaceHolder.Visibility = Visibility.Collapsed;
+
         }
     }
 }
