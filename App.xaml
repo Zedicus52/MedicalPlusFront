@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:MedicalPlusFront"
              StartupUri="AuthWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/AuthWindowStyles.xaml"/>
+                <ResourceDictionary Source="Styles/DefaultStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
