@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,16 +13,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MedicalPlusFront
+namespace MedicalPlusFront.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AuthComponent.xaml
     /// </summary>
-    public partial class AuthWindow : Window
+    public partial class AuthComponent : UserControl
     {
-        private TextBlock _passwordPlaceHolder;
 
-        public AuthWindow()
+        private TextBlock _passwordPlaceHolder;
+        private PasswordBox _passwordBox;
+
+        public AuthComponent()
         {
             InitializeComponent();
         }
@@ -31,7 +32,9 @@ namespace MedicalPlusFront
         private void PasswordText_PasswordChanged(object sender, RoutedEventArgs e)
         {
             if (_passwordPlaceHolder == null)
-                _passwordPlaceHolder = (TextBlock)this.FindName("PasswordPlaceHolder");
+                _passwordPlaceHolder = (TextBlock)FindName("PasswordPlaceHolder");
+            if (_passwordBox == null)
+                _passwordBox = (PasswordBox)sender;
 
 
             string pass = ((PasswordBox)sender).Password;
@@ -40,6 +43,19 @@ namespace MedicalPlusFront
             else
                 _passwordPlaceHolder.Visibility = Visibility.Collapsed;
 
+            if (DataContext != null)
+            {
+                ((dynamic)DataContext).PasswordInput = pass;
+            }
+
+        }
+
+        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            if (_passwordBox == null)
+                return;
+
+            _passwordBox.Password = "";
         }
     }
 }

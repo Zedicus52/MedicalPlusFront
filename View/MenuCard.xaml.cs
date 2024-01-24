@@ -15,13 +15,14 @@ using System.Windows.Shapes;
 
 namespace MedicalPlusFront.View
 {
-    public partial class Component : UserControl
+    public partial class MenuCard : UserControl
     {
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(Component));
+            DependencyProperty.Register("Text", typeof(string), typeof(MenuCard));
 
         public static readonly DependencyProperty ImageProperty =
-            DependencyProperty.Register("Image", typeof(string), typeof(Component));
+            DependencyProperty.Register("Image", typeof(string), typeof(MenuCard));
+
 
         public string Text
         {
@@ -32,10 +33,10 @@ namespace MedicalPlusFront.View
         public string Image
         {
             get { return (string)GetValue(ImageProperty); }
-            set { SetValue(ImageProperty, value); }
+            set  { SetValue(ImageProperty, value); }
         }
 
-        public Component()
+        public MenuCard()
         {
             InitializeComponent();
             DataContext = this;
