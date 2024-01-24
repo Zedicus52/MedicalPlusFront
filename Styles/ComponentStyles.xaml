@@ -18,5 +18,38 @@
         <Setter Property="Height" Value="100"></Setter>
         <Setter Property="Width" Value="150"></Setter>
     </Style>
+
+    <Style x:Key="PatientImg" TargetType="Image">
+        <Setter Property="Source" Value="{Binding UserImg}"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="Height" Value="30"></Setter>
+        <Setter Property="Width" Value="30"></Setter>
+    </Style>
+
+    <Style x:Key="PatientName" TargetType="TextBlock">
+        <Setter Property="Text" Value="{Binding PatientName}"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="FontSize" Value="15"></Setter>
+        <Setter Property="Height" Value="20"></Setter>
+        <Setter Property="Margin" Value="0,5,0,0"></Setter>
+    </Style>
+
+    <Style x:Key="PatientBirth" TargetType="TextBlock">
+        <Setter Property="Text" Value="{Binding PatientBirth}"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="FontSize" Value="10"></Setter>
+        <Setter Property="Height" Value="20"></Setter>
+        <Setter Property="Margin" Value="0,5,0,0"></Setter>
+    </Style>
+
+    <Style x:Key="PatientId" TargetType="TextBlock">
+        <Setter Property="Text" Value="{Binding PatientId}"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+        <Setter Property="Margin" Value="0,0,5,0"></Setter>
+        <Setter Property="FontSize" Value="10"></Setter>
+        <Setter Property="Height" Value="20"></Setter>
+    </Style>
     
 </ResourceDictionary>
