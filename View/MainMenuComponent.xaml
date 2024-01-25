@@ -3,28 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MedicalPlusFront.View"
-             xmlns:convertoes="clr-namespace:MedicalPlusFront.Convertors" 
+             xmlns:views="clr-namespace:MedicalPlusFront.View"
              xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainMenuVM}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <convertoes:StringToImageConvertor x:Key="con"></convertoes:StringToImageConvertor>
-    </UserControl.Resources>
     <Grid Background="#E1EFF0">
-        <Grid.ColumnDefinitions>
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,30,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <local:MenuCard Image="Icons/users.png" Text="Користувачі"/>
+            <views:MenuCard Image="Icons/users.png" Text="Користувачі"/>
         </StackPanel>
-        <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <local:MenuCard Image="Icons/log.png" Text="Журнал запису"/>
+        <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0,30,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <views:MenuCard Image="Icons/log.png" Text="Журнал запису"/>
         </StackPanel>
         <StackPanel Grid.Column="2" Orientation="Vertical" Margin="0,30,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <local:MenuCard Image="Icons/employes.png" Text="Працівники"/>
-        </StackPanel>
+            <views:MenuCard Image="Icons/employes.png" Text="Працівники"/>
+        </StackPanel>-->
+
+        <views:UserCard UserImg="Icons/man.png" PatientName="Some Name" PatientId="555" PatientBirth="19.02.1999"></views:UserCard>
     </Grid>
 </UserControl>

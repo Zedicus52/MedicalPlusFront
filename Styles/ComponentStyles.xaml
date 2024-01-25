@@ -30,7 +30,7 @@
     <Style x:Key="PatientName" TargetType="TextBlock">
         <Setter Property="Text" Value="{Binding PatientName}"></Setter>
         <Setter Property="Foreground" Value="White"></Setter>
-        <Setter Property="FontSize" Value="15"></Setter>
+        <Setter Property="FontSize" Value="18"></Setter>
         <Setter Property="Height" Value="20"></Setter>
         <Setter Property="Margin" Value="0,5,0,0"></Setter>
     </Style>
@@ -38,7 +38,7 @@
     <Style x:Key="PatientBirth" TargetType="TextBlock">
         <Setter Property="Text" Value="{Binding PatientBirth}"></Setter>
         <Setter Property="Foreground" Value="White"></Setter>
-        <Setter Property="FontSize" Value="10"></Setter>
+        <Setter Property="FontSize" Value="13"></Setter>
         <Setter Property="Height" Value="20"></Setter>
         <Setter Property="Margin" Value="0,5,0,0"></Setter>
     </Style>
@@ -48,7 +48,7 @@
         <Setter Property="Foreground" Value="White"></Setter>
         <Setter Property="HorizontalAlignment" Value="Right"></Setter>
         <Setter Property="Margin" Value="0,0,5,0"></Setter>
-        <Setter Property="FontSize" Value="10"></Setter>
+        <Setter Property="FontSize" Value="13"></Setter>
         <Setter Property="Height" Value="20"></Setter>
     </Style>
     

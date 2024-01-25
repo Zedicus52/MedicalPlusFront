@@ -10,7 +10,9 @@
   <ItemGroup>
     <None Remove="View\Icons\employes.png" />
     <None Remove="View\Icons\log.png" />
+    <None Remove="View\Icons\man.png" />
     <None Remove="View\Icons\users.png" />
+    <None Remove="View\Icons\woman.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +23,13 @@
     <Resource Include="View\Icons\log.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="View\Icons\man.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Icons\users.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Icons\woman.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

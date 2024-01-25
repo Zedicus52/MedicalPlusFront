@@ -19,7 +19,7 @@ namespace MedicalPlusFront.View
     {
         public static readonly DependencyProperty ImageProperty =
             DependencyProperty.Register("UserImg", typeof(string), typeof(UserCard));
-        public static readonly DependencyProperty NameProperty =
+        public static readonly DependencyProperty UserNameProperty =
             DependencyProperty.Register("PatientName", typeof(string), typeof(UserCard));
         public static readonly DependencyProperty BirthProperty =
             DependencyProperty.Register("PatientBirth", typeof(string), typeof(UserCard));
@@ -34,8 +34,8 @@ namespace MedicalPlusFront.View
 
         public string PatientName
         {
-            get { return (string)GetValue(NameProperty); }
-            set { SetValue(NameProperty, value); }
+            get { return (string)GetValue(UserNameProperty); }
+            set { SetValue(UserNameProperty, value); }
         }
 
         public string PatientBirth
