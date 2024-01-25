@@ -51,5 +51,90 @@
         <Setter Property="FontSize" Value="13"></Setter>
         <Setter Property="Height" Value="20"></Setter>
     </Style>
-    
+
+    <Style x:Key="CheckRegister" TargetType="CheckBox">
+        <Setter Property="Content" Value="Враховувати регістр"></Setter>
+        <Setter Property="BorderBrush" Value="#65799A"></Setter>
+        <Setter Property="FontSize" Value="8"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Margin" Value="5,0,0,0"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+    </Style>
+
+    <Style x:Key="PhoneNumber" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="10,0,0,10"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="FontSize" Value="7"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=PhoneNumberText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="IdNumber" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="10,0,0,10"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="FontSize" Value="7"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=IdNumberText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="FullName" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="10,0,0,10"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="FontSize" Value="7"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=FullNameText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="AfterDate" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="10,0,0,10"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="FontSize" Value="7"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=AfterDateText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="BeforeDate" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="10,0,0,10"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="FontSize" Value="7"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=BeforeDateText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

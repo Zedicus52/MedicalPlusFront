@@ -23,6 +23,7 @@
             <views:MenuCard Image="Icons/employes.png" Text="Працівники"/>
         </StackPanel>-->
 
-        <views:UserCard UserImg="Icons/man.png" PatientName="Some Name" PatientId="555" PatientBirth="19.02.1999"></views:UserCard>
+        <!--<views:UserCard UserImg="Icons/man.png" PatientName="Some Name" PatientId="555" PatientBirth="19.02.1999"></views:UserCard>-->
+        <views:FindUserCard/>
     </Grid>
 </UserControl>
