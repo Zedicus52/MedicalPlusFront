@@ -62,6 +62,31 @@
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
     </Style>
 
+    <Style x:Key="GenderBorder" TargetType="Border">
+        <Setter Property="Background" Value="#FFFFFF"></Setter>
+        <Setter Property="Height" Value="45"></Setter>
+        <Setter Property="Width" Value="103"></Setter>
+        <Setter Property="CornerRadius" Value="5"></Setter>
+        <Setter Property="BorderBrush" Value="#575176"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="20,0,0,0"></Setter>
+    </Style>
+
+    <Style x:Key="GenderBtn" TargetType="Button">
+        <Setter Property="Height" Value="40"></Setter>
+        <Setter Property="Width" Value="50"></Setter>
+        <Setter Property="Background" Value="#0905"></Setter>
+        <Setter Property="BorderBrush" Value="#0905"></Setter>
+    </Style>
+
+    <Style x:Key="IdCreateUser" TargetType="TextBlock">
+        <Setter Property="Text" Value="{Binding TextIdCreate}"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="FontSize" Value="10"></Setter>
+        <Setter Property="Margin" Value="16,0,0,10"></Setter>
+    </Style>
+
     <Style x:Key="PhoneNumber" TargetType="TextBlock">
         <Setter Property="IsHitTestVisible" Value="False"></Setter>
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
@@ -132,6 +157,81 @@
         <Setter Property="FontSize" Value="7"></Setter>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Text, ElementName=BeforeDateText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="Surname" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="25,0,0,10"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="FontSize" Value="7"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=SurnameText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="Name" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="25,0,0,10"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="FontSize" Value="7"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=NameText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="Patronymic" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="25,0,0,10"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="FontSize" Value="7"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=PatronymicText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="PhoneFax" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="25,0,0,10"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="FontSize" Value="7"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=PhoneFaxText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DateBirth" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="25,0,0,10"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="FontSize" Value="7"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=BirthDateText}" Value="">
                 <Setter Property="Visibility" Value="Visible"/>
             </DataTrigger>
         </Style.Triggers>

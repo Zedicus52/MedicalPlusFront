@@ -24,6 +24,6 @@
         </StackPanel>-->
 
         <!--<views:UserCard UserImg="Icons/man.png" PatientName="Some Name" PatientId="555" PatientBirth="19.02.1999"></views:UserCard>-->
-        <views:FindUserCard/>
+        <views:CreateUserCard TextIdCreate="Ідентифікаційний номер: 1203"/>
     </Grid>
 </UserControl>
