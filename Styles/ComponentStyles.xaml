@@ -282,4 +282,89 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="SurnameEmployee" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="25,0,0,25"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="FontSize" Value="7"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=SurnameEmployeeText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="NameEmployee" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="25,0,0,25"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="FontSize" Value="7"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=NameEmployeeText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="PatronymicEmployee" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="25,0,0,25"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="FontSize" Value="7"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=PatronymicEmployeeText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="RoleEmployee" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="25,0,0,25"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="FontSize" Value="7"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=RoleEmployeeText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="LoginEmployee" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="25,0,0,25"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="FontSize" Value="7"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=LoginEmployeeText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="PasswordPlaceHolderEmp" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="Margin" Value="0,-45,145,0"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Visible"/>
+        <Setter Property="FontSize" Value="7"/>
+    </Style>
+
 </ResourceDictionary>
