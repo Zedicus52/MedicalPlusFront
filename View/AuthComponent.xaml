@@ -3,11 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MedicalPlusFront.View" 
+             xmlns:local="clr-namespace:MedicalPlusFront.View"
+             xmlns:validators="clr-namespace:MedicalPlusFront.ValidationRules"
+             xmlns:assist="clr-namespace:MedicalPlusFront.Utils"
              xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" 
              d:DataContext="{d:DesignInstance Type=viewmodel:LoginPageVM}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="800">
     <Grid>
         <Grid Background="#E1EFF0">
             <Grid.RowDefinitions>
@@ -19,13 +21,26 @@
 
                 <TextBlock Style="{StaticResource AuthLabel}" Text="Авторизація" />
                 <Grid>
-                    <TextBox Text="{Binding LoginInput, UpdateSourceTrigger=PropertyChanged}" x:Name="LoginText" Template="{StaticResource DefaultTextBox}"/>
+                    <TextBox x:Name="LoginText" Template="{StaticResource DefaultTextBox}">
+                        <TextBox.Text>
+                            <Binding Path="LoginInput" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="True">
+                                <Binding.ValidationRules>
+                                    <validators:LoginValidator />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Text="Логін" Style="{StaticResource LoginPlaceHolder}"/>
                 </Grid>
-                <Grid>
-                    <PasswordBox x:Name="PasswordText" Template="{StaticResource DefaultPasswordBox}" PasswordChanged="PasswordText_PasswordChanged"/>
+                <StackPanel Orientation="Vertical">
+                    <PasswordBox assist:PasswordBoxAssistant.BindPassword="True" 
+                                 assist:PasswordBoxAssistant.BoundPassword="{Binding Path=PasswordInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                 x:Name="PasswordText" Template="{StaticResource DefaultPasswordBox}" 
+                                 PasswordChanged="PasswordText_PasswordChanged">
+                    </PasswordBox>
                     <TextBlock x:Name="PasswordPlaceHolder" Text="Пароль" Style="{StaticResource PasswordPlaceHolder}"/>
-                </Grid>
+                    <TextBlock x:Name="PasswordErrorText" Style="{StaticResource PasswordErrorText}"></TextBlock>
+                </StackPanel>
 
                 <Button Click="BtnLogin_Click" Command="{Binding LoginCommand}" x:Name="BtnLogin" Content="Увійти" Style="{StaticResource LoginButton}" Template="{StaticResource DefaultButton}"/>
 

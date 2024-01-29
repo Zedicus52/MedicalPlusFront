@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <Style TargetType="TextBox">
-        <Setter Property="Margin" Value="0 0 0 10"></Setter>
+        <Setter Property="Margin" Value="0 0 0 25"></Setter>
         <Setter Property="Background" Value="White"></Setter>
         <Setter Property="BorderBrush" Value="#65799A"></Setter>
         <Setter Property="Foreground" Value="Black"></Setter>
@@ -10,6 +10,18 @@
         <Setter Property="Width" Value="250px"></Setter>
         <Setter Property="FontSize" Value="15"></Setter>
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Bottom" FontWeight="Bold" Foreground="Red" FontSize="15" 
+                                   Text="{Binding ErrorContent}">
+                        </TextBlock>
+                        <AdornedElementPlaceholder></AdornedElementPlaceholder>
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style TargetType="PasswordBox">
@@ -54,4 +66,6 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
+    
 </ResourceDictionary>

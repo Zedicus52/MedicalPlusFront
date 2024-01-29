@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MedicalPlusFront.ValidationRules;
 
 namespace MedicalPlusFront.View
 {
@@ -22,11 +24,14 @@ namespace MedicalPlusFront.View
     {
 
         private TextBlock _passwordPlaceHolder;
+        private TextBlock _passwordErrorText;
         private PasswordBox _passwordBox;
+        private PasswordValidator _passwordValidator;
 
         public AuthComponent()
         {
             InitializeComponent();
+            _passwordValidator = new PasswordValidator();
         }
 
         private void PasswordText_PasswordChanged(object sender, RoutedEventArgs e)
@@ -35,6 +40,8 @@ namespace MedicalPlusFront.View
                 _passwordPlaceHolder = (TextBlock)FindName("PasswordPlaceHolder");
             if (_passwordBox == null)
                 _passwordBox = (PasswordBox)sender;
+            if(_passwordErrorText == null)
+                _passwordErrorText = (TextBlock)FindName("PasswordErrorText");
 
 
             string pass = ((PasswordBox)sender).Password;
@@ -43,11 +50,8 @@ namespace MedicalPlusFront.View
             else
                 _passwordPlaceHolder.Visibility = Visibility.Collapsed;
 
-            if (DataContext != null)
-            {
-                ((dynamic)DataContext).PasswordInput = pass;
-            }
-
+            var res = _passwordValidator.Validate(pass, CultureInfo.CurrentCulture);
+            _passwordErrorText.Text = res.ErrorContent.ToString();
         }
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)

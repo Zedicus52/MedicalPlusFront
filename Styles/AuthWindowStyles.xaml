@@ -23,7 +23,7 @@
         <Setter Property="IsHitTestVisible" Value="False"></Setter>
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
         <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-        <Setter Property="Margin" Value="0,0,210,10"></Setter>
+        <Setter Property="Margin" Value="0,0,200,25"></Setter>
         <Setter Property="Foreground" Value="DarkGray"></Setter>
         <Setter Property="Visibility" Value="Collapsed"/>
         <Style.Triggers>
@@ -37,10 +37,16 @@
         <Setter Property="IsHitTestVisible" Value="False"></Setter>
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
         <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-        <Setter Property="Margin" Value="0,0,200,10"></Setter>
+        <Setter Property="Margin" Value="0,-55,190,0"></Setter>
         <Setter Property="Foreground" Value="DarkGray"></Setter>
         <Setter Property="Visibility" Value="Visible"/>
-
+    </Style>
+    
+    <Style x:Key="PasswordErrorText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="15"></Setter>
+        <Setter Property="Foreground" Value="Red"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="Margin" Value="245,0,0,0"></Setter>
     </Style>
 
 
