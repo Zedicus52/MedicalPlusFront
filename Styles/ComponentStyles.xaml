@@ -237,4 +237,49 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="Role" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="40,0,0,25"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="FontSize" Value="10"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=RoleText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="IdEmployeeNumber" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="40,0,0,25"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="FontSize" Value="10"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=IdEmployeeText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="FullNameEmployee" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="40,0,0,25"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="FontSize" Value="10"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=FullNameEmployeeText}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>
