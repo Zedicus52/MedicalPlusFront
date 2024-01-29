@@ -34,5 +34,45 @@ namespace MedicalPlusFront.View
             InitializeComponent();
             DataContext = this;
         }
+
+        private void ButtonSelect_Click(object sender, RoutedEventArgs e)
+        {
+            var clickedBtn = sender as Button;
+
+            if (clickedBtn.Name == "SaveBtn")
+            {
+                return;
+            }
+
+            foreach (var btn in CreateUserCard.FindVisualButton<Button>(this))
+            {
+                if (btn.Name != "SaveBtn")
+                {
+                    btn.Background = (Brush)new BrushConverter().ConvertFrom("#0905");
+                }
+            }
+
+            clickedBtn.Background = (Brush)new BrushConverter().ConvertFrom("#575176");
+        }
+
+        public static IEnumerable<T> FindVisualButton<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if(depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if(child != null && child is T)
+                    {
+                        yield return (T)child;
+                    }
+
+                    foreach(T childofChild in FindVisualButton<T>(child))
+                    {
+                        yield return childofChild;
+                    }
+                }
+            }
+        }
     }
 }

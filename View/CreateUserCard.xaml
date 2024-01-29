@@ -9,7 +9,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Border Background="#B7D5E0" BorderBrush="#575176" CornerRadius="4" BorderThickness="1"  DockPanel.Dock="Top"  Height="350" Width="230">
+            <Border Background="#B7D5E0" BorderBrush="#575176" CornerRadius="4" BorderThickness="1"  DockPanel.Dock="Top"  Height="400" Width="230">
                 <StackPanel Orientation="Vertical" Margin="5">
                     <TextBlock Style="{StaticResource IdCreateUser}"/>
                     <Grid>
@@ -35,18 +35,18 @@
                     <Grid>
                         <Border Style="{StaticResource GenderBorder}">
                             <StackPanel Orientation="Horizontal" Width="100">
-                                <Button Style="{StaticResource GenderBtn}">
+                                <Button Click="ButtonSelect_Click" Style="{StaticResource GenderBtn}">
                                     <Image Source="/View/Icons/man.png"></Image>
                                 </Button>
                                 <Border Background="#575176" Height="43" Width="1"/>
-                                <Button Style="{StaticResource GenderBtn}">
+                                <Button Click="ButtonSelect_Click" Style="{StaticResource GenderBtn}">
                                     <Image Source="/View/Icons/woman.png"></Image>
                                 </Button>
                             </StackPanel>
                         </Border>
                     </Grid>
 
-                    <Button Command="{Binding CreateUserCommand}" Content="Зберігти" Template="{StaticResource DefaultButton}" Style="{StaticResource LoginButton}" Height="25" Width="100" FontSize="13" HorizontalAlignment="Left" Margin="20, 30, 0, 0"/>
+                    <Button x:Name="SaveBtn" Command="{Binding CreateUserCommand}" Content="Зберігти" Template="{StaticResource DefaultButton}" Style="{StaticResource LoginButton}" Height="25" Width="100" FontSize="13" HorizontalAlignment="Left" Margin="20, 30, 0, 0"/>
 
                 </StackPanel>
             </Border>
