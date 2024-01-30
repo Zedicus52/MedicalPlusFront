@@ -76,7 +76,7 @@
     </ControlTemplate>
 
     <ControlTemplate x:Key="DefaultTextBox" TargetType="TextBox">
-        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
                        BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
             <ScrollViewer x:Name="PART_ContentHost"/>
         </Border>
@@ -86,6 +86,8 @@
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Opacity" Value="0.5"></Setter>
+                <Setter TargetName="border" Property="Background" Value="LightGray"></Setter>
+                <Setter TargetName="border" Property="BorderBrush" Value="#65799A"></Setter>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -126,6 +128,8 @@
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Opacity" Value="0.5"></Setter>
+                <Setter TargetName="border" Property="Background" Value="LightGray"></Setter>
+                <Setter TargetName="border" Property="BorderBrush" Value="#65799A"></Setter>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
