@@ -14,7 +14,7 @@ public class LoginValidator: ValidationRule
         /*if (Validator.HasOnlyEnglishLetters(login))
             return new ValidationResult(false, "Логін повинен містити тільки латинські літери");*/
         
-        if (!Validator.IsCorrectLength(login, 6, 15))
+        if (!Validator.IsCorrectLength(login, 1, 15))
             return new ValidationResult(false, "Логін повинен містити від 6 до 15 символів");
         
         if (!Validator.HasUpperChar(login))

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace MedicalPlusFront.ViewModel
 {
@@ -9,5 +10,10 @@ namespace MedicalPlusFront.ViewModel
 
         public void OnPropertyChanged([CallerMemberName] string prop = "") =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        
+        public MessageBoxResult ShowMessageBox(string message, string title, MessageBoxButton buttons, MessageBoxImage image)
+        {
+            return MessageBox.Show(message, title, buttons, image);
+        }
     }
 }

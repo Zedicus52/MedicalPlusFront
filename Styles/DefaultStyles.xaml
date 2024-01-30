@@ -47,6 +47,14 @@
                        BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
             <ScrollViewer x:Name="PART_ContentHost"/>
         </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="Opacity" Value="1"></Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.5"></Setter>
+            </Trigger>
+        </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <ControlTemplate x:Key="DefaultPasswordBox" TargetType="PasswordBox">
@@ -54,6 +62,14 @@
                    BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
             <ScrollViewer x:Name="PART_ContentHost"/>
         </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="Opacity" Value="1"></Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.5"></Setter>
+            </Trigger>
+        </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <ControlTemplate x:Key="DefaultButton" TargetType="Button">
@@ -61,6 +77,7 @@
                 BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
+        
         <ControlTemplate.Triggers>
             <Trigger Property="IsPressed" Value="True">
                 <Setter TargetName="border" Property="Background" Value="#556B8F"/>
@@ -70,6 +87,12 @@
             </Trigger>
             <Trigger Property="IsMouseOver" Value="False">
                 <Setter TargetName="border" Property="Cursor" Value="Arrow"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="True">
+                <Setter Property="Opacity" Value="1"></Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.5"></Setter>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

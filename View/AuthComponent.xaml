@@ -21,7 +21,7 @@
 
                 <TextBlock Style="{StaticResource AuthLabel}" Text="Авторизація" />
                 <Grid>
-                    <TextBox x:Name="LoginText" Template="{StaticResource DefaultTextBox}">
+                    <TextBox IsEnabled="{Binding IsInteractable}" x:Name="LoginText" Template="{StaticResource DefaultTextBox}">
                         <TextBox.Text>
                             <Binding Path="LoginInput" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="True">
                                 <Binding.ValidationRules>
@@ -33,7 +33,7 @@
                     <TextBlock Text="Логін" Style="{StaticResource LoginPlaceHolder}"/>
                 </Grid>
                 <StackPanel Orientation="Vertical">
-                    <PasswordBox assist:PasswordBoxAssistant.BindPassword="True" 
+                    <PasswordBox IsEnabled="{Binding IsInteractable}" assist:PasswordBoxAssistant.BindPassword="True" 
                                  assist:PasswordBoxAssistant.BoundPassword="{Binding Path=PasswordInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                                  x:Name="PasswordText" Template="{StaticResource DefaultPasswordBox}" 
                                  PasswordChanged="PasswordText_PasswordChanged">
@@ -42,8 +42,9 @@
                     <TextBlock x:Name="PasswordErrorText" Style="{StaticResource PasswordErrorText}"></TextBlock>
                 </StackPanel>
 
-                <Button Click="BtnLogin_Click" Command="{Binding LoginCommand}" x:Name="BtnLogin" Content="Увійти" Style="{StaticResource LoginButton}" Template="{StaticResource DefaultButton}"/>
-
+                <Button IsEnabled="{Binding IsInteractable}" Click="BtnLogin_Click" Command="{Binding LoginCommand}" 
+                        x:Name="BtnLogin" Content="Увійти" Style="{StaticResource LoginButton}" 
+                        Template="{StaticResource DefaultButton}"/>
             </StackPanel>
         </Grid>
     </Grid>

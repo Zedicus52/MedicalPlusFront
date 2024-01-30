@@ -62,7 +62,7 @@ namespace MedicalPlusFront.View
             if (_passwordBox == null)
                 return;
 
-            _passwordBox.Password = "";
+            //_passwordBox.Password = "";
         }
     }
 }
