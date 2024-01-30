@@ -10,7 +10,7 @@
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Border Background="#B7D5E0" BorderBrush="#575176" BorderThickness="1" CornerRadius="5" Height="250" Width="300">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Сортування" Foreground="#575176" HorizontalAlignment="Center" FontSize="25" Margin="10"/>
+                    <TextBlock Style="{StaticResource HeaderText}" Text="Сортування"/>
                     <Grid Margin="10">
                         <ComboBox x:Name="HeavinessCB" Template="{StaticResource DeffaultComboBox}"/>
                         <TextBlock Text="Важкість" Style="{StaticResource HeavinessBox}"/>
