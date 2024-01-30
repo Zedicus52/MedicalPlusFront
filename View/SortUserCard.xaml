@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="MedicalPlusFront.View.SortUserCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MedicalPlusFront.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border Background="#B7D5E0" BorderBrush="#575176" BorderThickness="1" CornerRadius="5" Height="250" Width="300">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Сортування" Foreground="#575176" HorizontalAlignment="Center" FontSize="25" Margin="10"/>
+                    <Grid Margin="10">
+                        <ComboBox x:Name="HeavinessCB" Template="{StaticResource DeffaultComboBox}"/>
+                        <TextBlock Text="Важкість" Style="{StaticResource HeavinessBox}"/>
+                    </Grid>
+                    <Grid Margin="10">
+                        <ComboBox x:Name="CreationTimeCB" Template="{StaticResource DeffaultComboBox}"/>
+                        <TextBlock Text="Час створення" Style="{StaticResource CreationBox}"/>
+                    </Grid>
+                    <Grid Margin="10">
+                        <ComboBox x:Name="NamePatientCB" Template="{StaticResource DeffaultComboBox}"/>
+                        <TextBlock Text="Ім'я пацієнту" Style="{StaticResource NamePatientBox}"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
+</UserControl>
