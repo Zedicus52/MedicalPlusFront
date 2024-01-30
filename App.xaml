@@ -18,6 +18,9 @@
             <DataTemplate DataType="{x:Type viewModels:MainMenuVM}">
                 <views:MainMenuComponent></views:MainMenuComponent>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:CreateEmployeeVM}">
+                <views:CreateEmployeeCard></views:CreateEmployeeCard>
+            </DataTemplate>
 
         </ResourceDictionary>
     </Application.Resources>

@@ -7,10 +7,10 @@
              xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel"  d:DataContext="{d:DesignInstance Type=viewmodel:CreateEmployeeVM}"
              xmlns:local="clr-namespace:MedicalPlusFront.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="400" d:DesignWidth="830">
     <Grid>
         <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Border Background="#B7D5E0" BorderBrush="#575176" CornerRadius="4" BorderThickness="1"  DockPanel.Dock="Top"  Height="450" Width="230">
+            <Border Background="#B7D5E0" BorderBrush="#575176" CornerRadius="4" BorderThickness="1"  DockPanel.Dock="Top"  Height="480" Width="230">
                 <StackPanel Orientation="Vertical" Margin="5">
                     <TextBlock Style="{StaticResource IdCreateUser}"/>
                     <Grid>
@@ -29,15 +29,17 @@
                         <TextBox Text="{Binding RoleEmployeeInput, UpdateSourceTrigger=PropertyChanged}" x:Name="RoleEmployeeText" Template="{StaticResource DefaultTextBox}" Height="25" Width="180"/>
                         <TextBlock Text="Роль" Style="{StaticResource RoleEmployee}"/>
                     </Grid>
-                    <Grid Margin="0, 10, 0, 0">
+                    <Grid Margin="0, 5, 0, 0">
                         <TextBox Text="{Binding LoginEmployeeInput, UpdateSourceTrigger=PropertyChanged}" x:Name="LoginEmployeeText" Template="{StaticResource DefaultTextBox}" Height="25" Width="180"/>
                         <TextBlock Text="Логін" Style="{StaticResource LoginEmployee}"/>
                     </Grid>
                     <StackPanel Orientation="Vertical">
                         <PasswordBox assist:PasswordBoxAssistant.BindPassword="True" 
-                                 x:Name="PasswordEmployeeText" Template="{StaticResource DefaultPasswordBox}" Height="25" Width="180" PasswordChanged="PasswordText_PasswordChanged">
+                                 x:Name="PasswordEmployeeText" Template="{StaticResource DefaultPasswordBox}" 
+                                 Height="25" Width="180" PasswordChanged="PasswordText_PasswordChanged">
                         </PasswordBox>
                         <TextBlock x:Name="PasswordPlaceHolder" Text="Пароль" Style="{StaticResource PasswordPlaceHolderEmp}"/>
+                        <TextBlock TextWrapping="Wrap" x:Name="PasswordErrorText" Style="{StaticResource PasswordErrorTextWithout}"></TextBlock>
                     </StackPanel>
                     <Grid>
                         <Border Style="{StaticResource GenderBorder}">

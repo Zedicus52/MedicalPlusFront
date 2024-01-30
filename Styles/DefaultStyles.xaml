@@ -34,6 +34,13 @@
         <Setter Property="FontSize" Value="15"></Setter>
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
     </Style>
+    
+    <Style x:Key="PasswordErrorTextWithout" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="10"></Setter>
+        <Setter Property="Foreground" Value="Red"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="Margin" Value="20,0,0,15"></Setter>
+    </Style>
 
     <ControlTemplate x:Key="DefaultTextBox" TargetType="TextBox">
         <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 

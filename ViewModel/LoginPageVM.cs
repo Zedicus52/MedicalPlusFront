@@ -38,7 +38,7 @@ namespace MedicalPlusFront.ViewModel
                 {
                     LoginInput = string.Empty;
                     PasswordInput = string.Empty;
-                    MainWindowVM.GetInstance().SetViewModel(new MainMenuVM());
+                    MainWindowVM.GetInstance().SetViewModel(new CreateEmployeeVM());
                 }));
             }
         }

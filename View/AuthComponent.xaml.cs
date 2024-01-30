@@ -51,7 +51,10 @@ namespace MedicalPlusFront.View
                 _passwordPlaceHolder.Visibility = Visibility.Collapsed;
 
             var res = _passwordValidator.Validate(pass, CultureInfo.CurrentCulture);
-            _passwordErrorText.Text = res.ErrorContent.ToString();
+            if (res.IsValid)
+                _passwordErrorText.Text = string.Empty;
+            else
+                _passwordErrorText.Text = res.ErrorContent.ToString();
         }
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)

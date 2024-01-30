@@ -23,11 +23,14 @@ namespace MedicalPlusFront.View
     public partial class CreateEmployeeCard : UserControl
     {
         private PasswordBox _passwordBox;
-        private PasswordValidator _passwordValidator;
+        private readonly PasswordValidator _passwordValidator;
+
+        private TextBlock _passwordPlaceHolder;
+        private TextBlock _passwordErrorText;
         public CreateEmployeeCard()
         {
             InitializeComponent();
-            DataContext = this;
+            _passwordValidator = new PasswordValidator();
         }
 
         private void ButtonSelect_Click(object sender, RoutedEventArgs e)
@@ -74,17 +77,22 @@ namespace MedicalPlusFront.View
         {
             if (_passwordBox == null)
                 _passwordBox = (PasswordBox)sender;
+            if (_passwordPlaceHolder == null)
+                _passwordPlaceHolder = (TextBlock)FindName("PasswordPlaceHolder");
+            _passwordErrorText = (TextBlock)FindName("PasswordErrorText");
 
             string pass = ((PasswordBox)sender).Password;
+            
+            if (string.IsNullOrEmpty(pass))
+                _passwordPlaceHolder.Visibility = Visibility.Visible;
+            else
+                _passwordPlaceHolder.Visibility = Visibility.Collapsed;
+            
             var res = _passwordValidator.Validate(pass, CultureInfo.CurrentCulture);
-        }
-
-        private void BtnLogin_Click(object sender, RoutedEventArgs e)
-        {
-            if (_passwordBox == null)
-                return;
-
-            _passwordBox.Password = "";
+            if(res.IsValid)
+                _passwordErrorText.Text = string.Empty;
+            else
+                _passwordErrorText.Text = res.ErrorContent.ToString();
         }
     }
 }

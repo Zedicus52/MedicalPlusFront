@@ -23,7 +23,7 @@ public static partial class Validator
     [GeneratedRegex("[0-9]+")]
     private static partial Regex NumberRegex();
     
-    [GeneratedRegex("[A-Z]+")]
+    [GeneratedRegex(@"[A-Z]")]
     private static partial Regex UpperCharRegex();
     
     [GeneratedRegex("[a-z]+")]
