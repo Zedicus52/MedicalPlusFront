@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-            <Border CornerRadius="5" BorderBrush="#575176" Background="#65799A" BorderThickness="2" DockPanel.Dock="Top" Height="60" Width="350">
+            <Border CornerRadius="5" BorderBrush="#575176" Background="#65799A" BorderThickness="2" DockPanel.Dock="Top" Height="60" Width="370" Margin="0,0,0,10">
                 <Grid Margin="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
