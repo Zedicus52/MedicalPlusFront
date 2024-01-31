@@ -27,6 +27,16 @@ namespace MedicalPlusFront.View
 
         private TextBlock _passwordPlaceHolder;
         private TextBlock _passwordErrorText;
+
+        private static readonly DependencyProperty IdTextProperty =
+            DependencyProperty.Register("TextIdCreate", typeof(string), typeof(CreateEmployeeCard));
+
+        public string TextIdCreate
+        {
+            get { return (string)GetValue(IdTextProperty); }
+            set { SetValue(IdTextProperty, value);}
+        }
+
         public CreateEmployeeCard()
         {
             InitializeComponent();
