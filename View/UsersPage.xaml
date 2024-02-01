@@ -16,11 +16,11 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid Margin="15" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">    
             <local:ListOfPeopleCard/>
         </Grid>
 
-        <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid Margin="15" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <local:FindUserCard/>
         </Grid>
 

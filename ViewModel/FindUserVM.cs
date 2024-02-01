@@ -19,6 +19,16 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
+        public string BirthDateInput
+        {
+            get => _birthDateInput;
+            set
+            {
+                _birthDateInput = value;
+                OnPropertyChanged("BirthDateInput");
+            }
+        }
+
         public string IdNumberInput
         {
             get => _idNumberInput;
@@ -60,6 +70,7 @@ namespace MedicalPlusFront.ViewModel
         }
 
         private string _phoneNumberInput;
+        private string _birthDateInput;
         private string _idNumberInput;
         private string _fullNameInput;
         private string _afterDateInput;

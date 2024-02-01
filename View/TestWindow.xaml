@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="TestWindow" Height="600" Width="800">
     <Grid>
-        <Frame Source="UsersPage.xaml"/>
+        <!--<Frame Source="UsersPage.xaml"/>-->
+        <local:FindUserCard></local:FindUserCard>
     </Grid>
 </Window>

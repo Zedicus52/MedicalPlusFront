@@ -41,7 +41,7 @@ namespace MedicalPlusFront.ViewModel
         public MainWindowVM()
         {
             _queryDelay = new TimeSpan(0, 1, 0);
-            _selectedVM = new LoginPageVM();
+            _selectedVM = new FindUserVM();
         }
 
         public void SetViewModel(BaseVM baseVM)

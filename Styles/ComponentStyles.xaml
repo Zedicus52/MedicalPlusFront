@@ -87,11 +87,11 @@
         <Setter Property="Margin" Value="16,0,0,10"></Setter>
     </Style>
 
-    <Style x:Key="PhoneNumber" TargetType="TextBlock">
+    <Style x:Key="PhoneNumberPlaceHolder" TargetType="TextBlock">
         <Setter Property="IsHitTestVisible" Value="False"></Setter>
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
         <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-        <Setter Property="Margin" Value="10,0,0,10"></Setter>
+        <Setter Property="Margin" Value="2,-70,0,0"></Setter>
         <Setter Property="Foreground" Value="#575176"></Setter>
         <Setter Property="Visibility" Value="Collapsed"/>
         <Setter Property="FontSize" Value="7"></Setter>
@@ -102,11 +102,11 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="IdNumber" TargetType="TextBlock">
+    <Style x:Key="IdNumberPlaceHolder" TargetType="TextBlock">
         <Setter Property="IsHitTestVisible" Value="False"></Setter>
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
         <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-        <Setter Property="Margin" Value="10,0,0,10"></Setter>
+        <Setter Property="Margin" Value="2,-70,0,0"></Setter>
         <Setter Property="Foreground" Value="#575176"></Setter>
         <Setter Property="Visibility" Value="Collapsed"/>
         <Setter Property="FontSize" Value="7"></Setter>
@@ -117,11 +117,11 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="FullName" TargetType="TextBlock">
+    <Style x:Key="FullNamePlaceHolder" TargetType="TextBlock">
         <Setter Property="IsHitTestVisible" Value="False"></Setter>
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
         <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-        <Setter Property="Margin" Value="10,0,0,10"></Setter>
+        <Setter Property="Margin" Value="2,-70,0,0"></Setter>
         <Setter Property="Foreground" Value="#575176"></Setter>
         <Setter Property="Visibility" Value="Collapsed"/>
         <Setter Property="FontSize" Value="7"></Setter>
@@ -132,11 +132,11 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="AfterDate" TargetType="TextBlock">
+    <Style x:Key="AfterDatePlaceHolder" TargetType="TextBlock">
         <Setter Property="IsHitTestVisible" Value="False"></Setter>
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
         <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-        <Setter Property="Margin" Value="10,0,0,10"></Setter>
+        <Setter Property="Margin" Value="2,-70,0,0"></Setter>
         <Setter Property="Foreground" Value="#575176"></Setter>
         <Setter Property="Visibility" Value="Collapsed"/>
         <Setter Property="FontSize" Value="7"></Setter>
@@ -147,11 +147,11 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="BeforeDate" TargetType="TextBlock">
+    <Style x:Key="BeforeDatePlaceHolder" TargetType="TextBlock">
         <Setter Property="IsHitTestVisible" Value="False"></Setter>
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
         <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-        <Setter Property="Margin" Value="10,0,0,10"></Setter>
+        <Setter Property="Margin" Value="2,-70,0,0"></Setter>
         <Setter Property="Foreground" Value="#575176"></Setter>
         <Setter Property="Visibility" Value="Collapsed"/>
         <Setter Property="FontSize" Value="7"></Setter>
