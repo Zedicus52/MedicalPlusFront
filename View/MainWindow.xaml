@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:MedicalPlusFront.View" 
         xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" 
         d:DataContext="{d:DesignInstance Type=viewmodel:MainWindowVM}"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        mc:Ignorable="d"             
+        Title="MainWindow" d:MinHeight="350" d:MinWidth="500">
     <Grid>
         <ContentControl Content="{Binding SelectedViewModel}"></ContentControl>
     </Grid>

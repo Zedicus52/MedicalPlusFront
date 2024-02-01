@@ -22,7 +22,7 @@
                         <TextBox Text="{Binding FullNameEmployeeInput, UpdateSourceTrigger=PropertyChanged}" x:Name="FullNameEmployeeText" Template="{StaticResource DefaultTextBox}"></TextBox>
                         <TextBlock Text="ПІБ" Style="{StaticResource FullNameEmployee}"/>
                     </Grid>
-                    <CheckBox x:Name="RegisterBox" Style="{StaticResource CheckRegister}" FontSize="20" Margin="35,0,0,0"/>
+                    <CheckBox x:Name="RegisterBox" Style="{StaticResource CheckRegister}" FontSize="20" Margin="5,0,0,0"/>
                 </StackPanel>
             </Border>
         </StackPanel>

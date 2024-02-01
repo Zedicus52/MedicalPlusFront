@@ -10,7 +10,7 @@
              d:DesignHeight="600" d:DesignWidth="840">
     <Grid>
         <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Border Background="#B7D5E0" BorderBrush="#575176" CornerRadius="4" BorderThickness="1"  DockPanel.Dock="Top"  Height="480" Width="230">
+            <Border Background="#B7D5E0" BorderBrush="#575176" CornerRadius="4" BorderThickness="1"  DockPanel.Dock="Top"  Height="500" Width="230">
                 <StackPanel Orientation="Vertical" Margin="5">
                     <TextBlock Style="{StaticResource IdCreateUser}"/>
                     <Grid>
@@ -47,7 +47,7 @@
                                 <Button Click="ButtonSelect_Click" Style="{StaticResource GenderBtn}">
                                     <Image Source="/View/Icons/man.png"></Image>
                                 </Button>
-                                <Border Background="#575176" Height="43" Width="1"/>
+                                <Border Background="#575176" Height="60" Width="1"/>
                                 <Button Click="ButtonSelect_Click" Style="{StaticResource GenderBtn}">
                                     <Image Source="/View/Icons/woman.png"></Image>
                                 </Button>
