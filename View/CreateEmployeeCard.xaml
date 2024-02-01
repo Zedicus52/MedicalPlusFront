@@ -7,7 +7,7 @@
              xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel"  d:DataContext="{d:DesignInstance Type=viewmodel:CreateEmployeeVM}"
              xmlns:local="clr-namespace:MedicalPlusFront.View"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="830">
+             d:DesignHeight="600" d:DesignWidth="840">
     <Grid>
         <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" VerticalAlignment="Center">
             <Border Background="#B7D5E0" BorderBrush="#575176" CornerRadius="4" BorderThickness="1"  DockPanel.Dock="Top"  Height="480" Width="230">

@@ -6,10 +6,11 @@
              xmlns:vm="clr-namespace:MedicalPlusFront.ViewModel"
              xmlns:local="clr-namespace:MedicalPlusFront.View" d:DataContext="{d:DesignInstance Type=vm:CreateUserVM}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="840">
     <Grid>
         <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Border Background="#B7D5E0" BorderBrush="#575176" CornerRadius="4" BorderThickness="1"  DockPanel.Dock="Top"  Height="400" Width="230">
+            <Border Background="#B7D5E0" BorderBrush="#575176" CornerRadius="4" BorderThickness="1"  
+                    DockPanel.Dock="Top">
                 <StackPanel Orientation="Vertical" Margin="5">
                     <TextBlock Style="{StaticResource IdCreateUser}"/>
                     <Grid>

@@ -9,6 +9,7 @@ using System.Windows;
 using Flurl;
 using Flurl.Http;
 using MedicalPlusFront.Utils;
+using MedicalPlusFront.WebModels;
 
 namespace MedicalPlusFront.ViewModel
 {
@@ -75,10 +76,21 @@ namespace MedicalPlusFront.ViewModel
         {
             IsInteractable = true;
         }
-        private void OnLoginCompleted(IFlurlResponse response)
+        private void OnLoginCompleted(IFlurlResponse? response)
         {
+            if (response == null)
+            {
+                ShowMessageBox("Немає відповіді від сервера!", "Помилка доступу до сервера", MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                IsInteractable = true;
+                return;
+            }
+            
             if (response.StatusCode > 199 && response.StatusCode <= 299)
             {
+                LoginResult data = response.GetJsonAsync<LoginResult>().Result;
+                if(data != null)
+                    MainWindowVM.GetInstance().SetLoginResult(data);
                 MainWindowVM.GetInstance().SetViewModel(new CreateEmployeeVM());
                 LoginInput = string.Empty;
                 PasswordInput = string.Empty;

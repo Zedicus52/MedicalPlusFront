@@ -21,7 +21,7 @@ public class ApiAccessPoint
     
     private static ApiAccessPoint _instance;
 
-    public async Task<IFlurlResponse> Login(string login, string password)
+    public async Task<IFlurlResponse?> Login(string login, string password)
     {
         try
         {
@@ -31,7 +31,9 @@ public class ApiAccessPoint
         }
         catch (FlurlHttpException e)
         {
-            return new FlurlResponse(e.Call);
+            if(e.StatusCode != null)
+                return new FlurlResponse(e.Call);
+            return null;
         }
         
     }

@@ -9,7 +9,7 @@
              d:DesignHeight="600" d:DesignWidth="800">
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Border Background="#B7D5E0" BorderBrush="#575176" BorderThickness="2" CornerRadius="5" DockPanel.Dock="Top" Height="550" Width="450">
+            <Border Background="#B7D5E0" BorderBrush="#575176" BorderThickness="2" CornerRadius="5" DockPanel.Dock="Top">
                 <StackPanel Orientation="Vertical" Margin="20">
                     <ItemsControl ItemsSource="{Binding ListOfPeople}">
                         <ItemsControl.ItemTemplate>
