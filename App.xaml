@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:viewModels="clr-namespace:MedicalPlusFront.ViewModel"
              xmlns:views="clr-namespace:MedicalPlusFront.View"
-             StartupUri="View/MainWindow.xaml">
+             StartupUri="View/TestWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

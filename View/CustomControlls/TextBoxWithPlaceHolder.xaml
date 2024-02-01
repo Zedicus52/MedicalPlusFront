@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              x:Name="Root"
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Background="Green">
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
         <TextBox Text="{Binding ElementName=Root, Path=Text}" TextChanged="MainTextBox_TextChanged" x:Name="MainTextBox" Template="{StaticResource DefaultTextBox}"/>
         <TextBlock Text="{Binding ElementName=Root, Path=PlaceHolderText}" HorizontalAlignment="Left" Style="{StaticResource MainPlaceHolder}"/>
     </StackPanel>

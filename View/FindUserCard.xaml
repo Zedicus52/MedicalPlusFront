@@ -9,33 +9,28 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="470">
     <Grid>
-        <Border  Background="#E1EFF0"  BorderThickness="1" CornerRadius="5" BorderBrush="#575176" DockPanel.Dock="Top">
+        <Border  Background="#B7D5E0"  BorderThickness="1" CornerRadius="5" BorderBrush="#575176" DockPanel.Dock="Top">
             <StackPanel VerticalAlignment="Stretch" Orientation="Vertical" Margin="10">
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Background="Green">
-                    <TextBox Text="{Binding PhoneNumberInput, UpdateSourceTrigger=PropertyChanged}" x:Name="PhoneNumberText" Template="{StaticResource DefaultTextBox}"/>
-                    <TextBlock HorizontalAlignment="Left" Text="Номер телефону" Style="{StaticResource PhoneNumberPlaceHolder}"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Background="Green">
-                    <TextBox Text="{Binding IdNumberInput, UpdateSourceTrigger=PropertyChanged}" x:Name="IdNumberText" Template="{StaticResource DefaultTextBox}"/>
-                    <TextBlock Text="Ідентифікаційний номер" Style="{StaticResource IdNumberPlaceHolder}"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Background="Green">
-                    <TextBox Text="{Binding FullNameInput, UpdateSourceTrigger=PropertyChanged}" x:Name="FullNameText" Template="{StaticResource DefaultTextBox}"/>
-                    <TextBlock HorizontalAlignment="Left" Text="ПІБ" Style="{StaticResource FullNamePlaceHolder}"/>
-                </StackPanel>
+                <v:TextBoxWithPlaceHolder 
+                    Text="{Binding PhoneNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                    PlaceHolderText="Номер телефону"/>
+                <v:TextBoxWithPlaceHolder 
+                    Text="{Binding IdNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                    PlaceHolderText="Ідентифікаційний номер"/>
+                <v:TextBoxWithPlaceHolder 
+                    Text="{Binding FullNameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                    PlaceHolderText="ПІБ"/>
+                
                 <CheckBox x:Name="RegisterBox" Style="{StaticResource CheckRegister}"/>
+
+                <TextBlock Text="Дата народження:" FontSize="15" Foreground="#575176" Margin="6"/>
+
+                <v:TextBoxWithPlaceHolder 
+                    Text="{Binding AfterDateInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                    PlaceHolderText="Після якої дати шукати"/>
                 <v:TextBoxWithPlaceHolder 
                     Text="{Binding BirthDateInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                    PlaceHolderText="Дата народження"/>
-
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Background="Green">
-                    <TextBox Text="{Binding AfterDateInput, UpdateSourceTrigger=PropertyChanged}" x:Name="AfterDateText" Template="{StaticResource DefaultTextBox}"/>
-                    <TextBlock HorizontalAlignment="Left" Text="Після якої дати шукати" Style="{StaticResource AfterDatePlaceHolder}"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Background="Green">
-                    <TextBox Text="{Binding BeforeDateInput, UpdateSourceTrigger=PropertyChanged}" x:Name="BeforeDateText" Template="{StaticResource DefaultTextBox}"/>
-                    <TextBlock Text="До якої дати шукати" Style="{StaticResource BeforeDatePlaceHolder}"/>
-                </StackPanel>
+                    PlaceHolderText="До якої дати шукати"/>
             </StackPanel>
         </Border>
     </Grid>

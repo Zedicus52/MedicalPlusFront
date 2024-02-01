@@ -24,7 +24,7 @@
             <local:FindUserCard/>
         </Grid>
 
-        <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid Margin="15" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
             <local:CreateUserCard TextIdCreate="Ідентифікаційний номер: 1203"/>
         </Grid>
     </Grid>
