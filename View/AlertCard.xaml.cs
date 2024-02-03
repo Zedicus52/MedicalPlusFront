@@ -16,20 +16,20 @@ using System.Windows.Shapes;
 namespace MedicalPlusFront.View
 {
     /// <summary>
-    /// Логика взаимодействия для ProfileCard.xaml
+    /// Логика взаимодействия для AlertCard.xaml
     /// </summary>
-    public partial class ProfileCard : UserControl
+    public partial class AlertCard : UserControl
     {
-        private static readonly DependencyProperty RoleProperty =
-            DependencyProperty.Register("RoleText", typeof(string), typeof(ProfileCard));
+        private static readonly DependencyProperty fullNameProperty =
+            DependencyProperty.Register("FullNameText", typeof(string), typeof(AlertCard));
 
-        public string RoleText
+        public string FullNameText
         {
-            get { return (string)GetValue(RoleProperty); }
-            set { SetValue(RoleProperty, value); }
+            get { return (string)GetValue(fullNameProperty); }
+            set { SetValue(fullNameProperty, value); }
         }
 
-        public ProfileCard()
+        public AlertCard()
         {
             InitializeComponent();
             DataContext = this;
