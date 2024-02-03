@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Border Height="140" Width="150" Background="#B7D5E0" BorderThickness="1" BorderBrush="#575176" CornerRadius="6" DockPanel.Dock="Top">
+            <Border Height="80" Width="80" Background="#B7D5E0" BorderThickness="1" BorderBrush="#575176" CornerRadius="6" DockPanel.Dock="Top">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -16,14 +16,14 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Row="0">
-                        <Border Background="#575176" CornerRadius="3" Height="28">
+                        <Border Background="#575176" CornerRadius="3" Height="14">
                             <TextBlock Style="{StaticResource RoleName}"/>
                         </Border>
                     </StackPanel>
 
-                    <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Button Content="Профіль" Template="{StaticResource DefaultButton}" Style="{StaticResource LoginButton}" Height="30" Width="120"/>
-                        <Button Content="Вийти" Template="{StaticResource DefaultButton}" Style="{StaticResource LoginButton}" Height="30" Width="120"/>
+                    <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 0, 0, 10">
+                        <Button Content="Профіль" Template="{StaticResource DefaultButton}" Style="{StaticResource LoginButton}" Height="15" Width="60" FontSize="10"/>
+                        <Button Content="Вийти" Template="{StaticResource DefaultButton}" Style="{StaticResource LoginButton}" Height="15" Width="60" FontSize="10"/>
                     </StackPanel>
                     
                 </Grid>
