@@ -40,6 +40,7 @@ namespace MedicalPlusFront.View
         public CreateEmployeeCard()
         {
             InitializeComponent();
+            DataContext = this;
             _passwordValidator = new PasswordValidator();
         }
 

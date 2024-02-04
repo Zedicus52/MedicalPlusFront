@@ -30,11 +30,11 @@
                     PlaceHolderText="Дата народження"/>
                 <Grid>
                     <Border Style="{StaticResource GenderBorder}">
-                        <StackPanel Orientation="Horizontal" Width="100">
+                        <StackPanel Orientation="Horizontal" Width="200">
                             <Button Click="ButtonSelect_Click" Style="{StaticResource GenderBtn}">
                                 <Image Source="/View/Icons/man.png"></Image>
                             </Button>
-                            <Border Background="#575176" Height="86" Width="1"/>
+                            <Border Background="#575176" Height="100" Width="2"/>
                             <Button Click="ButtonSelect_Click" Style="{StaticResource GenderBtn}">
                                 <Image Source="/View/Icons/woman.png"></Image>
                             </Button>

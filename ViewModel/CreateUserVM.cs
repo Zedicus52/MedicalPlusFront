@@ -29,6 +29,16 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
+        public string IdEmployeeInput
+        {
+            get => _idEmployeeInput;
+            set
+            {
+                _idEmployeeInput = value;
+                OnPropertyChanged("IdEmployeeInput");
+            }
+        }
+
         public string PatronymicInput
         {
             get => _surnameInput;
@@ -69,6 +79,7 @@ namespace MedicalPlusFront.ViewModel
                     NameInput = string.Empty;
                     PatronymicInput = string.Empty;
                     PhoneFaxInput = string.Empty;
+                    IdEmployeeInput = string.Empty;
                     BirthDateInput = string.Empty;
                 }));
             }
@@ -79,6 +90,7 @@ namespace MedicalPlusFront.ViewModel
         public string _nameInput;
         public string _patronymicInput;
         public string _phoneFaxInput;
+        private string _idEmployeeInput;
         public string _birthDateInput;
 
         public RelayCommand _createUserCommand;
