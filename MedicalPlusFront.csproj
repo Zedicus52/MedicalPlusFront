@@ -13,6 +13,7 @@
     <None Remove="View\Icons\man.png" />
     <None Remove="View\Icons\users.png" />
     <None Remove="View\Icons\woman.png" />
+    <None Remove="View\Icons\other.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +35,9 @@
     <Resource Include="View\Icons\woman.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+	  <Resource Include="View\Icons\other.png">
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
   </ItemGroup>
 
   <ItemGroup>

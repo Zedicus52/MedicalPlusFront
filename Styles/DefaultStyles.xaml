@@ -24,6 +24,15 @@
         </Setter>
     </Style>
 
+    <Style TargetType="Button">
+        <Setter Property="FontSize" Value="20"></Setter>
+        <Setter Property="Height" Value="40"></Setter>
+        <Setter Property="Background" Value="#65799A"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="Margin" Value="0, 10, 0, 0"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
+    </Style>
+
     <Style x:Key="MainPlaceHolder" TargetType="TextBlock">
         <Setter Property="IsHitTestVisible" Value="False"></Setter>
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
@@ -55,7 +64,6 @@
         <Setter Property="BorderThickness" Value="2"></Setter>
         <Setter Property="Foreground" Value="Black"></Setter>
         <Setter Property="Height" Value="35px"></Setter>
-        <Setter Property="Width" Value="250px"></Setter>
         <Setter Property="FontSize" Value="15"></Setter>
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
     </Style>

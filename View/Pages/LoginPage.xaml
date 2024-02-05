@@ -10,7 +10,12 @@
       mc:Ignorable="d"
       Title="LoginPage">
     <Grid Background="#E1EFF0">
-        <view:AuthComponent 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <view:AuthComponent Grid.Column="1"
             LoginInput="{Binding LoginInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
             PasswordInput="{Binding PasswordInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
             LoginCommand="{Binding LoginCommand}"/>

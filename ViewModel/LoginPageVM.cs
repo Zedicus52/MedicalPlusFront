@@ -51,13 +51,13 @@ namespace MedicalPlusFront.ViewModel
             {
                 return _loginCommand ?? (_loginCommand = new RelayCommand(() =>
                 {
-                    //MainWindowVM.GetInstance().SetViewModel(new MainMenuVM());
+                    MainWindowVM.GetInstance().SetViewModel(new EmployeesPageVM());
 
-                    if(string.IsNullOrEmpty(PasswordInput) || string.IsNullOrEmpty(LoginInput))
+                    /*if(string.IsNullOrEmpty(PasswordInput) || string.IsNullOrEmpty(LoginInput))
                         return;
                     
                     IsInteractable = false;
-                    TryLogin();
+                    TryLogin();*/
                 }));
             }
         }

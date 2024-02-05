@@ -1,4 +1,5 @@
 ﻿using MedicalPlusFront.ValidationRules;
+using MedicalPlusFront.WebModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,12 +24,7 @@ namespace MedicalPlusFront.View
     /// </summary>
     public partial class CreateEmployeeCard : UserControl
     {
-        private PasswordBox _passwordBox;
-        private readonly PasswordValidator _passwordValidator;
-
-        private TextBlock _passwordPlaceHolder;
-        private TextBlock _passwordErrorText;
-
+        #region IdTextProperty
         private static readonly DependencyProperty IdTextProperty =
             DependencyProperty.Register("TextIdCreate", typeof(string), typeof(CreateEmployeeCard));
 
@@ -37,7 +33,9 @@ namespace MedicalPlusFront.View
             get { return (string)GetValue(IdTextProperty); }
             set { SetValue(IdTextProperty, value);}
         }
+        #endregion
 
+        #region SurnameInputPropery
         private static readonly DependencyProperty SurnameInputProperty =
             DependencyProperty.Register("SurnameInput", typeof(string), typeof(CreateEmployeeCard));
 
@@ -46,7 +44,9 @@ namespace MedicalPlusFront.View
             get { return (string)GetValue(SurnameInputProperty); }
             set { SetValue(SurnameInputProperty, value); }
         }
+        #endregion
 
+        #region NameInputProperty
         private static readonly DependencyProperty NameInputProperty =
             DependencyProperty.Register("NameInput", typeof(string), typeof(CreateEmployeeCard));
 
@@ -55,7 +55,9 @@ namespace MedicalPlusFront.View
             get { return (string)GetValue(NameInputProperty); }
             set { SetValue(NameInputProperty, value); }
         }
+        #endregion
 
+        #region PatronicInputProperty
         private static readonly DependencyProperty PatronymicInputProperty =
             DependencyProperty.Register("PatronymicInput", typeof(string), typeof(CreateEmployeeCard));
 
@@ -64,7 +66,9 @@ namespace MedicalPlusFront.View
             get { return (string)GetValue(PatronymicInputProperty); }
             set { SetValue(PatronymicInputProperty, value); }
         }
+        #endregion
 
+        #region LoginInputProperty
         private static readonly DependencyProperty LoginInputProperty =
             DependencyProperty.Register("LoginInput", typeof(string), typeof(CreateEmployeeCard));
 
@@ -73,16 +77,38 @@ namespace MedicalPlusFront.View
             get { return (string)GetValue(LoginInputProperty); }
             set { SetValue(LoginInputProperty, value); }
         }
+        #endregion
 
+        #region PasswordInputProperty
         private static readonly DependencyProperty PasswordInputProperty =
-            DependencyProperty.Register("PasswordInput", typeof(string), typeof(CreateEmployeeCard));
+            DependencyProperty.Register("PasswordInput", typeof(string), 
+                typeof(CreateEmployeeCard), new PropertyMetadata(default,PasswordInputChanged));
+
+        private static void PasswordInputChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if(e.NewValue != null) 
+            {
+                if (e.NewValue is string s)
+                {
+                    if(s.Equals(string.Empty))
+                        (d as CreateEmployeeCard).ClearPasswordBox();
+                }
+            }
+        }
+
+        private void ClearPasswordBox()
+        {
+            _mainPasswordBox.Password = string.Empty;
+        }
 
         public string PasswordInput
         {
             get { return (string)GetValue(PasswordInputProperty); }
             set { SetValue(PasswordInputProperty, value); }
         }
+        #endregion
 
+        #region RolesProperty
         private static readonly DependencyProperty RolesProperty =
             DependencyProperty.Register("UserRoles", typeof(IEnumerable), typeof(CreateEmployeeCard));
 
@@ -91,7 +117,9 @@ namespace MedicalPlusFront.View
             get { return (IEnumerable)GetValue(RolesProperty); }
             set { SetValue(RolesProperty, value); }
         }
+        #endregion
 
+        #region SelectedRoleProperty
         private static readonly DependencyProperty SelectedRoleProperty =
             DependencyProperty.Register("SelectedRole", typeof(object), typeof(CreateEmployeeCard));
 
@@ -100,16 +128,39 @@ namespace MedicalPlusFront.View
             get { return (object)GetValue(SelectedRoleProperty); }
             set { SetValue(SelectedRoleProperty, value); }
         }
+        #endregion
 
+        #region GenderProperty
         private static readonly DependencyProperty GenderProperty =
-           DependencyProperty.Register("GenderInput", typeof(string), typeof(CreateEmployeeCard));
+           DependencyProperty.Register("GenderInput", 
+               typeof(string), typeof(CreateEmployeeCard),
+               new PropertyMetadata(default, OnGenderPropertyChanged));
+
+        private static void OnGenderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if(e.NewValue != null) 
+            {
+                if(e.NewValue is string gender) 
+                {
+                    if (gender.Equals(string.Empty))
+                        (d as CreateEmployeeCard).ClearGenderSelection();
+                }
+            }
+        }
+
+        private void ClearGenderSelection()
+        {
+            _lastClickedButton.Background = (Brush)new BrushConverter().ConvertFrom("#0905");
+        }
 
         public string GenderInput
         {
             get { return (string)GetValue(GenderProperty); }
             set { SetValue(GenderProperty, value); }
         }
+        #endregion
 
+        #region SaveButtonCommandProperty
         public static readonly DependencyProperty SaveButtonCommandProperty =
             DependencyProperty.Register("SaveCommand", typeof(ICommand),
                 typeof(CreateEmployeeCard),
@@ -120,23 +171,33 @@ namespace MedicalPlusFront.View
             get { return (ICommand)GetValue(SaveButtonCommandProperty); }
             set { SetValue(SaveButtonCommandProperty, value); }
         }
+        #endregion
+
+        private PasswordBox _mainPasswordBox;
+        private Button _lastClickedButton;
 
 
         public CreateEmployeeCard()
         {
             InitializeComponent();
-            DataContext = this;
-            _passwordValidator = new PasswordValidator();
+            _mainPasswordBox = (PasswordBox)FindName("PasswordEmployeeText");
         }
 
         private void ButtonSelect_Click(object sender, RoutedEventArgs e)
         {
-            var clickedBtn = sender as Button;
+            _lastClickedButton = sender as Button;
 
-            if (clickedBtn.Name == "SaveEmployeeBtn")
+            if (_lastClickedButton.Name == "SaveEmployeeBtn")
             {
                 return;
             }
+
+            if (_lastClickedButton.Name.Contains(Genders.Female))
+                SetValue(GenderProperty, Genders.Female);
+            else if (_lastClickedButton.Name.Contains(Genders.Male))
+                SetValue(GenderProperty, Genders.Male);
+            else
+                SetValue(GenderProperty, Genders.Other);
 
             foreach (var btn in CreateUserCard.FindVisualButton<Button>(this))
             {
@@ -146,7 +207,7 @@ namespace MedicalPlusFront.View
                 }
             }
 
-            clickedBtn.Background = (Brush)new BrushConverter().ConvertFrom("#575176");
+            _lastClickedButton.Background = (Brush)new BrushConverter().ConvertFrom("#575176");
         }
 
         public static IEnumerable<T> FindVisualButton<T>(DependencyObject depObj) where T : DependencyObject
@@ -171,15 +232,16 @@ namespace MedicalPlusFront.View
 
         private void PasswordText_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (_passwordBox == null)
+            /*if (_passwordBox == null)
                 _passwordBox = (PasswordBox)sender;
             if (_passwordPlaceHolder == null)
                 _passwordPlaceHolder = (TextBlock)FindName("PasswordPlaceHolder");
-            _passwordErrorText = (TextBlock)FindName("PasswordErrorText");
+            _passwordErrorText = (TextBlock)FindName("PasswordErrorText");*/
 
             string pass = ((PasswordBox)sender).Password;
+            SetValue(PasswordInputProperty, pass);
             
-            if (string.IsNullOrEmpty(pass))
+            /*if (string.IsNullOrEmpty(pass))
                 _passwordPlaceHolder.Visibility = Visibility.Visible;
             else
                 _passwordPlaceHolder.Visibility = Visibility.Collapsed;
@@ -188,7 +250,8 @@ namespace MedicalPlusFront.View
             if(res.IsValid)
                 _passwordErrorText.Text = string.Empty;
             else
-                _passwordErrorText.Text = res.ErrorContent.ToString();
+                _passwordErrorText.Text = res.ErrorContent.ToString();*/
         }
+
     }
 }

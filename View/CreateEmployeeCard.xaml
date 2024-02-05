@@ -5,62 +5,63 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:assist="clr-namespace:MedicalPlusFront.Utils"
              xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel"  
-             d:DataContext="{d:DesignInstance Type=viewmodel:CreateEmployeeVM}"
+             xmlns:v="clr-namespace:MedicalPlusFront.View.CustomControlls"
              xmlns:local="clr-namespace:MedicalPlusFront.View"
              x:Name="Root"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="840">
     <Grid>
-        <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Border Background="#B7D5E0" BorderBrush="#575176" CornerRadius="4" BorderThickness="2"  DockPanel.Dock="Top"  Height="750" Width="550">
-                <StackPanel Orientation="Vertical" Margin="10">
-                    <TextBlock Style="{StaticResource IdCreateUser}" Margin="70, 0, 0, 10"/>
-                    <Grid>
-                        <TextBox Text="{Binding SurnameEmployeeInput, UpdateSourceTrigger=PropertyChanged}" x:Name="SurnameEmployeeText" Template="{StaticResource DefaultTextBox}" Height="55" Width="380"/>
-                        <TextBlock Text="Прізвище" Style="{StaticResource SurnameEmployee}"/>
-                    </Grid>
-                    <Grid>
-                        <TextBox Text="{Binding NameEmployeeInput, UpdateSourceTrigger=PropertyChanged}" x:Name="NameEmployeeText" Template="{StaticResource DefaultTextBox}" Height="55" Width="380"/>
-                        <TextBlock Text="Ім'я" Style="{StaticResource NameEmployee}"/>
-                    </Grid>
-                    <Grid>
-                        <TextBox Text="{Binding PatronymicEmployeeInput, UpdateSourceTrigger=PropertyChanged}" x:Name="PatronymicEmployeeText" Template="{StaticResource DefaultTextBox}" Height="55" Width="380"/>
-                        <TextBlock Text="По батькові" Style="{StaticResource PatronymicEmployee}"/>
-                    </Grid>
-                    <Grid>
-                        <TextBox Text="{Binding RoleEmployeeInput, UpdateSourceTrigger=PropertyChanged}" x:Name="RoleEmployeeText" Template="{StaticResource DefaultTextBox}" Height="55" Width="380"/>
-                        <TextBlock Text="Роль" Style="{StaticResource RoleEmployee}"/>
-                    </Grid>
-                    <Grid Margin="0, 5, 0, 0">
-                        <TextBox Text="{Binding LoginEmployeeInput, UpdateSourceTrigger=PropertyChanged}" x:Name="LoginEmployeeText" Template="{StaticResource DefaultTextBox}" Height="55" Width="380"/>
-                        <TextBlock Text="Логін" Style="{StaticResource LoginEmployee}"/>
-                    </Grid>
-                    <StackPanel Orientation="Vertical">
-                        <PasswordBox assist:PasswordBoxAssistant.BindPassword="True" 
+        <Border Background="#B7D5E0" BorderBrush="#575176" CornerRadius="4" BorderThickness="2" 
+                DockPanel.Dock="Top">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Orientation="Vertical" Margin="10">
+                <TextBlock Text="{Binding ElementName=Root, Path=TextIdCreate}" Style="{StaticResource IdCreateUser}" Margin="0, 0, 0, 10"/>
+                <v:TextBoxWithPlaceHolder
+                    Text="{Binding ElementName=Root, Path=SurnameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    PlaceHolderText="Прізвище"/>
+                <v:TextBoxWithPlaceHolder
+                    Text="{Binding ElementName=Root, Path=NameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    PlaceHolderText="Ім'я"/>
+                <v:TextBoxWithPlaceHolder
+                    Text="{Binding ElementName=Root, Path=PatronymicInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    PlaceHolderText="По Батькові"/>
+                <v:ComboxWithPlaceHolder 
+                    PlaceHolderText="Роль" 
+                    ComboxContent="{Binding ElementName=Root, Path=UserRoles, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    ComboxSelectedItem="{Binding ElementName=Root, Path=SelectedRole, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                <v:TextBoxWithPlaceHolder Margin="0,25,0,0"
+                    Text="{Binding ElementName=Root, Path=LoginInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    PlaceHolderText="Логін"/>
+                <StackPanel Orientation="Vertical">
+                    <PasswordBox assist:PasswordBoxAssistant.BindPassword="True" 
                                  x:Name="PasswordEmployeeText" Template="{StaticResource DefaultPasswordBox}" 
-                                Height="55" Width="380" PasswordChanged="PasswordText_PasswordChanged">
-                        </PasswordBox>
-                        <TextBlock x:Name="PasswordPlaceHolder" Text="Пароль" Style="{StaticResource PasswordPlaceHolderEmp}"/>
-                        <TextBlock TextWrapping="Wrap" x:Name="PasswordErrorText" Style="{StaticResource PasswordErrorTextWithout}"></TextBlock>
-                    </StackPanel>
-                    <Grid>
-                        <Border Style="{StaticResource GenderBorder}" Margin="75, 0, 0, 0">
-                            <StackPanel Orientation="Horizontal" Width="200">
-                                <Button Click="ButtonSelect_Click" Style="{StaticResource GenderBtn}">
-                                    <Image Source="/View/Icons/man.png"></Image>
-                                </Button>
-                                <Border Background="#575176" Height="100" Width="2"/>
-                                <Button Click="ButtonSelect_Click" Style="{StaticResource GenderBtn}">
-                                    <Image Source="/View/Icons/woman.png"></Image>
-                                </Button>
-                            </StackPanel>
-                        </Border>
-                    </Grid>
-
-                    <Button x:Name="SaveEmployeeBtn" Command="{Binding SaveEmployeeCommand}" Content="Зберігти" Template="{StaticResource DefaultButton}" Style="{StaticResource LoginButton}" Height="55" Width="200" FontSize="25" HorizontalAlignment="Left" Margin="75, 30, 0, 0"/>
-
+                                 PasswordChanged="PasswordText_PasswordChanged">
+                    </PasswordBox>
+                    <!--<TextBlock x:Name="PasswordPlaceHolder" Text="Пароль" Style="{StaticResource PasswordPlaceHolderEmp}"/>
+                    <TextBlock TextWrapping="Wrap" x:Name="PasswordErrorText" Style="{StaticResource PasswordErrorTextWithout}"/>-->
                 </StackPanel>
-            </Border>
-        </StackPanel>
+                <Grid>
+                    <Border Style="{StaticResource GenderBorder}" Margin="0, 0, 0, 0">
+                        <StackPanel Orientation="Horizontal" >
+                            <Button x:Name="Male" Click="ButtonSelect_Click" Style="{StaticResource GenderBtn}">
+                                <Image Source="/View/Icons/man.png"></Image>
+                            </Button>
+                            <Border Background="#575176" Height="100" Width="2"/>
+                            <Button x:Name="Female" Click="ButtonSelect_Click" Style="{StaticResource GenderBtn}">
+                                <Image Source="/View/Icons/woman.png"></Image>
+                            </Button>
+                            <Border Background="#575176" Height="100" Width="2"/>
+                            <Button x:Name="Other" Click="ButtonSelect_Click" Style="{StaticResource GenderBtn}">
+                                <Image Source="/View/Icons/other.png"></Image>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <Button x:Name="SaveEmployeeBtn" Command="{Binding ElementName=Root, Path=SaveCommand}" Content="Зберігти" 
+                        Template="{StaticResource DefaultButton}" Style="{StaticResource LoginButton}"
+                        Height="55" FontSize="25" HorizontalAlignment="Stretch" Margin="0, 30, 0, 0"/>
+
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>
