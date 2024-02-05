@@ -1,0 +1,18 @@
+<Page x:Class="MedicalPlusFront.View.Pages.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:MedicalPlusFront.View.Pages"
+      xmlns:vm="clr-namespace:MedicalPlusFront.ViewModel"
+      d:DataContext="{d:DesignInstance Type=vm:LoginPageVM}"
+      xmlns:view="clr-namespace:MedicalPlusFront.View"
+      mc:Ignorable="d"
+      Title="LoginPage">
+    <Grid Background="#E1EFF0">
+        <view:AuthComponent 
+            LoginInput="{Binding LoginInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+            PasswordInput="{Binding PasswordInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+            LoginCommand="{Binding LoginCommand}"/>
+    </Grid>
+</Page>

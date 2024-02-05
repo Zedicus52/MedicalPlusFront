@@ -17,7 +17,7 @@ public class ApiAccessPoint
         }
     }
 
-    private const string _baseUrl = "https://localhost:7061/api";
+    private const string _baseUrl = "http://localhost:5079/api";
     
     private static ApiAccessPoint _instance;
 
@@ -35,6 +35,22 @@ public class ApiAccessPoint
                 return new FlurlResponse(e.Call);
             return null;
         }
-        
+    }
+//"Auth/checkAccess"
+    public async Task<IFlurlResponse?> CheckAccess(string roleName, string token)
+    {
+        try
+        {
+            return await _baseUrl.AppendPathSegment("Auth/checkAccess")
+                .WithOAuthBearerToken(token)
+                .SetQueryParams(new {role=roleName})
+                .PostAsync();
+        }
+        catch (FlurlHttpException e)
+        {
+            if(e.StatusCode != null)
+                return new FlurlResponse(e.Call);
+            return null;
+        }
     }
 }

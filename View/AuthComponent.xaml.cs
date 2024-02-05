@@ -22,47 +22,49 @@ namespace MedicalPlusFront.View
     /// </summary>
     public partial class AuthComponent : UserControl
     {
+        public static readonly DependencyProperty LoginInputProperty =
+            DependencyProperty.Register("LoginInput", typeof(string), 
+                typeof(AuthComponent), 
+                new FrameworkPropertyMetadata(""));
 
-        private TextBlock _passwordPlaceHolder;
-        private TextBlock _passwordErrorText;
-        private PasswordBox _passwordBox;
-        private PasswordValidator _passwordValidator;
+        public string LoginInput
+        {
+            get { return (string)GetValue(LoginInputProperty); }
+            set { SetValue(LoginInputProperty, value); }
+        }
+        
+        public static readonly DependencyProperty PasswordInputProperty =
+            DependencyProperty.Register("PasswordInput", typeof(string), 
+                typeof(AuthComponent), 
+                new FrameworkPropertyMetadata(""));
 
+        public string PasswordInput
+        {
+            get { return (string)GetValue(PasswordInputProperty); }
+            set { SetValue(PasswordInputProperty, value); }
+        }
+        
+        public static readonly DependencyProperty LoginButtonCommandProperty =
+            DependencyProperty.Register("LoginCommand", typeof(ICommand), 
+                typeof(AuthComponent), 
+                new FrameworkPropertyMetadata());
+
+        public ICommand LoginCommand
+        {
+            get { return (ICommand)GetValue(LoginButtonCommandProperty); }
+            set { SetValue(LoginButtonCommandProperty, value); }
+        }
+
+        
         public AuthComponent()
         {
             InitializeComponent();
-            _passwordValidator = new PasswordValidator();
         }
 
         private void PasswordText_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (_passwordPlaceHolder == null)
-                _passwordPlaceHolder = (TextBlock)FindName("PasswordPlaceHolder");
-            if (_passwordBox == null)
-                _passwordBox = (PasswordBox)sender;
-            if(_passwordErrorText == null)
-                _passwordErrorText = (TextBlock)FindName("PasswordErrorText");
-
-
             string pass = ((PasswordBox)sender).Password;
-            if (string.IsNullOrEmpty(pass))
-                _passwordPlaceHolder.Visibility = Visibility.Visible;
-            else
-                _passwordPlaceHolder.Visibility = Visibility.Collapsed;
-
-            var res = _passwordValidator.Validate(pass, CultureInfo.CurrentCulture);
-            if (res.IsValid)
-                _passwordErrorText.Text = string.Empty;
-            else
-                _passwordErrorText.Text = res.ErrorContent.ToString();
-        }
-
-        private void BtnLogin_Click(object sender, RoutedEventArgs e)
-        {
-            if (_passwordBox == null)
-                return;
-
-            //_passwordBox.Password = "";
+            SetValue(PasswordInputProperty, pass);
         }
     }
 }

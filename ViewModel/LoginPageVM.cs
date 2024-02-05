@@ -51,6 +51,8 @@ namespace MedicalPlusFront.ViewModel
             {
                 return _loginCommand ?? (_loginCommand = new RelayCommand(() =>
                 {
+                    //MainWindowVM.GetInstance().SetViewModel(new MainMenuVM());
+
                     if(string.IsNullOrEmpty(PasswordInput) || string.IsNullOrEmpty(LoginInput))
                         return;
                     
@@ -91,7 +93,7 @@ namespace MedicalPlusFront.ViewModel
                 LoginResult data = response.GetJsonAsync<LoginResult>().Result;
                 if(data != null)
                     MainWindowVM.GetInstance().SetLoginResult(data);
-                MainWindowVM.GetInstance().SetViewModel(new CreateEmployeeVM());
+                MainWindowVM.GetInstance().SetViewModel(new MainMenuVM());
                 LoginInput = string.Empty;
                 PasswordInput = string.Empty;
             }

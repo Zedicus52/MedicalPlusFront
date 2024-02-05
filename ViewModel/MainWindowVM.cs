@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using MedicalPlusFront.Utils;
 using MedicalPlusFront.WebModels;
 
 namespace MedicalPlusFront.ViewModel
@@ -30,9 +32,21 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
+        public Visibility AdminComponentsVisibility
+        {
+            get => _adminComponentsVisibility;
+            set
+            {
+                _adminComponentsVisibility = value;
+                OnPropertyChanged("AdminComponentsVisibility");
+            }
+        }
+
         private BaseVM _selectedVM;
 
         private LoginResult _loginResult;
+
+        private Visibility _adminComponentsVisibility;
 
         private CancellationTokenSource _checkExpirationTokenSource;
         private Task _checkExpirationTask;
@@ -41,6 +55,7 @@ namespace MedicalPlusFront.ViewModel
         public MainWindowVM()
         {
             _queryDelay = new TimeSpan(0, 1, 0);
+            _adminComponentsVisibility = Visibility.Collapsed;
             _selectedVM = new LoginPageVM();
         }
 
@@ -52,10 +67,17 @@ namespace MedicalPlusFront.ViewModel
             OnPropertyChanged("SelectedViewModel");
         }
 
-        public void SetLoginResult(LoginResult loginResult)
+        public async void SetLoginResult(LoginResult loginResult)
         {
             _loginResult = loginResult;
-            DateTime now = DateTime.UtcNow;
+            
+            var res = await ApiAccessPoint.Instance.CheckAccess("ADMIN", _loginResult.Token);
+            if (res != null)
+            {
+                if (res.StatusCode == 200)
+                    AdminComponentsVisibility = Visibility.Visible;
+            }
+                
             _checkExpirationTokenSource = new CancellationTokenSource();
             _checkExpirationTask = new Task(CheckExpirationTime, _checkExpirationTokenSource.Token);
             _checkExpirationTask.Start();

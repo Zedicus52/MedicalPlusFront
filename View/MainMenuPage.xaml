@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MedicalPlusFront.View"
+      xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" 
+      d:DataContext="{d:DesignInstance Type=viewmodel:MainMenuVM}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainMenuPage">
@@ -35,8 +37,8 @@
                 <local:ProfileCard RoleText="Лікар"/>
             </Grid>
 
-            <Grid Grid.Row="1">
-                <local:MenuCard Image="Icons/log.png" Text="Журнал запису" Margin="0, 0, 0, 100"/>
+            <Grid Visibility="{Binding AdminComponentsVisibility, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1">
+                <local:MenuCard Image="Icons/employes.png" Text="Працівники" Margin="0, 0, 0, 100"/>
             </Grid>
             
         </Grid>

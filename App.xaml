@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:viewModels="clr-namespace:MedicalPlusFront.ViewModel"
              xmlns:views="clr-namespace:MedicalPlusFront.View"
-             StartupUri="View/TestWindow.xaml">
+             xmlns:pages="clr-namespace:MedicalPlusFront.View.Pages"
+             StartupUri="View/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -13,16 +14,16 @@
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModels:LoginPageVM}">
-                <views:AuthComponent></views:AuthComponent>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModels:MainMenuVM}">
-                <views:MainMenuComponent></views:MainMenuComponent>
+                <pages:LoginPage></pages:LoginPage>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:CreateEmployeeVM}">
                 <views:CreateEmployeeCard></views:CreateEmployeeCard>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:FindUserVM}">
                 <views:FindUserCard></views:FindUserCard>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:MainMenuVM}">
+                <views:MainMenuPage></views:MainMenuPage>
             </DataTemplate>
 
         </ResourceDictionary>
