@@ -3,10 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:MedicalPlusFront.View"
+        xmlns:local="clr-namespace:MedicalPlusFront.View.CustomControlls" xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:TestWindowVM}"
         mc:Ignorable="d"
         Title="TestWindow" >
     <Grid>
-        <Frame Source="EmployeePage.xaml"/>
+        <local:ComboxWithPlaceHolder PlaceHolderText="AAAA" 
+                                     ComboxContent="{Binding List, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                     ComboxSelectedItem="{Binding SelectedObj, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
     </Grid>
 </Window>

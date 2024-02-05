@@ -1,5 +1,6 @@
 ﻿using MedicalPlusFront.ValidationRules;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -36,6 +37,90 @@ namespace MedicalPlusFront.View
             get { return (string)GetValue(IdTextProperty); }
             set { SetValue(IdTextProperty, value);}
         }
+
+        private static readonly DependencyProperty SurnameInputProperty =
+            DependencyProperty.Register("SurnameInput", typeof(string), typeof(CreateEmployeeCard));
+
+        public string SurnameInput
+        {
+            get { return (string)GetValue(SurnameInputProperty); }
+            set { SetValue(SurnameInputProperty, value); }
+        }
+
+        private static readonly DependencyProperty NameInputProperty =
+            DependencyProperty.Register("NameInput", typeof(string), typeof(CreateEmployeeCard));
+
+        public string NameInput
+        {
+            get { return (string)GetValue(NameInputProperty); }
+            set { SetValue(NameInputProperty, value); }
+        }
+
+        private static readonly DependencyProperty PatronymicInputProperty =
+            DependencyProperty.Register("PatronymicInput", typeof(string), typeof(CreateEmployeeCard));
+
+        public string PatronymicInput
+        {
+            get { return (string)GetValue(PatronymicInputProperty); }
+            set { SetValue(PatronymicInputProperty, value); }
+        }
+
+        private static readonly DependencyProperty LoginInputProperty =
+            DependencyProperty.Register("LoginInput", typeof(string), typeof(CreateEmployeeCard));
+
+        public string LoginInput
+        {
+            get { return (string)GetValue(LoginInputProperty); }
+            set { SetValue(LoginInputProperty, value); }
+        }
+
+        private static readonly DependencyProperty PasswordInputProperty =
+            DependencyProperty.Register("PasswordInput", typeof(string), typeof(CreateEmployeeCard));
+
+        public string PasswordInput
+        {
+            get { return (string)GetValue(PasswordInputProperty); }
+            set { SetValue(PasswordInputProperty, value); }
+        }
+
+        private static readonly DependencyProperty RolesProperty =
+            DependencyProperty.Register("UserRoles", typeof(IEnumerable), typeof(CreateEmployeeCard));
+
+        public IEnumerable UserRoles
+        {
+            get { return (IEnumerable)GetValue(RolesProperty); }
+            set { SetValue(RolesProperty, value); }
+        }
+
+        private static readonly DependencyProperty SelectedRoleProperty =
+            DependencyProperty.Register("SelectedRole", typeof(object), typeof(CreateEmployeeCard));
+
+        public object SelectedRole
+        {
+            get { return (object)GetValue(SelectedRoleProperty); }
+            set { SetValue(SelectedRoleProperty, value); }
+        }
+
+        private static readonly DependencyProperty GenderProperty =
+           DependencyProperty.Register("GenderInput", typeof(string), typeof(CreateEmployeeCard));
+
+        public string GenderInput
+        {
+            get { return (string)GetValue(GenderProperty); }
+            set { SetValue(GenderProperty, value); }
+        }
+
+        public static readonly DependencyProperty SaveButtonCommandProperty =
+            DependencyProperty.Register("SaveCommand", typeof(ICommand),
+                typeof(CreateEmployeeCard),
+                new FrameworkPropertyMetadata());
+
+        public ICommand SaveCommand
+        {
+            get { return (ICommand)GetValue(SaveButtonCommandProperty); }
+            set { SetValue(SaveButtonCommandProperty, value); }
+        }
+
 
         public CreateEmployeeCard()
         {

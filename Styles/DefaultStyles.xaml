@@ -39,6 +39,15 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="ComboBoxPlaceHolder" TargetType="TextBlock" BasedOn="{StaticResource MainPlaceHolder}">
+        <Setter Property="Margin" Value="5,-35,0,0"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding SelectedItem, ElementName=MainComboBox}" Value="{x:Null}">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
     <Style TargetType="PasswordBox">
         <Setter Property="Margin" Value="0 0 0 10"></Setter>
         <Setter Property="Background" Value="White"></Setter>
@@ -60,7 +69,6 @@
 
     <Style TargetType="ComboBox">
         <Setter Property="Height" Value="35"></Setter>
-        <Setter Property="Width" Value="250"></Setter>
         <Setter Property="Background" Value="White"></Setter>
         <Setter Property="BorderBrush" Value="#65799A"></Setter>
         <Setter Property="BorderThickness" Value="2"/>
@@ -73,12 +81,12 @@
                     <ControlTemplate>
                         <Grid>
                             <Border x:Name="Border" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" CornerRadius="6" Background="White" BorderBrush="#65799A" BorderThickness="2"/>
-                            <Path x:Name="Arrow" Fill="Black" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z"/>
+                            <Path x:Name="Arrow" Fill="Black" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="5"/>
                         </Grid>
                     </ControlTemplate>
                 </ToggleButton.Template>
             </ToggleButton>
-            <ContentPresenter HorizontalAlignment="Right"  VerticalAlignment="Center" Content="{TemplateBinding SelectionBoxItem}"/>
+            <ContentPresenter HorizontalAlignment="Left"  VerticalAlignment="Center" Content="{TemplateBinding SelectionBoxItem}" Margin="5,0,0,0"/>
             <TextBox x:Name="PART_EditableTextBox" Visibility="Hidden" Background="Transparent" />
             <Popup x:Name="PART_Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
                 <Grid MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{TemplateBinding ActualWidth}" x:Name="DropDown" SnapsToDevicePixels="True">
