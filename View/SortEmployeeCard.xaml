@@ -4,27 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MedicalPlusFront.View" xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:CreateUserVM}"
+             xmlns:v="clr-namespace:MedicalPlusFront.View.CustomControlls" 
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Border Background="#B7D5E0" BorderBrush="#575176" BorderThickness="2" CornerRadius="6" Height="350" Width="500" DockPanel.Dock="Top">
-                <StackPanel Orientation="Vertical" Margin="15">
-                    <Grid>
-                        <TextBox Text="{Binding RoleInput, UpdateSourceTrigger=PropertyChanged}" x:Name="RoleText" Template="{StaticResource DefaultTextBox}" Height="55" Width="400"/>
-                        <TextBlock Text="Роль" Style="{StaticResource Role}"/>
-                    </Grid>
-                    <Grid>
-                        <TextBox Text="{Binding IdEmployeeInput, UpdateSourceTrigger=PropertyChanged}" x:Name="IdEmployeeText" Template="{StaticResource DefaultTextBox}" Height="55" Width="400"/>
-                        <TextBlock Text="Ідентифікаційний номер" Style="{StaticResource IdEmployeeNumber}"/>
-                    </Grid>
-                    <Grid>
-                        <TextBox Text="{Binding FullNameEmployeeInput, UpdateSourceTrigger=PropertyChanged}" x:Name="FullNameEmployeeText" Template="{StaticResource DefaultTextBox}" Height="55" Width="400"/>
-                        <TextBlock Text="ПІБ" Style="{StaticResource FullNameEmployee}"/>
-                    </Grid>
-                    <CheckBox x:Name="RegisterBox" Style="{StaticResource CheckRegister}" FontSize="25" Margin="30,0,0,0"/>
-                </StackPanel>
-            </Border>
-        </StackPanel>
+        <Border Background="#B7D5E0" BorderBrush="#575176" BorderThickness="2" CornerRadius="6" DockPanel.Dock="Top">
+            <StackPanel Orientation="Vertical" Margin="15">
+                <v:TextBoxWithPlaceHolder Text="{Binding RoleInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" PlaceHolderText="Роль"/>
+                <v:TextBoxWithPlaceHolder Text="{Binding IdEmployeeInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" PlaceHolderText="Ідентифікаційний номер"/>
+                <v:TextBoxWithPlaceHolder Text="{Binding FullNameEmployeeInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" PlaceHolderText="ПІБ"/>
+                <CheckBox x:Name="RegisterBox" Style="{StaticResource CheckRegister}"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>
