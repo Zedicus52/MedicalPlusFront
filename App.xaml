@@ -4,7 +4,7 @@
               xmlns:viewModels="clr-namespace:MedicalPlusFront.ViewModel"
              xmlns:views="clr-namespace:MedicalPlusFront.View"
              xmlns:pages="clr-namespace:MedicalPlusFront.View.Pages"
-             StartupUri="View/MainWindow.xaml">
+             StartupUri="View/TestWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

@@ -20,19 +20,20 @@ namespace MedicalPlusFront.View
     /// </summary>
     public partial class AlertCard : UserControl
     {
-        private static readonly DependencyProperty fullNameProperty =
+        #region FullNameProperty
+        private static readonly DependencyProperty FullNameProperty =
             DependencyProperty.Register("FullNameText", typeof(string), typeof(AlertCard));
 
         public string FullNameText
         {
-            get { return (string)GetValue(fullNameProperty); }
-            set { SetValue(fullNameProperty, value); }
+            get { return (string)GetValue(FullNameProperty); }
+            set { SetValue(FullNameProperty, value); }
         }
+        #endregion
 
         public AlertCard()
         {
             InitializeComponent();
-            DataContext = this;
         }
     }
 }

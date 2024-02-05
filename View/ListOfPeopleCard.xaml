@@ -10,18 +10,29 @@
     <Grid>
         <Border Background="#B7D5E0" BorderBrush="#575176" BorderThickness="2" CornerRadius="5" DockPanel.Dock="Top">
             <ScrollViewer>
-                <StackPanel VerticalAlignment="Stretch" Orientation="Vertical" Margin="20">
+                <ListBox  ItemsSource="{Binding ListOfPeople}" HorizontalContentAlignment="Stretch">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <local:UserCard
+                                MainTitleText="{Binding Fio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                AdditionInfo="{Binding Birthday, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                UserIdText="{Binding Id, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                IconPath="../Icons/man.png"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <!--<StackPanel VerticalAlignment="Stretch" Orientation="Vertical" Margin="20">
                     <ItemsControl ItemsSource="{Binding ListOfPeople}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <local:UserCard UserImg="{Binding UserImg}" 
-                                                PatientName="{Binding PatientName}" 
-                                                PatientBirth="{Binding PatientBirth}" 
-                                                PatientId="{Binding PatientId}"/>
+                                <local:UserCard Icon="{Binding UserImg}" 
+                                                MainTitle="{Binding PatientName}" 
+                                                AdditionInfo="{Binding PatientBirth}" 
+                                                UserId="{Binding PatientId}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                </StackPanel>
+                </StackPanel>-->
             </ScrollViewer>
         </Border>
     </Grid>

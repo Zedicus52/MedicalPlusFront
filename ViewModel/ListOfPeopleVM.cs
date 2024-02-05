@@ -8,9 +8,16 @@ using System.Threading.Tasks;
 
 namespace MedicalPlusFront.ViewModel
 {
-    internal class ListOfPeopleVM : BaseVM
+    public class SomeUser
     {
-        public ObservableCollection<UserCard> ListOfPeople
+        public int Id { get; set; }
+        public string Fio { get; set; }
+        public string Birthday { get; set; }
+    }
+
+    public class ListOfPeopleVM : BaseVM
+    {
+        public ObservableCollection<SomeUser> ListOfPeople
         {
             get => _listPeople;
             set
@@ -20,19 +27,17 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
-        private ObservableCollection<UserCard> _listPeople;
+        private ObservableCollection<SomeUser> _listPeople;
 
         public ListOfPeopleVM()
         {
-            _listPeople = new ObservableCollection<UserCard>
-            {
-                new UserCard{ UserImg="/View/Icons/man.png", PatientName="Іванов Іван Іванович", PatientBirth="20.10.2014", PatientId="ID: 423"},
-                new UserCard{ UserImg="/View/Icons/man.png", PatientName="Іванов Іван Іванович", PatientBirth="20.10.2014", PatientId="ID: 231"},
-                new UserCard{ UserImg="/View/Icons/man.png", PatientName="Іванов Іван Іванович", PatientBirth="20.10.2014", PatientId="ID: 534"},
-                new UserCard{ UserImg="/View/Icons/man.png", PatientName="Іванов Іван Іванович", PatientBirth="20.10.2014", PatientId="ID: 123"},
-                new UserCard{ UserImg="/View/Icons/man.png", PatientName="Іванов Іван Іванович", PatientBirth="20.10.2014", PatientId="ID: 111"},
-                new UserCard{ UserImg="/View/Icons/man.png", PatientName="Іванов Іван Іванович", PatientBirth="20.10.2014", PatientId="ID: 333"}
-            };
+            _listPeople = new ObservableCollection<SomeUser>
+           {
+               new SomeUser { Id = 1, Birthday="2000.02.05", Fio = "Some some some"},
+               new SomeUser { Id = 2, Birthday="2000.02.05", Fio = "Some some some"},
+               new SomeUser { Id = 3, Birthday="2000.02.05", Fio = "Some some some"},
+               new SomeUser { Id = 4, Birthday="2000.02.05", Fio = "Some some some"}
+           };
         }
     }
 }
