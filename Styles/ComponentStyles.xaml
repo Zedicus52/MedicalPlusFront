@@ -88,35 +88,7 @@
     </Style>
 
 
-    <Style x:Key="CreationBox" TargetType="TextBlock">
-        <Setter Property="IsHitTestVisible" Value="False"></Setter>
-        <Setter Property="VerticalAlignment" Value="Center"></Setter>
-        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-        <Setter Property="Margin" Value="25,0,0,0"></Setter>
-        <Setter Property="Foreground" Value="#575176"></Setter>
-        <Setter Property="Visibility" Value="Collapsed"/>
-        <Setter Property="FontSize" Value="12"></Setter>
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding Text, ElementName=CreationTimeCB}" Value="">
-                <Setter Property="Visibility" Value="Visible"/>
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
 
-    <Style x:Key="NamePatientBox" TargetType="TextBlock">
-        <Setter Property="IsHitTestVisible" Value="False"></Setter>
-        <Setter Property="VerticalAlignment" Value="Center"></Setter>
-        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-        <Setter Property="Margin" Value="25,0,0,0"></Setter>
-        <Setter Property="Foreground" Value="#575176"></Setter>
-        <Setter Property="Visibility" Value="Collapsed"/>
-        <Setter Property="FontSize" Value="12"></Setter>
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding Text, ElementName=NamePatientCB}" Value="">
-                <Setter Property="Visibility" Value="Visible"/>
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
 
     <Style x:Key="HeaderText" TargetType="TextBlock">
         <Setter Property="Foreground" Value="#575176"></Setter>
@@ -139,53 +111,6 @@
         <Setter Property="TextAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="#575176"></Setter>
     </Style>
-
-
-    <Style x:Key="DiagnosisText" TargetType="TextBlock">
-        <Setter Property="IsHitTestVisible" Value="False"></Setter>
-        <Setter Property="VerticalAlignment" Value="Top"></Setter>
-        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-        <Setter Property="Margin" Value="15,5,0,0"></Setter>
-        <Setter Property="Foreground" Value="#575176"></Setter>
-        <Setter Property="Visibility" Value="Collapsed"/>
-        <Setter Property="FontSize" Value="12"></Setter>
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding Text, ElementName=DiagnosisTB}" Value="">
-                <Setter Property="Visibility" Value="Visible"/>
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="MicroText" TargetType="TextBlock">
-        <Setter Property="IsHitTestVisible" Value="False"></Setter>
-        <Setter Property="VerticalAlignment" Value="Top"></Setter>
-        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-        <Setter Property="Margin" Value="15,5,0,0"></Setter>
-        <Setter Property="Foreground" Value="#575176"></Setter>
-        <Setter Property="Visibility" Value="Collapsed"/>
-        <Setter Property="FontSize" Value="12"></Setter>
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding Text, ElementName=MicroTB}" Value="">
-                <Setter Property="Visibility" Value="Visible"/>
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="MacroText" TargetType="TextBlock">
-        <Setter Property="IsHitTestVisible" Value="False"></Setter>
-        <Setter Property="VerticalAlignment" Value="Top"></Setter>
-        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-        <Setter Property="Margin" Value="15,5,0,0"></Setter>
-        <Setter Property="Foreground" Value="#575176"></Setter>
-        <Setter Property="Visibility" Value="Collapsed"/>
-        <Setter Property="FontSize" Value="12"></Setter>
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding Text, ElementName=MacroTB}" Value="">
-                <Setter Property="Visibility" Value="Visible"/>
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
-
 
     <Style x:Key="CreateDate" TargetType="TextBlock">
         <Setter Property="Foreground" Value="#575176"></Setter>

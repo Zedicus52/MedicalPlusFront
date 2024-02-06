@@ -16,7 +16,7 @@
                 ComboxContent="{Binding ElementName=Root, Path=Roles, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 ComboxSelectedItem="{Binding ElementName=Root, Path=SelectedRole, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             <v:TextBoxWithPlaceHolder 
-                    Text="{Binding ElementName=Root, Path=IdNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                    Text="{Binding ElementName=Root, Path=IdNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                     PlaceHolderText="Ідентифікаційний номер"/>
             <v:TextBoxWithPlaceHolder 
                     Text="{Binding ElementName=Root, Path=FioInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"

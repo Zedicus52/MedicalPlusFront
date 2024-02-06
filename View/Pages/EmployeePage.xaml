@@ -35,7 +35,12 @@
         </Grid>
 
         <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5">
-            <v:SortEmployeeCard CaseSensetive="{Binding CaseSensetive, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <v:SortEmployeeCard 
+                CaseSensetive="{Binding CaseSensetive, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                Roles="{Binding EmployeesRoles, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                SelectedRole="{Binding FilterEmployeeRole, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                FioInput="{Binding FilterEmployeeFio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                IdNumberInput="{Binding FilterEmployeeId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
         </Grid>
 
         <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5">

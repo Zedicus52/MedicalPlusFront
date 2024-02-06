@@ -45,9 +45,9 @@ namespace MedicalPlusFront.View
 
         #region IdNumberInputPropery
         private static readonly DependencyProperty IdNumberInputProperty =
-            DependencyProperty.Register("IdNumber", typeof(string), typeof(SortEmployeeCard));
+            DependencyProperty.Register("IdNumberInput", typeof(string), typeof(SortEmployeeCard));
 
-        public string IdNumber
+        public string IdNumberInput
         {
             get { return (string)GetValue(IdNumberInputProperty); }
             set { SetValue(IdNumberInputProperty, value); }

@@ -10,7 +10,7 @@
         MinHeight="650" MinWidth="800"
         Title="TestWindow" >
     <Grid>
-        <Frame Source="Pages/DisasePage.xaml"/>
+        <Frame Source="Pages/EmployeePage.xaml"/>
         <!--<v:UserCard MainTitleText="Some Some Some"
                     IconPath="Icons/man.png"
                     AdditionInfo="2000.02.05"

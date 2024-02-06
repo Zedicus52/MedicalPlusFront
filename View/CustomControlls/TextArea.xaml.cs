@@ -47,7 +47,14 @@ namespace MedicalPlusFront.View.CustomControlls
 
         #region TextBox Height Property
         public static readonly DependencyProperty TextBoxHeightProperty =
-            DependencyProperty.Register("TextBoxHeight", typeof(string), typeof(TextArea), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("TextBoxHeight", typeof(string), typeof(TextArea), new PropertyMetadata(string.Empty, OnHeightChanged));
+
+        private static void OnHeightChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            TextArea instance = (TextArea)d;
+            TextBox b = (TextBox)instance.FindName("TextAreaMainTB");
+            instance.UpdateMargin(b);
+        }
 
         public string TextBoxHeight
         {
@@ -55,7 +62,6 @@ namespace MedicalPlusFront.View.CustomControlls
             set 
             { 
                 SetValue(TextBoxHeightProperty, value);
-                
             }
         }
         #endregion

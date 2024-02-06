@@ -115,7 +115,35 @@ namespace MedicalPlusFront.ViewModel
         private RelayCommand _createEmployee;
         #endregion
 
+        #region Employee Filter Props
 
+        public string FilterEmployeeRole
+        {
+            get => _filterEmployeeRole;
+            set
+            {
+                _filterEmployeeRole = value;
+                OnPropertyChanged("FilterEmployeeRole");
+            }
+        }
+        public string FilterEmployeeId
+        {
+            get => _filterEmployeeId;
+            set
+            {
+                _filterEmployeeId = value;
+                OnPropertyChanged("FilterEmployeeId");
+            }
+        }
+        public string FilterEmployeeFio
+        {
+            get => _filterEmployeeFio;
+            set
+            {
+                _filterEmployeeFio = value;
+                OnPropertyChanged("FilterEmployeeFio");
+            }
+        }
         public bool CaseSensetive
         {
             get => _caseSensetive;
@@ -127,6 +155,11 @@ namespace MedicalPlusFront.ViewModel
         }
 
         private bool _caseSensetive;
+        private string _filterEmployeeRole;
+        private string _filterEmployeeId;
+        private string _filterEmployeeFio;
+
+        #endregion
 
         public ObservableCollection<SomeUser> ListOfPeople
         {

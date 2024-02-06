@@ -91,7 +91,7 @@ namespace MedicalPlusFront.View
         #region GenderProperty
         private static readonly DependencyProperty GenderProperty =
            DependencyProperty.Register("GenderInput",
-               typeof(string), typeof(CreateEmployeeCard),
+               typeof(string), typeof(CreateUserCard),
                new PropertyMetadata(default, OnGenderPropertyChanged));
 
         private static void OnGenderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -121,7 +121,7 @@ namespace MedicalPlusFront.View
         #region SaveButtonCommandProperty
         public static readonly DependencyProperty SaveButtonCommandProperty =
             DependencyProperty.Register("SaveCommand", typeof(ICommand),
-                typeof(CreateEmployeeCard),
+                typeof(CreateUserCard),
                 new FrameworkPropertyMetadata());
 
         public ICommand SaveCommand

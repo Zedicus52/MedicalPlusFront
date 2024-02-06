@@ -51,7 +51,7 @@ namespace MedicalPlusFront.ViewModel
             {
                 return _loginCommand ?? (_loginCommand = new RelayCommand(() =>
                 {
-                    MainWindowVM.GetInstance().SetViewModel(new EmployeesPageVM());
+                    MainWindowVM.GetInstance().SetViewModel(new UserPageVM());
 
                     /*if(string.IsNullOrEmpty(PasswordInput) || string.IsNullOrEmpty(LoginInput))
                         return;

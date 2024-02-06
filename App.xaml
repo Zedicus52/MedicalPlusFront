@@ -4,7 +4,7 @@
               xmlns:viewModels="clr-namespace:MedicalPlusFront.ViewModel"
              xmlns:views="clr-namespace:MedicalPlusFront.View"
              xmlns:pages="clr-namespace:MedicalPlusFront.View.Pages"
-             StartupUri="View/TestWindow.xaml">
+             StartupUri="View/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,16 +14,19 @@
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModels:LoginPageVM}">
-                <pages:LoginPage></pages:LoginPage>
+                <pages:LoginPage/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:EmployeesPageVM}">
-                <views:EmployeePage></views:EmployeePage>
+                <views:EmployeePage/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModels:FindUserVM}">
-                <views:FindUserCard></views:FindUserCard>
+            <DataTemplate DataType="{x:Type viewModels:DisasePageVM}">
+                <pages:DisasePage/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:MainMenuVM}">
-                <views:MainMenuPage></views:MainMenuPage>
+                <views:MainMenuPage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:UserPageVM}">
+                <views:UsersPage/>
             </DataTemplate>
 
         </ResourceDictionary>

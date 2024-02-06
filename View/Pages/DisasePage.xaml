@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MedicalPlusFront.View.Pages"
       xmlns:v="clr-namespace:MedicalPlusFront.View"
-      xmlns:vv="clr-namespace:MedicalPlusFront.View.CustomControlls"
+      xmlns:vv="clr-namespace:MedicalPlusFront.View.CustomControlls" xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:DisasePageVM}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DisasePage">
@@ -26,16 +26,18 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Row="0" Margin="10">
-                        <vv:TextBoxWithPlaceHolder
+                        <vv:TextBoxWithPlaceHolder 
+                        Text="{Binding ResearchNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         PlaceHolderText="Номер дослідження"/>
                         <StackPanel HorizontalAlignment="Left">
                             <TextBlock Text="Пацієнт" Foreground="#575176" FontSize="14" Margin="5"/>
-                            <Button Content="Обрати" Template="{StaticResource DefaultButton}" Height="30" Width="130" FontSize="15"/>
+                            <Button Content="Обрати" Command="{Binding SelectPatientCommand}" 
+                                    Template="{StaticResource DefaultButton}" Height="30" Width="130" FontSize="15"/>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Margin="0,15,0,0">
                         <Grid>
-                            <TextBlock  Style="{StaticResource CreateDate}"/>
+                            <TextBlock  Text="{Binding CreatedDate}" Style="{StaticResource CreateDate}"/>
                             <v:UserCard 
                                 IconPath="../Icons/man.png" 
                                 MainTitleText="Іванов Іван Іванович" 
@@ -44,7 +46,7 @@
                                 Margin="5, 30, 0, 0"/>
                         </Grid>
                         <Grid>
-                            <TextBlock Style="{StaticResource CreateDate}"/>
+                            <TextBlock Text="{Binding ModifiedDate}" Style="{StaticResource CreateDate}"/>
                             <v:UserCard 
                                 IconPath="../Icons/woman.png" 
                                 MainTitleText="Івановa Іванна Івановна" 
@@ -55,12 +57,21 @@
                     </StackPanel>
                 </Grid>
                 <StackPanel Grid.Column="1">
-                    <vv:TextArea  Margin="5" TextBoxHeight="200" PlaceHolderTextArea="Діагноз" />
-                    <vv:ComboxWithPlaceHolder Margin="5" PlaceHolderText="Важкість"/>
+                    <vv:TextArea 
+                        TextAreaInput="{Binding DiagnosisInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  
+                        Margin="5" TextBoxHeight="200" PlaceHolderTextArea="Діагноз" />
+                    <vv:ComboxWithPlaceHolder 
+                        ComboxContent="{Binding AllDifficults, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        ComboxSelectedItem="{Binding SelectedDifficulty, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        Margin="5" PlaceHolderText="Важкість"/>
                 </StackPanel>
                 <StackPanel Grid.Column="2">
-                    <vv:TextArea  Margin="5" TextBoxHeight="150" PlaceHolderTextArea="Макро опис" />
-                    <vv:TextArea  Margin="5" TextBoxHeight="300" PlaceHolderTextArea="Мікро опис" />
+                    <vv:TextArea  
+                        TextAreaInput="{Binding MacroDescInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        Margin="5" TextBoxHeight="150" PlaceHolderTextArea="Макро опис" />
+                    <vv:TextArea 
+                        TextAreaInput="{Binding MicroDescInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        Margin="5" TextBoxHeight="300" PlaceHolderTextArea="Мікро опис" />
                 </StackPanel>
             </Grid>
         </Border>
