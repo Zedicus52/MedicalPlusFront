@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="MedicalPlusFront.View.UserCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MedicalPlusFront.View"
+             mc:Ignorable="d" 
+             x:Name="Root"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border  CornerRadius="5" BorderBrush="#575176" Background="#65799A" 
+                    BorderThickness="2"  Height="60" Margin="0,5,0,5">
+            
+            <DockPanel HorizontalAlignment="Stretch">
+                <Border  CornerRadius="3" BorderBrush="#575176" Background="#D9D9D9" BorderThickness="2"
+                                  Height="40" Width="40" Margin="5,0,5,0">
+                <Image  Style="{StaticResource UserIconUserCard}"
+                                   Source="{Binding ElementName=Root, Path=IconPath, 
+                                UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                </Border>
+                <StackPanel Margin="5,0,10,0">
+                    <TextBlock Style="{StaticResource MainTitleUserCard}"
+                                   Text="{Binding ElementName=Root, Path=MainTitleText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource AdditionInfoUserCard}"
+                                   Text="{Binding ElementName=Root, Path=AdditionInfo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                </StackPanel>
+
+                <TextBlock  Style="{StaticResource PatientIdUserCard}" HorizontalAlignment="Right"
+                    Text="{Binding ElementName=Root, Path=UserIdText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </DockPanel>
+            
+    </Border>
+</UserControl>

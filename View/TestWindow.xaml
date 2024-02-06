@@ -1,0 +1,19 @@
+<Window x:Class="MedicalPlusFront.View.TestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:v="clr-namespace:MedicalPlusFront.View" 
+        xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel"
+        d:DataContext="{d:DesignInstance Type=viewmodel:TestWindowVM}"
+        mc:Ignorable="d"
+        MinHeight="650" MinWidth="800"
+        Title="TestWindow" >
+    <Grid>
+        <Frame Source="Pages/EmployeePage.xaml"/>
+        <!--<v:UserCard MainTitleText="Some Some Some"
+                    IconPath="Icons/man.png"
+                    AdditionInfo="2000.02.05"
+                    UserIdText="Id:1234"/>-->
+    </Grid>
+</Window>

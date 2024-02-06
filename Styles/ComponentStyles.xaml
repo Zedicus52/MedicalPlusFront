@@ -1,0 +1,121 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=System.Runtime">
+    
+    <Style x:Key="MemberButton" TargetType="Button">
+        <Setter Property="Margin" Value="0 26 0 0"></Setter>
+        <Setter Property="Background" Value="#65799A"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="Height" Value="30px"></Setter>
+        <Setter Property="FontSize" Value="16"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+    </Style>
+
+    <Style x:Key="UsersImg" TargetType="Image">
+        <Setter Property="Margin" Value="0 40 0 0"></Setter>
+        <Setter Property="Height" Value="100"></Setter>
+        <Setter Property="Width" Value="150"></Setter>
+    </Style>
+
+    <Style x:Key="UserIconUserCard" TargetType="Image">
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="Height" Value="30"></Setter>
+        <Setter Property="Width" Value="30"></Setter>
+    </Style>
+
+    <Style x:Key="MainTitleUserCard" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="FontSize" Value="18"></Setter>
+        <Setter Property="Height" Value="20"></Setter>
+        <Setter Property="Margin" Value="0,5,0,0"></Setter>
+    </Style>
+
+    <Style x:Key="AdditionInfoUserCard" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="FontSize" Value="13"></Setter>
+        <Setter Property="Height" Value="20"></Setter>
+        <Setter Property="Margin" Value="0,5,0,0"></Setter>
+    </Style>
+
+    <Style x:Key="PatientIdUserCard" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="FontSize" Value="13"></Setter>
+        <Setter Property="Height" Value="20"></Setter>
+    </Style>
+
+    <Style x:Key="CheckRegister" TargetType="CheckBox">
+        <Setter Property="Content" Value="Враховувати регістр"></Setter>
+        <Setter Property="BorderBrush" Value="#65799A"></Setter>
+        <Setter Property="FontSize" Value="15"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Margin" Value="0,0,0,20"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+    </Style>
+
+    <Style x:Key="GenderBorder" TargetType="Border">
+        <Setter Property="Background" Value="#FFFFFF"></Setter>
+        <Setter Property="Height" Value="100"></Setter>
+        <Setter Property="CornerRadius" Value="5"></Setter>
+        <Setter Property="BorderBrush" Value="#575176"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Margin" Value="20,0,0,0"></Setter>
+    </Style>
+
+    <Style x:Key="GenderBtn" TargetType="Button">
+        <Setter Property="Height" Value="100"></Setter>
+        <Setter Property="Width" Value="100"></Setter>
+        <Setter Property="Background" Value="#0905"></Setter>
+        <Setter Property="BorderBrush" Value="#0905"></Setter>
+    </Style>
+
+    <Style x:Key="IdCreateUser" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="FontSize" Value="15"></Setter>
+        <Setter Property="Margin" Value="16,0,0,10"></Setter>
+    </Style>
+
+    <Style x:Key="PasswordPlaceHolderEmp" TargetType="TextBlock">
+        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="Margin" Value="0,-75,290,0"></Setter>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="Visibility" Value="Visible"/>
+        <Setter Property="FontSize" Value="17"/>
+    </Style>
+
+
+
+
+    <Style x:Key="HeaderText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="FontSize" Value="25"></Setter>
+        <Setter Property="Margin" Value="10"></Setter>
+    </Style>
+
+
+
+    <Style x:Key="RoleName" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="10"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+    </Style>
+
+    <Style x:Key="AlertText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="16"></Setter>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="#575176"></Setter>
+    </Style>
+
+    <Style x:Key="CreateDate" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#575176"></Setter>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="Margin" Value="5"></Setter>
+    </Style>
+
+</ResourceDictionary>

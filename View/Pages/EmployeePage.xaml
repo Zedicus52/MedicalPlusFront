@@ -1,0 +1,60 @@
+﻿<Page x:Class="MedicalPlusFront.View.EmployeePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:v="clr-namespace:MedicalPlusFront.View"
+      xmlns:vm="clr-namespace:MedicalPlusFront.ViewModel"
+      mc:Ignorable="d" 
+      d:DesignHeight="1000" d:DesignWidth="1500"
+      d:DataContext="{d:DesignInstance Type=vm:EmployeesPageVM}"
+      Title="EmployeePage">
+
+    <Grid Background="#E1EFF0">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
+            <ScrollViewer>
+                <ListBox  ItemsSource="{Binding ListOfPeople}" HorizontalContentAlignment="Stretch">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <v:UserCard
+                                MainTitleText="{Binding Fio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                AdditionInfo="{Binding Birthday, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                UserIdText="{Binding Id, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                IconPath="../Icons/man.png"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5">
+            <v:SortEmployeeCard 
+                CaseSensetive="{Binding CaseSensetive, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                Roles="{Binding EmployeesRoles, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                SelectedRole="{Binding FilterEmployeeRole, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                FioInput="{Binding FilterEmployeeFio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                IdNumberInput="{Binding FilterEmployeeId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        </Grid>
+
+        <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5">
+            <v:CreateEmployeeCard 
+                TextIdCreate="Ідентифікаційний номер: 1203"
+                SurnameInput="{Binding EmployeeSurname, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                NameInput="{Binding EmployeeName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                PatronymicInput="{Binding EmployeePatronymic, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                SelectedRole="{Binding EmployeeRole, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                UserRoles="{Binding EmployeesRoles, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                LoginInput="{Binding EmployeeLogin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                PasswordInput="{Binding EmployeePassword, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                GenderInput="{Binding EmployeeGender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                SaveCommand="{Binding CreateEmployee}"/>
+        </Grid>
+    </Grid>
+</Page>
