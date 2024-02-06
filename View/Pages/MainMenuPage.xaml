@@ -18,27 +18,27 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0">
-            <local:MenuCard CardIcon="Icons/users.png" Placeholder="Користувачі"/>
+        <Grid Grid.Column="0" Margin="20, 22, 20, 20">
+            <local:MenuCard CardIcon="../Icons/users.png" Placeholder="Користувачі"/>
         </Grid>
 
-        <Grid Grid.Column="1">
-            <local:MenuCard CardIcon="Icons/log.png" Placeholder="Журнал запису"/>
+        <Grid Grid.Column="1" Margin="20, 22, 20, 20">
+            <local:MenuCard CardIcon="../Icons/log.png" Placeholder="Журнал запису"/>
         </Grid>
 
         <Grid Grid.Column="2">
             
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*" MinHeight="130"/>
+                <RowDefinition Height="6.5*" MinHeight="130"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0" HorizontalAlignment="Right" Margin="0, 0, 10, 0">
                 <local:ProfileCard RoleText="Лікар"/>
             </Grid>
 
-            <Grid Visibility="{Binding AdminComponentsVisibility, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1">
-                <local:MenuCard CardIcon="Icons/employes.png" Placeholder="Працівники" Margin="0, 0, 0, 100"/>
+            <Grid Visibility="{Binding AdminComponentsVisibility, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="20">
+                <local:MenuCard CardIcon="../Icons/employes.png" Placeholder="Працівники" Margin="0, 0, 0, 130"/>
             </Grid>
             
         </Grid>
