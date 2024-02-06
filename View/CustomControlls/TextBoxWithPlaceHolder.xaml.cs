@@ -20,6 +20,7 @@ namespace MedicalPlusFront.View.CustomControlls
     /// </summary>
     public partial class TextBoxWithPlaceHolder : UserControl
     {
+        #region Text Property
         public static readonly DependencyProperty TextProperty =
         DependencyProperty.Register("Text", typeof(string), typeof(TextBoxWithPlaceHolder), 
             new FrameworkPropertyMetadata(""));
@@ -29,7 +30,9 @@ namespace MedicalPlusFront.View.CustomControlls
             get { return (string)GetValue(TextProperty); }
             set { SetValue(TextProperty, value); }
         }
+        #endregion
 
+        #region PlaceHolder Text Property
         public static readonly DependencyProperty PlaceHolderTextProperty =
             DependencyProperty.Register("PlaceHolderText", typeof(string), typeof(TextBoxWithPlaceHolder), new PropertyMetadata(string.Empty));
 
@@ -38,6 +41,7 @@ namespace MedicalPlusFront.View.CustomControlls
             get { return (string)GetValue(PlaceHolderTextProperty); }
             set { SetValue(PlaceHolderTextProperty, value); }
         }
+        #endregion
 
         private TextBox _mainTextBox;
 

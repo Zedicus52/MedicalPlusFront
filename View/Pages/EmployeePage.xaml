@@ -19,11 +19,23 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
-            <v:ListOfPeopleCard/>
+            <ScrollViewer>
+                <ListBox  ItemsSource="{Binding ListOfPeople}" HorizontalContentAlignment="Stretch">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <v:UserCard
+                                MainTitleText="{Binding Fio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                AdditionInfo="{Binding Birthday, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                UserIdText="{Binding Id, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                IconPath="../Icons/man.png"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
         </Grid>
 
         <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5">
-            <v:SortEmployeeCard/>
+            <v:SortEmployeeCard CaseSensetive="{Binding CaseSensetive, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
         </Grid>
 
         <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5">

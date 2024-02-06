@@ -5,6 +5,7 @@ namespace MedicalPlusFront.ViewModel
 {
     public class EmployeesPageVM : BaseVM
     {
+        #region Employee Creation Props
         public string EmployeeSurname
         {
             get => _employeeSurname;
@@ -112,6 +113,32 @@ namespace MedicalPlusFront.ViewModel
         private ObservableCollection<string> _employeesRoles;
 
         private RelayCommand _createEmployee;
+        #endregion
+
+
+        public bool CaseSensetive
+        {
+            get => _caseSensetive;
+            set
+            {
+                _caseSensetive = value;
+                OnPropertyChanged("CaseSensetive");
+            }
+        }
+
+        private bool _caseSensetive;
+
+        public ObservableCollection<SomeUser> ListOfPeople
+        {
+            get => _listPeople;
+            set
+            {
+                _listPeople = value;
+                OnPropertyChanged("ListOfPeople");
+            }
+        }
+
+        private ObservableCollection<SomeUser> _listPeople;
 
         public EmployeesPageVM()
         {
@@ -121,6 +148,13 @@ namespace MedicalPlusFront.ViewModel
                 "Ne Admin",
                 "User"
             };
+            _listPeople = new ObservableCollection<SomeUser>
+           {
+               new SomeUser { Id = 1, Birthday="2000.02.05", Fio = "Some some some"},
+               new SomeUser { Id = 2, Birthday="2000.02.05", Fio = "Some some some"},
+               new SomeUser { Id = 3, Birthday="2000.02.05", Fio = "Some some some"},
+               new SomeUser { Id = 4, Birthday="2000.02.05", Fio = "Some some some"}
+           };
         }
     }
 }

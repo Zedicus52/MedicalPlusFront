@@ -19,11 +19,11 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
-            <local:MenuCard Image="Icons/users.png" Text="Користувачі"/>
+            <local:MenuCard CardIcon="Icons/users.png" Placeholder="Користувачі"/>
         </Grid>
 
         <Grid Grid.Column="1">
-            <local:MenuCard Image="Icons/log.png" Text="Журнал запису"/>
+            <local:MenuCard CardIcon="Icons/log.png" Placeholder="Журнал запису"/>
         </Grid>
 
         <Grid Grid.Column="2">
@@ -38,7 +38,7 @@
             </Grid>
 
             <Grid Visibility="{Binding AdminComponentsVisibility, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1">
-                <local:MenuCard Image="Icons/employes.png" Text="Працівники" Margin="0, 0, 0, 100"/>
+                <local:MenuCard CardIcon="Icons/employes.png" Placeholder="Працівники" Margin="0, 0, 0, 100"/>
             </Grid>
             
         </Grid>

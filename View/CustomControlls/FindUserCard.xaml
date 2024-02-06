@@ -4,32 +4,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:MedicalPlusFront.View.CustomControlls" 
-             xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" 
-             d:DataContext="{d:DesignInstance Type=viewmodel:FindUserVM}"
+             x:Name="Root"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="470">
     <Grid>
         <Border  Background="#B7D5E0"  BorderThickness="1" CornerRadius="5" BorderBrush="#575176" DockPanel.Dock="Top">
             <StackPanel VerticalAlignment="Stretch" Orientation="Vertical" Margin="10">
                 <v:TextBoxWithPlaceHolder 
-                    Text="{Binding PhoneNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                    Text="{Binding ElementName=Root, Path=PhoneNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                     PlaceHolderText="Номер телефону"/>
                 <v:TextBoxWithPlaceHolder 
-                    Text="{Binding IdNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                    Text="{Binding ElementName=Root, Path=IdNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                     PlaceHolderText="Ідентифікаційний номер"/>
                 <v:TextBoxWithPlaceHolder 
-                    Text="{Binding FullNameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                    Text="{Binding ElementName=Root, Path=FioInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                     PlaceHolderText="ПІБ"/>
                 
-                <CheckBox x:Name="RegisterBox" Style="{StaticResource CheckRegister}"/>
+                <CheckBox IsChecked="{Binding ElementName=Root, Path=CaseSensetiveInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                          Style="{StaticResource CheckRegister}"/>
 
                 <TextBlock Text="Дата народження:" FontSize="15" Foreground="#575176" Margin="6"/>
 
                 <v:TextBoxWithPlaceHolder 
-                    Text="{Binding AfterDateInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                    Text="{Binding ElementName=Root, Path=AfterDateInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                     PlaceHolderText="Після якої дати шукати"/>
                 <v:TextBoxWithPlaceHolder 
-                    Text="{Binding BirthDateInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                    Text="{Binding ElementName=Root, Path=BeforeDateInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                     PlaceHolderText="До якої дати шукати"/>
             </StackPanel>
         </Border>

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MedicalPlusFront.View
+namespace MedicalPlusFront.View.Pages
 {
     /// <summary>
-    /// Interaction logic for MainMenuComponent.xaml
+    /// Interaction logic for DisasePage.xaml
     /// </summary>
-    public partial class MainMenuComponent : UserControl
+    public partial class DisasePage : Page
     {
-        public MainMenuComponent()
+        public DisasePage()
         {
             InitializeComponent();
         }

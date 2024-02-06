@@ -24,6 +24,33 @@
         </Setter>
     </Style>
 
+    <Style x:Key="TextArea" TargetType="TextBox">
+        <Setter Property="Margin" Value="0 0 0 25"></Setter>
+        <Setter Property="Background" Value="White"></Setter>
+        <Setter Property="BorderBrush" Value="#65799A"></Setter>
+        <Setter Property="BorderThickness" Value="2"></Setter>
+        <Setter Property="Height" Value="200"/>
+        <Setter Property="Foreground" Value="Black"></Setter>
+        <Setter Property="FontSize" Value="15"></Setter>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="AcceptsReturn" Value="True"/>
+        <Setter Property="AcceptsTab" Value="True"/>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Bottom" FontWeight="Bold" Foreground="Red" FontSize="15" 
+                                   Text="{Binding ErrorContent}">
+                        </TextBlock>
+                        <AdornedElementPlaceholder></AdornedElementPlaceholder>
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="Button">
         <Setter Property="FontSize" Value="20"></Setter>
         <Setter Property="Height" Value="40"></Setter>
@@ -33,14 +60,16 @@
         <Setter Property="BorderThickness" Value="1"></Setter>
     </Style>
 
-    <Style x:Key="MainPlaceHolder" TargetType="TextBlock">
+    <Style x:Key="PlaceHolder" TargetType="TextBlock">
         <Setter Property="IsHitTestVisible" Value="False"></Setter>
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
         <Setter Property="HorizontalAlignment" Value="Left"></Setter>
         <Setter Property="Margin" Value="5,-85,0,0"></Setter>
         <Setter Property="Foreground" Value="#575176"></Setter>
         <Setter Property="Visibility" Value="Collapsed"/>
-        <Setter Property="FontSize" Value="13"></Setter>
+    </Style>
+
+    <Style x:Key="MainPlaceHolder" TargetType="TextBlock" BasedOn="{StaticResource PlaceHolder}">
         <Style.Triggers>
             <DataTrigger Binding="{Binding Text, ElementName=MainTextBox}" Value="">
                 <Setter Property="Visibility" Value="Visible"/>
@@ -48,7 +77,17 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="ComboBoxPlaceHolder" TargetType="TextBlock" BasedOn="{StaticResource MainPlaceHolder}">
+    
+
+    <Style x:Key="TextAreaPlaceHolder" TargetType="TextBlock" BasedOn="{StaticResource PlaceHolder}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Text, ElementName=TextAreaMainTB}" Value="">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ComboBoxPlaceHolder" TargetType="TextBlock" BasedOn="{StaticResource PlaceHolder}">
         <Setter Property="Margin" Value="5,-35,0,0"></Setter>
         <Style.Triggers>
             <DataTrigger Binding="{Binding SelectedItem, ElementName=MainComboBox}" Value="{x:Null}">
