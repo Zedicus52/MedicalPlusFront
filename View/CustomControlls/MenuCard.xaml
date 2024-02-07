@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              x:Name="Root"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border CornerRadius="6" BorderBrush="#575176" Background="#B7D5E0" BorderThickness="2" DockPanel.Dock="Top" Height="200" Width="200">
+    <Border CornerRadius="6" BorderBrush="#575176" Background="#B7D5E0" BorderThickness="2" DockPanel.Dock="Top" Height="200">
         <StackPanel Orientation="Vertical">
             <Image  Style="{StaticResource UsersImg}"
                     Source="{Binding ElementName=Root, Path=CardIcon, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
