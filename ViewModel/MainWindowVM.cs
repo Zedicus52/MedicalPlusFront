@@ -12,6 +12,7 @@ namespace MedicalPlusFront.ViewModel
 {
     public class MainWindowVM : BaseVM
     {
+        #region Singelton
         public static MainWindowVM GetInstance()
         {
             if (_instance == null)
@@ -21,12 +22,16 @@ namespace MedicalPlusFront.ViewModel
             return _instance;
         }
         private static MainWindowVM _instance;
+        #endregion
 
         public BaseVM SelectedViewModel
         {
             get => _selectedVM;
             set
             {
+                if (value == null || _selectedVM == value)
+                    return;
+
                 _selectedVM = value;
                 OnPropertyChanged("SelectedViewModel");
             }
@@ -44,27 +49,42 @@ namespace MedicalPlusFront.ViewModel
 
         private BaseVM _selectedVM;
 
+        private readonly HashSet<BaseVM> _allVms;
+        private readonly TimeSpan _queryDelay;
+
         private LoginResult _loginResult;
 
         private Visibility _adminComponentsVisibility;
 
         private CancellationTokenSource _checkExpirationTokenSource;
         private Task _checkExpirationTask;
-        private TimeSpan _queryDelay;
 
         public MainWindowVM()
         {
             _queryDelay = new TimeSpan(0, 1, 0);
             _adminComponentsVisibility = Visibility.Collapsed;
-            _selectedVM = new LoginPageVM();
+            _allVms = new HashSet<BaseVM>();
+            SetVM<LoginPageVM>();   
         }
 
-        public void SetViewModel(BaseVM baseVM)
+        public void SetVM<T>() where T : BaseVM, new()
         {
-            if (baseVM == null)
+            BaseVM vm = _allVms.FirstOrDefault(v => v is T);
+            if(vm != null)
+            {
+                SelectedViewModel = vm;
                 return;
-            _selectedVM = baseVM;
-            OnPropertyChanged("SelectedViewModel");
+            }
+
+            T newVm = new();
+            _allVms.Add(newVm);
+            SelectedViewModel = newVm;
+        }
+
+        public void LogOut()
+        {
+            _checkExpirationTokenSource.Cancel();
+            ShowAuthPageAndResetToken();
         }
 
         public async void SetLoginResult(LoginResult loginResult)
@@ -85,17 +105,25 @@ namespace MedicalPlusFront.ViewModel
 
         private async void CheckExpirationTime()
         {
+            bool cancelFromHere = false;
             while (_checkExpirationTokenSource.Token.IsCancellationRequested == false)
             {
                 DateTime now = DateTime.UtcNow;
                 if (now > _loginResult.Expiration)
                 {
                     _checkExpirationTokenSource.Cancel();
+                    cancelFromHere = true;
                     break;
                 }
                 await Task.Delay(_queryDelay);
             }
-            SetViewModel(new LoginPageVM());
+            if(cancelFromHere)
+                ShowAuthPageAndResetToken();
+        }
+
+        private void ShowAuthPageAndResetToken()
+        {
+            SetVM<LoginPageVM>();
             _loginResult = new LoginResult();
         }
     }

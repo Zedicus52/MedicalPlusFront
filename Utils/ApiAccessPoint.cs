@@ -25,7 +25,7 @@ public class ApiAccessPoint
     {
         try
         {
-            return await _baseUrl.AppendPathSegment("Auth/login")
+            return await _baseUrl.AppendPathSegment("auth/login")
                 .SetQueryParams(new { UserName = login, Password = password })
                 .PostAsync();
         }

@@ -28,7 +28,6 @@ namespace MedicalPlusFront.ViewModel
 			{
 				return _profileCommand ?? (_profileCommand = new RelayCommand(() =>
 				{
-                    //Go to profile in soon
                 }));
 			}
 		}
@@ -39,7 +38,7 @@ namespace MedicalPlusFront.ViewModel
 			{
 				return _exitCommand ?? (_exitCommand = new RelayCommand(() =>
 				{
-                    Application.Current.MainWindow.Close();
+					MainWindowVM.GetInstance().LogOut();
                 }));
 			}
 		}
