@@ -48,6 +48,7 @@ namespace MedicalPlusFront.ViewModel
         }
 
         private BaseVM _selectedVM;
+        private BaseVM _previousVM;
 
         private readonly HashSet<BaseVM> _allVms;
         private readonly TimeSpan _queryDelay;
@@ -62,7 +63,7 @@ namespace MedicalPlusFront.ViewModel
         public MainWindowVM()
         {
             _queryDelay = new TimeSpan(0, 1, 0);
-            _adminComponentsVisibility = Visibility.Collapsed;
+            _adminComponentsVisibility = Visibility.Visible;
             _allVms = new HashSet<BaseVM>();
             SetVM<LoginPageVM>();   
         }
@@ -72,12 +73,14 @@ namespace MedicalPlusFront.ViewModel
             BaseVM vm = _allVms.FirstOrDefault(v => v is T);
             if(vm != null)
             {
+                _previousVM = _selectedVM;
                 SelectedViewModel = vm;
                 return;
             }
 
             T newVm = new();
             _allVms.Add(newVm);
+            _previousVM = _selectedVM;
             SelectedViewModel = newVm;
         }
 
@@ -125,6 +128,12 @@ namespace MedicalPlusFront.ViewModel
         {
             SetVM<LoginPageVM>();
             _loginResult = new LoginResult();
+        }
+
+        public void BackToPreviousPage()
+        {
+            if(_previousVM != null)
+                SelectedViewModel = _previousVM;
         }
     }
 }

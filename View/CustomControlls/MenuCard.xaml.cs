@@ -40,10 +40,22 @@ namespace MedicalPlusFront.View
         }
         #endregion
 
+        #region ButtonClickProperty
+        public static readonly DependencyProperty ButtonClickProperty =
+           DependencyProperty.Register("ButtonClick", typeof(ICommand),
+               typeof(MenuCard),
+               new FrameworkPropertyMetadata());
+
+        public ICommand ButtonClick
+        {
+            get { return (ICommand)GetValue(ButtonClickProperty); }
+            set { SetValue(ButtonClickProperty, value); }
+        }
+        #endregion
+
         public MenuCard()
         {
             InitializeComponent();
-            DataContext = this;
         }
     }
 }

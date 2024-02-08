@@ -165,6 +165,7 @@ namespace MedicalPlusFront.ViewModel
         public RelayCommand _createUserCommand;
         #endregion
 
+
         public ObservableCollection<SomeUser> ListOfPeople
         {
             get => _listPeople;

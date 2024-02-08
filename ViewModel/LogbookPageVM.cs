@@ -21,6 +21,34 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
+        public ObservableCollection<string> Heavines
+        {
+            get => _heavines;
+            set
+            {
+                _heavines = value;
+                OnPropertyChanged("Heavines");
+            }
+        }
+        public ObservableCollection<string> CreationDates
+        {
+            get => _creationDates;
+            set
+            {
+                _creationDates = value;
+                OnPropertyChanged("CreationDates");
+            }
+        }
+        public ObservableCollection<string> UserNames
+        {
+            get => _userNames;
+            set
+            {
+                _userNames = value;
+                OnPropertyChanged("UserNames");
+            }
+        }
+
         public string UserSelectedCreationTime
         {
             get { return _selectedCreationTime; }
@@ -42,6 +70,9 @@ namespace MedicalPlusFront.ViewModel
         }
 
         private string _selectedHeavines;
+        private ObservableCollection<string> _heavines;
+        private ObservableCollection<string> _userNames;
+        private ObservableCollection<string> _creationDates;
         private string _selectedCreationTime;
         private string _selectedUserName;
 

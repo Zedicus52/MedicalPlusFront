@@ -20,25 +20,32 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
-            <ScrollViewer>
-                <ListBox  ItemsSource="{Binding ListOfPeople}" HorizontalContentAlignment="Stretch">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <v:UserCard
+            <StackPanel>
+                <Button Command="{Binding BackCommand}" Content="Назад" Template="{StaticResource DefaultButton}"/>
+
+                <ScrollViewer>
+                    <ListBox  ItemsSource="{Binding ListOfPeople}" HorizontalContentAlignment="Stretch">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <v:UserCard
                                 MainTitleText="{Binding Fio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                 AdditionInfo="{Binding Birthday, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                 UserIdText="{Binding Id, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                 IconPath="../Icons/man.png"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </ScrollViewer>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+            </StackPanel>
         </Grid>
 
         <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
             <v:SortUserCard SelectedHeavines="{Binding UserSelectedHeavines, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            Heavines="{Binding Heavines, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                             SelectedCreationTime="{Binding UserSelectedCreationTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                            SelectedUserName="{Binding UserSelectedName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            CreationTimes="{Binding CreationDates, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            SelectedUserName="{Binding UserSelectedName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            UserNames="{Binding UserNames, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             <Border Background="#B7D5E0" BorderBrush="#575176" BorderThickness="1" CornerRadius="6" Margin="0 30 0 0">
                 <StackPanel Orientation="Vertical" Margin="10">
                     <v:UserCard MainTitleText="Іванов Іван Іванович"

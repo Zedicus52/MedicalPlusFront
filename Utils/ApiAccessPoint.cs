@@ -36,12 +36,11 @@ public class ApiAccessPoint
             return null;
         }
     }
-//"Auth/checkAccess"
     public async Task<IFlurlResponse?> CheckAccess(string roleName, string token)
     {
         try
         {
-            return await _baseUrl.AppendPathSegment("Auth/checkAccess")
+            return await _baseUrl.AppendPathSegment("auth/checkAccess")
                 .WithOAuthBearerToken(token)
                 .SetQueryParams(new {role=roleName})
                 .PostAsync();
