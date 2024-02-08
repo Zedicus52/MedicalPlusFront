@@ -10,10 +10,16 @@
     <Border Background="#65799A" BorderBrush="#575176" BorderThickness="2" CornerRadius="6" Margin="10">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10">
-                <TextBlock Text="{Binding ElementName=Root, Path=MicroDesc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                       Style="{StaticResource PatientInfo}" TextWrapping="Wrap"/>
-                <TextBlock Text="{Binding ElementName=Root, Path=MacroDesc, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                       Style="{StaticResource PatientInfo}" TextWrapping="Wrap"/>
+                <TextBlock Style="{StaticResource PatientInfo}" TextWrapping="Wrap">
+                    <Run Text="Мікро опис: "/>
+                    <Run Text="{Binding ElementName=Root, Path=MicroDesc, 
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                </TextBlock>
+                <TextBlock Style="{StaticResource PatientInfo}" TextWrapping="Wrap">
+                    <Run Text="Макро опис: "/>
+                    <Run Text="{Binding ElementName=Root, Path=MacroDesc, 
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                </TextBlock>
             </StackPanel>
         </ScrollViewer>
     </Border>

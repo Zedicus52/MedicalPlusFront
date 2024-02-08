@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MedicalPlusFront.WebModels
 {
-    class ProblemPatient
+    public class ProblemPatient
     {
         public int Id { get; set; }
         public string Problem { get; set; } 

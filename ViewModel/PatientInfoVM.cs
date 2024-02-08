@@ -26,11 +26,16 @@ namespace MedicalPlusFront.ViewModel
         {
             _listPromblem = new ObservableCollection<ProblemPatient>
            {
-               new ProblemPatient { Id = 1, Problem = "Some some some"},
-               new ProblemPatient { Id = 2, Problem = "Some some some"},
-               new ProblemPatient { Id = 3, Problem = "Some some some"},
-               new ProblemPatient { Id = 4, Problem = "Some some some"}
+               new ProblemPatient { Id = 1, Problem = "Біль у спині."},
+               new ProblemPatient { Id = 2, Problem = "Головна біль."},
+               new ProblemPatient { Id = 3, Problem = "Біль у м’язах."},
+               new ProblemPatient { Id = 4, Problem = "Біль в нижній частині черевної порожнини."}
            };
+        }
+
+        protected override void SendRequests()
+        {
+            // Логіка відправки запитів
         }
     }
 }

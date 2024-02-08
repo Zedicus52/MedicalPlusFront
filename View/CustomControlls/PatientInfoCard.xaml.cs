@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MedicalPlusFront.WebModels;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -94,10 +96,20 @@ namespace MedicalPlusFront.View
         }
         #endregion
 
+        #region ListProblemProperty
+        private static readonly DependencyProperty ListPropblemProperty =
+            DependencyProperty.Register("ListProblemPatient", typeof(ObservableCollection<ProblemPatient>), typeof(PatientInfoCard));
+
+        public ObservableCollection<ProblemPatient> ListProblemPatient
+        {
+            get { return (ObservableCollection<ProblemPatient>)GetValue(ListPropblemProperty); }
+            set { SetValue(ListPropblemProperty, value); }
+        }
+        #endregion
+
         public PatientInfoCard()
         {
             InitializeComponent();
-            DataContext = this;
         }
     }
 }

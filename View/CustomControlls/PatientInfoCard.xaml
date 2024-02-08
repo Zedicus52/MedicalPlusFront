@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" 
-             d:DataContext="{d:DesignInstance Type=viewmodel:PatientInfoVM}"
              mc:Ignorable="d" 
              x:Name="Root"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -32,28 +30,44 @@
                 </Grid>
 
                 <StackPanel Grid.Column="1" Margin="10">
-                    <TextBlock Text="{Binding ElementName=Root, Path=NamePatient, 
-                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                               Style="{StaticResource PatientInfo}"/>
-                    <TextBlock Text="{Binding ElementName=Root, Path=SurnamePatient, 
-                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                               Style="{StaticResource PatientInfo}"/>
-                    <TextBlock Text="{Binding ElementName=Root, Path=PatronymicPatient, 
-                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                               Style="{StaticResource PatientInfo}"/>
-                    <TextBlock Text="{Binding ElementName=Root, Path=DateBirthPatient, 
-                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                               Style="{StaticResource PatientInfo}"/>
-                    <TextBlock Text="{Binding ElementName=Root, Path=GenderPatient, 
-                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                               Style="{StaticResource PatientInfo}"/>
+                    <TextBlock  Style="{StaticResource PatientInfo}">
+                       <Run Text="Ім'я: "/>
+                       <Run Text="{Binding ElementName=Root, Path=NamePatient, 
+                           UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    </TextBlock>
+
+                    <TextBlock Style="{StaticResource PatientInfo}">
+                       <Run Text="Прізвище: "/>
+                       <Run Text="{Binding ElementName=Root, Path=SurnamePatient, 
+                             UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    </TextBlock>
+
+                    <TextBlock Style="{StaticResource PatientInfo}">
+                       <Run Text="По батькові: "/>
+                       <Run Text="{Binding ElementName=Root, Path=PatronymicPatient, 
+                            UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    </TextBlock>
+
+                    <TextBlock Style="{StaticResource PatientInfo}">
+                       <Run Text="День народження: "/>
+                       <Run Text="{Binding ElementName=Root, Path=DateBirthPatient, 
+                            UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    </TextBlock>
+
+                    <TextBlock Style="{StaticResource PatientInfo}">
+                       <Run Text="Стать: "/>
+                       <Run Text="{Binding ElementName=Root, Path=GenderPatient, 
+                            UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    </TextBlock>
+                    
                 </StackPanel>
 
             </Grid>
 
             <StackPanel Grid.Row="1" Margin="10">
+                <TextBlock Text="Проблеми:" Style="{StaticResource PatientInfo}"/>
                 <ScrollViewer>
-                    <ListBox ItemsSource="{Binding ListOfProblem}" Background="#65799A" HorizontalAlignment="Stretch">
+                    <ListBox ItemsSource="{Binding ElementName=Root, Path=ListProblemPatient, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="#65799A" HorizontalAlignment="Stretch">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Problem}" Style="{StaticResource PatientInfo}"/>
@@ -61,9 +75,11 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </ScrollViewer>
-                <TextBlock Text="{Binding ElementName=Root, Path=ApplicationDatePatient, 
-                    UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                               Style="{StaticResource PatientInfo}"/>
+                <TextBlock Style="{StaticResource PatientInfo}">
+                    <Run Text="Дата відвідування: "/>
+                    <Run  Text="{Binding ElementName=Root, Path=ApplicationDatePatient, 
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                </TextBlock>
             </StackPanel>
 
         </Grid>

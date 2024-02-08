@@ -32,7 +32,7 @@
                 <views:LogbookPage/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:PatientInfoVM}">
-                <views:PatientInfoCard/>
+                <views:PatientInfoPage/>
             </DataTemplate>
 
         </ResourceDictionary>

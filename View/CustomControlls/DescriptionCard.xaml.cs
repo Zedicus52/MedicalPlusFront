@@ -44,7 +44,6 @@ namespace MedicalPlusFront.View
         public DescriptionCard()
         {
             InitializeComponent();
-            DataContext = this;
         }
     }
 }
