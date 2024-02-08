@@ -189,5 +189,9 @@ namespace MedicalPlusFront.ViewModel
                new SomeUser { Id = 4, Birthday="2000.02.05", Fio = "Some some some"}
            };
         }
+
+        protected override void SendRequests()
+        {
+        }
     }
 }

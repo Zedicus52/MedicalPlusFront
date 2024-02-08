@@ -42,5 +42,10 @@ namespace MedicalPlusFront.ViewModel
                 "Seom2"
             };
         }
+
+        protected override void SendRequests()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

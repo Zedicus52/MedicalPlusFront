@@ -1,5 +1,12 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using Flurl.Http;
+using GalaSoft.MvvmLight.Command;
+using MedicalPlusFront.Utils;
+using MedicalPlusFront.WebModels;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace MedicalPlusFront.ViewModel
 {
@@ -36,7 +43,7 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
-        public string EmployeeRole
+        public Role EmployeeRole
         {
             get => _employeeRole;
             set
@@ -76,7 +83,7 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
-        public ObservableCollection<string> EmployeesRoles
+        public ObservableCollection<Role> EmployeesRoles
         {
             get => _employeesRoles;
             set
@@ -95,7 +102,7 @@ namespace MedicalPlusFront.ViewModel
                     EmployeeSurname = string.Empty;
                     EmployeeName = string.Empty;
                     EmployeePatronymic = string.Empty;
-                    EmployeeRole = string.Empty;
+                    EmployeeRole = new Role();
                     EmployeeLogin = string.Empty;
                     EmployeePassword = string.Empty;
                     EmployeeGender = string.Empty;
@@ -106,11 +113,11 @@ namespace MedicalPlusFront.ViewModel
         private string _employeeSurname;
         private string _employeeName;
         private string _employeePatronymic;
-        private string _employeeRole;
+        private Role _employeeRole;
         private string _employeeLogin;
         private string _employeePassword;
         private string _employeeGender;
-        private ObservableCollection<string> _employeesRoles;
+        private ObservableCollection<Role> _employeesRoles;
 
         private RelayCommand _createEmployee;
         #endregion
@@ -175,12 +182,8 @@ namespace MedicalPlusFront.ViewModel
 
         public EmployeesPageVM()
         {
-            _employeesRoles = new ObservableCollection<string>()
-            {
-                "Admin",
-                "Ne Admin",
-                "User"
-            };
+            _employeesRoles = new ObservableCollection<Role>();
+            SendRequests();
             _listPeople = new ObservableCollection<SomeUser>
            {
                new SomeUser { Id = 1, Birthday="2000.02.05", Fio = "Some some some"},
@@ -189,5 +192,28 @@ namespace MedicalPlusFront.ViewModel
                new SomeUser { Id = 4, Birthday="2000.02.05", Fio = "Some some some"}
            };
         }
+
+        protected override void SendRequests()
+        {
+            var res = ApiAccessPoint.Instance.GetUserRoles(MainWindowVM.GetInstance().JwtToken);
+            res.ContinueWith((task) => OnGetRoles(task.Result));
+        }
+
+        private void OnGetRoles(IFlurlResponse? response)
+        {
+            if (response == null)
+            {
+                ShowMessageBox("Немає відповіді від сервера!", "Помилка доступу до сервера", MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                return;
+            }
+
+            if (response.StatusCode == 200)
+            {
+                List<Role> roles = response.GetJsonAsync<List<Role>>().Result;
+                EmployeesRoles = new ObservableCollection<Role>(roles);
+            }
+        }
+
     }
 }
