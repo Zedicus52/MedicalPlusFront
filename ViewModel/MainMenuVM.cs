@@ -96,5 +96,10 @@ namespace MedicalPlusFront.ViewModel
 
         private RelayCommand _openEmployeesCommand;
         #endregion
+
+
+        protected override void SendRequests()
+        {
+        }
     }
 }

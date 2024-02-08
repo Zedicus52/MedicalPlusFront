@@ -51,13 +51,13 @@ namespace MedicalPlusFront.ViewModel
             {
                 return _loginCommand ?? (_loginCommand = new RelayCommand(() =>
                 {
-                    MainWindowVM.GetInstance().SetVM<MainMenuVM>();
+                    //MainWindowVM.GetInstance().SetVM<MainMenuVM>();
 
-                    /*if(string.IsNullOrEmpty(PasswordInput) || string.IsNullOrEmpty(LoginInput))
+                    if(string.IsNullOrEmpty(PasswordInput) || string.IsNullOrEmpty(LoginInput))
                         return;
                     
                     IsInteractable = false;
-                    TryLogin();*/
+                    TryLogin();
                 }));
             }
         }
@@ -107,6 +107,10 @@ namespace MedicalPlusFront.ViewModel
             IsInteractable = true;
 
             
+        }
+
+        protected override void SendRequests()
+        {
         }
     }
     

@@ -100,6 +100,8 @@ namespace MedicalPlusFront.ViewModel
 
         private RelayCommand _selectPatienCommand;
 
-
+        protected override void SendRequests()
+        {
+        }
     }
 }

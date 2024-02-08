@@ -52,4 +52,20 @@ public class ApiAccessPoint
             return null;
         }
     }
+
+    public async Task<IFlurlResponse?> GetUserRoles(string token)
+    {
+        try
+        {
+            return await _baseUrl.AppendPathSegment("auth/getRoles")
+                .WithOAuthBearerToken(token)
+                .GetAsync();
+        }
+        catch (FlurlHttpException e)
+        {
+            if (e.StatusCode != null)
+                return new FlurlResponse(e.Call);
+            return null;
+        }
+    }
 }

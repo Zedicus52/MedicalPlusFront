@@ -24,6 +24,8 @@ namespace MedicalPlusFront.ViewModel
         private static MainWindowVM _instance;
         #endregion
 
+        public string JwtToken => _loginResult.Token;
+
         public BaseVM SelectedViewModel
         {
             get => _selectedVM;
@@ -134,6 +136,10 @@ namespace MedicalPlusFront.ViewModel
         {
             if(_previousVM != null)
                 SelectedViewModel = _previousVM;
+        }
+
+        protected override void SendRequests()
+        {
         }
     }
 }

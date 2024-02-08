@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MedicalPlusFront.ViewModel
 {
-    internal class LogbookPageVM : BaseVM
+    public class LogbookPageVM : BaseVM
     {
         #region User Sort props
 
@@ -159,6 +159,11 @@ namespace MedicalPlusFront.ViewModel
                new SomeUser { Id = 3, Birthday="2000.02.05", Fio = "Some some some"},
                new SomeUser { Id = 4, Birthday="2000.02.05", Fio = "Some some some"}
            };
+        }
+
+        protected override void SendRequests()
+        {
+            throw new NotImplementedException();
         }
     }
 }

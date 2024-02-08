@@ -32,6 +32,8 @@ namespace MedicalPlusFront.ViewModel
             return MessageBox.Show(message, title, buttons, image);
         }
 
+        protected abstract void SendRequests();
+
 
     }
 }
