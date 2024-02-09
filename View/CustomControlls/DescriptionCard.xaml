@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="MedicalPlusFront.View.DescriptionCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MedicalPlusFront.View"
+             x:Name="Root"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border Background="#65799A" BorderBrush="#575176" BorderThickness="2" CornerRadius="6" Margin="10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10">
+                <TextBlock Style="{StaticResource PatientInfo}" TextWrapping="Wrap">
+                    <Run Text="Мікро опис: "/>
+                    <Run Text="{Binding ElementName=Root, Path=MicroDesc, 
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                </TextBlock>
+                <TextBlock Style="{StaticResource PatientInfo}" TextWrapping="Wrap">
+                    <Run Text="Макро опис: "/>
+                    <Run Text="{Binding ElementName=Root, Path=MacroDesc, 
+                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                </TextBlock>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>
