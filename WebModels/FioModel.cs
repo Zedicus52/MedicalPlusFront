@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MedicalPlusFront.WebModels
 {
     [Serializable]
-    public class FioModel : INotifyPropertyChanged
+    public class FioModel
     {
         public int IdFio { get; set; }
 
@@ -26,6 +26,10 @@ namespace MedicalPlusFront.WebModels
             Patronymic = string.Empty;
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public override string ToString()
+        {
+            return $"{Surname} {Name} {Patronymic}";
+        }
+
     }
 }

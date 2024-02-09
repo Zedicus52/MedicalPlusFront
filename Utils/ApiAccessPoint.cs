@@ -88,6 +88,8 @@ public class ApiAccessPoint
         }
     }
 
+    #region Patients
+
     public async Task<IFlurlResponse?> CreatePatient(PatientModel patient,string jwtToken)
     {
         try
@@ -103,4 +105,22 @@ public class ApiAccessPoint
             return null;
         }
     }
+
+    public async Task<IFlurlResponse?> GetAllPatients(string jwtToken)
+    {
+        try
+        {
+            return await _baseUrl.AppendPathSegment("patient/getAll")
+                .WithOAuthBearerToken(jwtToken)
+                .GetAsync();
+        }
+        catch (FlurlHttpException e)
+        {
+            if (e.StatusCode != null)
+                return new FlurlResponse(e.Call);
+            return null;
+        }
+    }
+
+    #endregion
 }

@@ -20,13 +20,13 @@
             <StackPanel>
                 <Button Command="{Binding BackCommand}" Content="Назад" Template="{StaticResource DefaultButton}"/>
                 <ScrollViewer>
-                    <ListBox  ItemsSource="{Binding ListOfPeople}" HorizontalContentAlignment="Stretch">
+                    <ListBox  ItemsSource="{Binding PatientsToView}" HorizontalContentAlignment="Stretch">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <local:UserCard
-                    MainTitleText="{Binding Fio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    AdditionInfo="{Binding Birthday, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    UserIdText="{Binding Id, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    MainTitleText="{Binding Fio, UpdateSourceTrigger=PropertyChanged}"
+                    AdditionInfo="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    UserIdText="{Binding IdPatient, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     IconPath="../Icons/man.png"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -36,13 +36,16 @@
         </Grid>
 
         <Grid Margin="15" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-            <local:SortUserCard
-                Heavines="{Binding Difficulties, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                SelectedHeavines="{Binding SelectedDifficulty, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                CreationTimes="{Binding CreationTimes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                SelectedCreationTime="{Binding SelectedCreationTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                UserNames="{Binding PatientFios, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                SelectedUserName="{Binding SelectedPatientFio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <local:FindUserCard 
+                FioInput="{Binding FindInput_Fio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                IdNumberInput="{Binding FindInput_PatientId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                PhoneNumberInput="{Binding FindInput_PhoneNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                CaseSensetiveInput="{Binding FindInput_CaseSensetive, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                AfterDateInput="{Binding FindInput_AfterDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                BeforeDateInput="{Binding FindInput_BeforeDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                FindCommand="{Binding FindCommand}"
+                ClearCommand="{Binding ClearFindCommand}"
+                />
         </Grid>
 
         <Grid Margin="15" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" >

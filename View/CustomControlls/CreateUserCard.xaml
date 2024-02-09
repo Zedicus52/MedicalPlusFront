@@ -50,7 +50,6 @@
             </Grid>-->
 
             <Button x:Name="SaveBtn" 
-                    IsEnabled="{Binding ElementName=Root, Path=IsButtonInteractable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                     Command="{Binding ElementName=Root, Path=SaveCommand}" 
                         Content="Зберігти" Template="{StaticResource DefaultButton}"
                         Height="55" FontSize="25" HorizontalAlignment="Stretch" Margin="0, 30, 0, 0"/>

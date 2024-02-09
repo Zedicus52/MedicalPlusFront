@@ -5,78 +5,115 @@ using MedicalPlusFront.WebModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace MedicalPlusFront.ViewModel
 {
     public class UserPageVM : BaseVM
     {
-        #region Sort Users Props
+        #region Find Users Props
 
-        public ObservableCollection<string> Difficulties
+        public int FindInput_PhoneNumber
         {
-            get => _difficulties;
+            get => _findInput_PhoneNumber;
             set
             {
-                _difficulties = value;
-                OnPropertyChanged("Difficulties");
-            }
-        }
-        public string SelectedDifficulty
-        {
-            get => _selectedDiffuculty;
-            set
-            {
-                _selectedDiffuculty = value;
-                OnPropertyChanged("SelectedDifficulty");
+                _findInput_PhoneNumber = value;
+                OnPropertyChanged(nameof(FindInput_PhoneNumber));
             }
         }
 
-        private ObservableCollection<string> _difficulties;
-        private string _selectedDiffuculty;
-
-        public ObservableCollection<string> CreationTimes
+        public int FindInput_PatientId
         {
-            get => _creationTimes;
+            get => _findInput_PatientId;
             set
             {
-                _creationTimes = value;
-                OnPropertyChanged("CreationTimes");
-            }
-        }
-        public string SelectedCreationTime
-        {
-            get => _selectedCreationTime;
-            set
-            {
-                _selectedCreationTime = value;
-                OnPropertyChanged("SelectedCreationTime");
+                _findInput_PatientId = value;
+                OnPropertyChanged(nameof(FindInput_PatientId));
             }
         }
 
-        private ObservableCollection<string> _creationTimes;
-        private string _selectedCreationTime;
-
-        public ObservableCollection<string> PatientFios
+        public string FindInput_Fio
         {
-            get => _patientFios;
+            get => _findInput_Fio;
             set
             {
-                _patientFios = value;
-                OnPropertyChanged("PatientFios");
+                _findInput_Fio = value;
+                OnPropertyChanged(nameof(FindInput_Fio));
             }
+
         }
-        public string SelectedPatientFio
+
+        public bool FindInput_CaseSensetive
         {
-            get => _selectedPatientFio;
+            get => _findInput_CaseSensetive;
             set
             {
-                _selectedPatientFio = value;
-                OnPropertyChanged("SelectedPatientFio");
+                _findInput_CaseSensetive = value;
+                OnPropertyChanged(nameof(FindInput_CaseSensetive));
             }
         }
 
-        private ObservableCollection<string> _patientFios;
-        private string _selectedPatientFio;
+        public string FindInput_AfterDate
+        {
+            get => _findInput_AfterDate;
+            set
+            {
+                _findInput_AfterDate = value;
+                OnPropertyChanged(nameof(FindInput_AfterDate));
+            }
+        }
+
+        public string FindInput_BeforeDate
+        {
+            get => _findInput_BeforeDate;
+            set
+            {
+                _findInput_BeforeDate = value;
+                OnPropertyChanged(nameof(FindInput_BeforeDate));
+            }
+        }
+
+        public RelayCommand FindCommand
+        {
+            get
+            {
+                return _findCommand ?? (_findCommand = new RelayCommand(() =>
+                {
+                    PatientsToView = new ObservableCollection<PatientModel>();
+
+                    if (FindInput_PatientId != 0)
+                        FindById();
+                    if (FindInput_PhoneNumber != 0)
+                        FindByPhoneNumber();
+                    if (string.IsNullOrEmpty(FindInput_Fio) == false)
+                        FindByFio();
+
+
+                }));
+            }
+        }
+
+        public RelayCommand ClearFindCommand
+        {
+            get
+            {
+                return _clearFindCommand ?? (_clearFindCommand = new RelayCommand(() =>
+                {
+                    PatientsToView = new ObservableCollection<PatientModel>(_allPatients);
+                }));
+            }
+        }
+
+
+        private int _findInput_PhoneNumber;
+        private int _findInput_PatientId;
+        private string _findInput_Fio;
+        private bool _findInput_CaseSensetive;
+        private string _findInput_AfterDate;
+        private string _findInput_BeforeDate;
+        private RelayCommand _findCommand;
+        private RelayCommand _clearFindCommand;
 
         #endregion
 
@@ -175,18 +212,7 @@ namespace MedicalPlusFront.ViewModel
                     || string.IsNullOrEmpty(_birthDateInput) || _selectedGender == null)
                         return;
 
-                    PatientModel patientModel = new PatientModel();
-                    patientModel.Fio.Surname = _surnameInput;
-                    patientModel.Fio.Name = _nameInput;
-                    patientModel.Fio.Patronymic = _patronymicInput;
-                    patientModel.PhoneNumber = int.Parse(_phoneFaxInput);
-                    patientModel.BirthDate = DateTime.Parse(_birthDateInput);
-                    patientModel.ApplicationDate = DateTime.Now;
-                    patientModel.Gender = _selectedGender;
-
-                    var res = ApiAccessPoint.Instance.CreatePatient(patientModel, 
-                        MainWindowVM.GetInstance().JwtToken);
-                    res.ContinueWith(t => OnUserCreated(t.Result));
+                    TryCreatePatient();
 
                 }));
             }
@@ -205,16 +231,13 @@ namespace MedicalPlusFront.ViewModel
 
         #endregion
 
-
-
-
-        public ObservableCollection<SomeUser> ListOfPeople
+        public ObservableCollection<PatientModel> PatientsToView
         {
-            get => _listPeople;
+            get => _patientsToView;
             set
             {
-                _listPeople = value;
-                OnPropertyChanged("ListOfPeople");
+                _patientsToView = value;
+                OnPropertyChanged("PatientsToView");
             }
         }
 
@@ -228,28 +251,89 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
-        private ObservableCollection<SomeUser> _listPeople;
+        private ObservableCollection<PatientModel> _allPatients;
+        private ObservableCollection<PatientModel> _patientsToView;
 
         private bool _isCreationInteractable;
 
         public UserPageVM()
         {
             _allGenders = new ObservableCollection<GenderModel>();
-            _listPeople = new ObservableCollection<SomeUser>
-           {
-               new SomeUser { Id = 1, Birthday="2000.02.05", Fio = "Some some some"},
-               new SomeUser { Id = 2, Birthday="2000.02.05", Fio = "Some some some"},
-               new SomeUser { Id = 3, Birthday="2000.02.05", Fio = "Some some some"},
-               new SomeUser { Id = 4, Birthday="2000.02.05", Fio = "Some some some"}
-           };
-           SendRequests();
+            _allPatients = new ObservableCollection<PatientModel>();
+            _patientsToView = new ObservableCollection<PatientModel>();
+            SendRequests();
         }
 
         protected override void SendRequests()
         {
             IsCreationInteractable = false;
-            var res = ApiAccessPoint.Instance.GetGenders(MainWindowVM.GetInstance().JwtToken);
-            res.ContinueWith(res => OnGetGenders(res.Result));
+            var gendersTask = ApiAccessPoint.Instance.GetGenders(MainWindowVM.GetInstance().JwtToken);
+            gendersTask.ContinueWith(res => OnGetGenders(res.Result));
+            GetAllPatients();
+
+        }
+
+        private void GetAllPatients()
+        {
+            var patientTasks = ApiAccessPoint.Instance.GetAllPatients(MainWindowVM.GetInstance().JwtToken);
+            patientTasks.ContinueWith(res => OnGetAllPatients(res.Result));
+        }
+
+        private void TryCreatePatient()
+        {
+            PatientModel patientModel = new();
+            patientModel.Fio.Surname = _surnameInput;
+            patientModel.Fio.Name = _nameInput;
+            patientModel.Fio.Patronymic = _patronymicInput;
+            patientModel.PhoneNumber = int.Parse(_phoneFaxInput);
+            patientModel.BirthDate = DateTime.Parse(_birthDateInput);
+            patientModel.ApplicationDate = DateTime.Now;
+            patientModel.Gender = _selectedGender;
+
+            var res = ApiAccessPoint.Instance.CreatePatient(patientModel,
+                MainWindowVM.GetInstance().JwtToken);
+            res.ContinueWith(t => OnUserCreated(t.Result));
+        }
+
+        private void OnGetAllPatients(IFlurlResponse? result)
+        {
+            if (result == null)
+            {
+                ShowConnectionErrorMessageBox();
+                return;
+            }
+            if (result.StatusCode == 200)
+            {
+                List<PatientModel> models = result.GetJsonAsync<List<PatientModel>>().Result;
+                _allPatients = new ObservableCollection<PatientModel>(models);
+                PatientsToView = new ObservableCollection<PatientModel>(models);
+            }
+        }
+        private void FindByFio()
+        {
+            var list = _allPatients.Where(x => x.Fio.ToString().StartsWith(FindInput_Fio));
+            foreach (var patient in list)
+            {
+                PatientsToView.Add(patient);
+            }
+        }
+
+        private void FindById()
+        {
+            var list = _allPatients.Where(x => x.IdPatient.Equals(FindInput_PatientId));
+            foreach (var patient in list)
+            {
+                PatientsToView.Add(patient);
+            }
+        }
+
+        private void FindByPhoneNumber()
+        {
+            var list = _allPatients.Where(x => x.PhoneNumber.ToString().StartsWith(FindInput_PhoneNumber.ToString()));
+            foreach (var patient in list)
+            {
+                PatientsToView.Add(patient);
+            }
         }
 
         private void OnUserCreated(IFlurlResponse? result)
@@ -262,24 +346,26 @@ namespace MedicalPlusFront.ViewModel
             }
 
             if (result.StatusCode == 200)
-                ShowMessageBox("Added", "Responce",
-                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+            {
+                ShowMessageBox("Новий паціент був доданий!", "Результат",
+                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                GetAllPatients();
+            }
             else
-                ShowMessageBox($"Error {result.StatusCode}", "Responce",
-                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
-
+                ShowMessageBox($"Шось пішло не так. Статус код: {result.StatusCode}", "Помилка",
+                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
         }
 
         private void OnGetGenders(IFlurlResponse? responce)
         {
             IsCreationInteractable = true;
-            if(responce == null)
+            if (responce == null)
             {
                 ShowConnectionErrorMessageBox();
                 return;
             }
 
-            if(responce.StatusCode == 200)
+            if (responce.StatusCode == 200)
             {
                 List<GenderModel> list = responce.GetJsonAsync<List<GenderModel>>().Result;
                 AllGenders = new ObservableCollection<GenderModel>(list);
