@@ -203,8 +203,7 @@ namespace MedicalPlusFront.ViewModel
         {
             if (response == null)
             {
-                ShowMessageBox("Немає відповіді від сервера!", "Помилка доступу до сервера", MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
+                ShowConnectionErrorMessageBox();
                 return;
             }
 

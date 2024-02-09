@@ -2,6 +2,9 @@ using System;
 using System.Threading.Tasks;
 using Flurl;
 using Flurl.Http;
+using MedicalPlusFront.WebModels;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace MedicalPlusFront.Utils;
 
@@ -60,6 +63,38 @@ public class ApiAccessPoint
             return await _baseUrl.AppendPathSegment("auth/getRoles")
                 .WithOAuthBearerToken(token)
                 .GetAsync();
+        }
+        catch (FlurlHttpException e)
+        {
+            if (e.StatusCode != null)
+                return new FlurlResponse(e.Call);
+            return null;
+        }
+    }
+
+    public async Task<IFlurlResponse?> GetGenders(string jwtToken)
+    {
+        try
+        {
+            return await _baseUrl.AppendPathSegment("gender/getAll")
+                .WithOAuthBearerToken(jwtToken)
+                .GetAsync();
+        }
+        catch (FlurlHttpException e)
+        {
+            if (e.StatusCode != null)
+                return new FlurlResponse(e.Call);
+            return null;
+        }
+    }
+
+    public async Task<IFlurlResponse?> CreatePatient(PatientModel patient,string jwtToken)
+    {
+        try
+        {
+            return await _baseUrl.AppendPathSegment("patient/create")
+                .WithOAuthBearerToken(jwtToken)
+                .PostJsonAsync(patient);
         }
         catch (FlurlHttpException e)
         {

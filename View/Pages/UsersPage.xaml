@@ -47,13 +47,15 @@
 
         <Grid Margin="15" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
             <local:CreateUserCard 
+                IsEnabled="{Binding IsCreationInteractable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 TextIdCreate="Ідентифікаційний номер: 1203"
                 NameInput="{Binding NameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 SurnameInput="{Binding SurnameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 PatronymicInput="{Binding PatronymicInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 PhoneNumberInput="{Binding PhoneFaxInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 BirthdayInput="{Binding BirthDateInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                GenderInput="{Binding GenderInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                AllGenders="{Binding AllGenders, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                SelectedGender="{Binding SelectedGender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 SaveCommand="{Binding CreateUserCommand}"/>
         </Grid>
     </Grid>

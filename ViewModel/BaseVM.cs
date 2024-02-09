@@ -34,6 +34,12 @@ namespace MedicalPlusFront.ViewModel
 
         protected abstract void SendRequests();
 
+        protected void ShowConnectionErrorMessageBox()
+        {
+            ShowMessageBox("Немає відповіді від сервера!", "Помилка доступу до сервера", MessageBoxButton.OK,
+    MessageBoxImage.Warning);
+        }
+
 
     }
 }

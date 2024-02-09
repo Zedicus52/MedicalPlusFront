@@ -1,5 +1,6 @@
 ﻿using MedicalPlusFront.WebModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -88,6 +89,17 @@ namespace MedicalPlusFront.View
         }
         #endregion
 
+        #region IsSaveInteractable
+        private static readonly DependencyProperty IsSaveInteractableProperty =
+            DependencyProperty.Register("IsButtonInteractable", typeof(bool), typeof(CreateUserCard));
+
+        public bool IsButtonInteractable
+        {
+            get { return (bool)GetValue(IsSaveInteractableProperty); }
+            set { SetValue(IsSaveInteractableProperty, value); }
+        }
+        #endregion
+
         #region GenderProperty
         private static readonly DependencyProperty GenderProperty =
            DependencyProperty.Register("GenderInput",
@@ -116,6 +128,31 @@ namespace MedicalPlusFront.View
             get { return (string)GetValue(GenderProperty); }
             set { SetValue(GenderProperty, value); }
         }
+        #endregion
+
+        #region AllGenders
+        private static readonly DependencyProperty AllGenderProperty =
+            DependencyProperty.Register("AllGenders", typeof(IEnumerable), typeof(CreateUserCard));
+
+        public IEnumerable AllGenders
+        {
+            get { return (IEnumerable)GetValue(AllGenderProperty); }
+            set { SetValue(AllGenderProperty, value); }
+        }
+
+
+        #region Selected Gender
+        private static readonly DependencyProperty SelectedGenderProperty =
+            DependencyProperty.Register("SelectedGender", typeof(object), typeof(CreateUserCard));
+
+        public object SelectedGender
+        {
+            get { return (IEnumerable)GetValue(SelectedGenderProperty); }
+            set { SetValue(SelectedGenderProperty, value); }
+        }
+        #endregion
+
+
         #endregion
 
         #region SaveButtonCommandProperty

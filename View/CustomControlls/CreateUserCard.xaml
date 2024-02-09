@@ -26,7 +26,12 @@
             <v:TextBoxWithPlaceHolder 
                     Text="{Binding ElementName=Root, Path=BirthdayInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                     PlaceHolderText="Дата народження"/>
-            <Grid>
+            <v:ComboxWithPlaceHolder 
+                ComboxContent="{Binding ElementName=Root, Path=AllGenders, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                ComboxSelectedItem="{Binding ElementName=Root, Path=SelectedGender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"                    
+                PlaceHolderText="Стать"
+                />
+            <!--<Grid>
                 <Border Style="{StaticResource GenderBorder}">
                     <StackPanel Orientation="Horizontal">
                         <Button x:Name="Male" Click="ButtonSelect_Click" Style="{StaticResource GenderBtn}">
@@ -42,9 +47,11 @@
                         </Button>
                     </StackPanel>
                 </Border>
-            </Grid>
+            </Grid>-->
 
-            <Button x:Name="SaveBtn" Command="{Binding ElementName=Root, Path=SaveCommand}" 
+            <Button x:Name="SaveBtn" 
+                    IsEnabled="{Binding ElementName=Root, Path=IsButtonInteractable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                    Command="{Binding ElementName=Root, Path=SaveCommand}" 
                         Content="Зберігти" Template="{StaticResource DefaultButton}"
                         Height="55" FontSize="25" HorizontalAlignment="Stretch" Margin="0, 30, 0, 0"/>
 
