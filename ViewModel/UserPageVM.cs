@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Threading;
 
 namespace MedicalPlusFront.ViewModel
 {
@@ -190,7 +191,7 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
-        public GenderModel SelectedGender
+        public GenderModel? SelectedGender
         {
             get => _selectedGender;
             set
@@ -267,16 +268,8 @@ namespace MedicalPlusFront.ViewModel
         protected override void SendRequests()
         {
             IsCreationInteractable = false;
-            var gendersTask = ApiAccessPoint.Instance.GetGenders(MainWindowVM.GetInstance().JwtToken);
-            gendersTask.ContinueWith(res => OnGetGenders(res.Result));
+            GetAllGenders();
             GetAllPatients();
-
-        }
-
-        private void GetAllPatients()
-        {
-            var patientTasks = ApiAccessPoint.Instance.GetAllPatients(MainWindowVM.GetInstance().JwtToken);
-            patientTasks.ContinueWith(res => OnGetAllPatients(res.Result));
         }
 
         private void TryCreatePatient()
@@ -295,20 +288,32 @@ namespace MedicalPlusFront.ViewModel
             res.ContinueWith(t => OnUserCreated(t.Result));
         }
 
-        private void OnGetAllPatients(IFlurlResponse? result)
+        private void ClearInputs()
         {
-            if (result == null)
-            {
-                ShowConnectionErrorMessageBox();
-                return;
-            }
-            if (result.StatusCode == 200)
-            {
-                List<PatientModel> models = result.GetJsonAsync<List<PatientModel>>().Result;
-                _allPatients = new ObservableCollection<PatientModel>(models);
-                PatientsToView = new ObservableCollection<PatientModel>(models);
-            }
+            SurnameInput = string.Empty;
+            NameInput = string.Empty;
+            PatronymicInput = string.Empty;
+            PhoneFaxInput = string.Empty;
+            BirthDateInput = string.Empty;
+            SelectedGender = default;
         }
+
+        #region Sending requests to the server
+
+        private void GetAllGenders()
+        {
+            var gendersTask = ApiAccessPoint.Instance.GetGenders(MainWindowVM.GetInstance().JwtToken);
+            gendersTask.ContinueWith(res => OnGetGenders(res.Result));
+        }
+
+        private void GetAllPatients()
+        {
+            var patientTasks = ApiAccessPoint.Instance.GetAllPatients(MainWindowVM.GetInstance().JwtToken);
+            patientTasks.ContinueWith(res => OnGetAllPatients(res.Result));
+        }
+        #endregion
+
+        #region Finding 
         private void FindByFio()
         {
             var list = _allPatients.Where(x => x.Fio.ToString().StartsWith(FindInput_Fio));
@@ -335,6 +340,25 @@ namespace MedicalPlusFront.ViewModel
                 PatientsToView.Add(patient);
             }
         }
+        #endregion
+
+        #region Receiving responses from the server
+
+        private void OnGetAllPatients(IFlurlResponse? result)
+        {
+            if (result == null)
+            {
+                ShowConnectionErrorMessageBox();
+                return;
+            }
+            if (result.StatusCode == 200)
+            {
+                List<PatientModel> models = result.GetJsonAsync<List<PatientModel>>().Result;
+                _allPatients = new ObservableCollection<PatientModel>(models);
+                PatientsToView = new ObservableCollection<PatientModel>(models);
+            }
+        }
+
 
         private void OnUserCreated(IFlurlResponse? result)
         {
@@ -350,6 +374,7 @@ namespace MedicalPlusFront.ViewModel
                 ShowMessageBox("Новий паціент був доданий!", "Результат",
                     System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                 GetAllPatients();
+                ClearInputs();
             }
             else
                 ShowMessageBox($"Шось пішло не так. Статус код: {result.StatusCode}", "Помилка",
@@ -371,5 +396,6 @@ namespace MedicalPlusFront.ViewModel
                 AllGenders = new ObservableCollection<GenderModel>(list);
             }
         }
+        #endregion
     }
 }

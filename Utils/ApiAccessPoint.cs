@@ -20,7 +20,7 @@ public class ApiAccessPoint
         }
     }
 
-    private const string _baseUrl = "http://localhost:5079/api";
+    private const string _baseUrl = "https://localhost:7061/api";
     
     private static ApiAccessPoint _instance;
 
