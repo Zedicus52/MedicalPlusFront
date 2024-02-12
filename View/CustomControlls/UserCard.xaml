@@ -14,8 +14,8 @@
                 <Border  CornerRadius="3" BorderBrush="#575176" Background="#D9D9D9" BorderThickness="2"
                                   Height="40" Width="40" Margin="5,0,5,0">
                 <Image  Style="{StaticResource UserIconUserCard}"
-                                   Source="{Binding ElementName=Root, Path=IconPath, 
-                                UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                   Source="{Binding ElementName=Root, Path=IconImage, 
+                                UpdateSourceTrigger=PropertyChanged}"/>
                 </Border>
                 <StackPanel Margin="5,0,10,0">
                     <TextBlock Style="{StaticResource MainTitleUserCard}"

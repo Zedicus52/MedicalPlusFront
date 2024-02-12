@@ -3,7 +3,10 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:MedicalPlusFront.View" xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:UserPageVM}"
+      xmlns:local="clr-namespace:MedicalPlusFront.View" 
+      xmlns:convertors="clr-namespace:MedicalPlusFront.Convertors"
+      xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" 
+      d:DataContext="{d:DesignInstance Type=viewmodel:UserPageVM}"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="UsersPage">
@@ -21,13 +24,16 @@
                 <Button Command="{Binding BackCommand}" Content="Назад" Template="{StaticResource DefaultButton}"/>
                 <ScrollViewer>
                     <ListBox  ItemsSource="{Binding PatientsToView}" HorizontalContentAlignment="Stretch">
+                        <ListBox.Resources>
+                            <convertors:GenderToImageConvertor x:Key="GenderToImage"/>
+                        </ListBox.Resources>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <local:UserCard
                     MainTitleText="{Binding Fio, UpdateSourceTrigger=PropertyChanged}"
                     AdditionInfo="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     UserIdText="{Binding IdPatient, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    IconPath="../Icons/man.png"/>
+                    IconImage="{Binding Gender.IdGender, Converter={StaticResource GenderToImage}}"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
