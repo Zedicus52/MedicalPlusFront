@@ -5,6 +5,7 @@ using MedicalPlusFront.WebModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Windows.Threading;
 
@@ -14,7 +15,7 @@ namespace MedicalPlusFront.ViewModel
     {
         #region Find Users Props
 
-        public int FindInput_PhoneNumber
+        public string FindInput_PhoneNumber
         {
             get => _findInput_PhoneNumber;
             set
@@ -24,7 +25,7 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
-        public int FindInput_PatientId
+        public string FindInput_PatientId
         {
             get => _findInput_PatientId;
             set
@@ -83,14 +84,22 @@ namespace MedicalPlusFront.ViewModel
                 {
                     PatientsToView = new ObservableCollection<PatientModel>();
 
-                    if (FindInput_PatientId != 0)
+                    List<PatientModel> searchFrom = new List<PatientModel>(_allPatients);  
+                    
+                    if (string.IsNullOrEmpty(FindInput_PatientId) == false)
                         FindById();
-                    if (FindInput_PhoneNumber != 0)
-                        FindByPhoneNumber();
+
+                    if (string.IsNullOrEmpty(FindInput_PhoneNumber) == false)
+                        searchFrom = new List<PatientModel>(FindByPhoneNumber(searchFrom));
+
                     if (string.IsNullOrEmpty(FindInput_Fio) == false)
-                        FindByFio();
+                        searchFrom = new List<PatientModel>(FindByFio(searchFrom));
 
+                    if (string.IsNullOrEmpty(FindInput_BeforeDate) == false || string.IsNullOrEmpty(FindInput_AfterDate) == false)
+                       searchFrom = new List<PatientModel>(FindByBirthday(searchFrom));
 
+                    foreach (var patient in searchFrom)
+                        PatientsToView.Add(patient);
                 }));
             }
         }
@@ -102,13 +111,14 @@ namespace MedicalPlusFront.ViewModel
                 return _clearFindCommand ?? (_clearFindCommand = new RelayCommand(() =>
                 {
                     PatientsToView = new ObservableCollection<PatientModel>(_allPatients);
+                    ClearFindInputs();
                 }));
             }
         }
 
 
-        private int _findInput_PhoneNumber;
-        private int _findInput_PatientId;
+        private string _findInput_PhoneNumber;
+        private string _findInput_PatientId;
         private string _findInput_Fio;
         private bool _findInput_CaseSensetive;
         private string _findInput_AfterDate;
@@ -288,7 +298,17 @@ namespace MedicalPlusFront.ViewModel
             res.ContinueWith(t => OnUserCreated(t.Result));
         }
 
-        private void ClearInputs()
+        private void ClearFindInputs()
+        {
+            FindInput_PatientId = string.Empty;
+            FindInput_PhoneNumber = string.Empty;
+            FindInput_Fio = string.Empty;
+            FindInput_AfterDate = string.Empty;
+            FindInput_BeforeDate = string.Empty;
+            FindInput_CaseSensetive = false;
+        }
+
+        private void ClearCreatingInputs()
         {
             SurnameInput = string.Empty;
             NameInput = string.Empty;
@@ -314,32 +334,79 @@ namespace MedicalPlusFront.ViewModel
         #endregion
 
         #region Finding 
-        private void FindByFio()
+
+        private List<PatientModel> FindByBirthday(List<PatientModel> currentPatients)
         {
-            var list = _allPatients.Where(x => x.Fio.ToString().StartsWith(FindInput_Fio));
+
+            List<PatientModel> listAfter = new();
+            List<PatientModel> listBefore = new();
+            if(string.IsNullOrEmpty(FindInput_AfterDate) == false)
+            {
+                DateTime after = DateTime.Parse(FindInput_AfterDate);
+                listAfter.AddRange(currentPatients.Where(p => p.BirthDate > after));
+            }
+
+            if(string.IsNullOrEmpty(FindInput_BeforeDate) == false)
+            {
+                DateTime before = DateTime.Parse(FindInput_BeforeDate);
+                listBefore.AddRange(currentPatients.Where(p => p.BirthDate < before));
+            }
+
+            IEnumerable<PatientModel> list;
+            if(listBefore.Any() && listAfter.Any())
+                list = listBefore.Intersect(listAfter);
+            else
+                list = listAfter.Any() ? listAfter.Union(listBefore) : listBefore;
+
+            var result = new List<PatientModel>();
             foreach (var patient in list)
             {
-                PatientsToView.Add(patient);
+                result.Add(patient);
             }
+            return result;
+        }
+
+
+        private List<PatientModel> FindByFio(List<PatientModel> currentPatients)
+        {
+            IEnumerable<PatientModel> list;
+
+            if(_findInput_CaseSensetive)
+                list = currentPatients.Where(x => x.Fio.ToString().StartsWith(FindInput_Fio));
+            else
+                list = currentPatients.Where(x => x.Fio.ToString().ToLower().StartsWith(FindInput_Fio.ToLower()));
+
+            var result = new List<PatientModel>();
+            foreach (var patient in list)
+            {
+                result.Add(patient);
+            }
+            return result;
         }
 
         private void FindById()
         {
-            var list = _allPatients.Where(x => x.IdPatient.Equals(FindInput_PatientId));
+            int id = int.Parse(FindInput_PatientId);
+            var list = _allPatients.Where(x => x.IdPatient.Equals(id));
             foreach (var patient in list)
             {
                 PatientsToView.Add(patient);
             }
         }
 
-        private void FindByPhoneNumber()
+        private List<PatientModel> FindByPhoneNumber(List<PatientModel> currentPatients)
         {
-            var list = _allPatients.Where(x => x.PhoneNumber.ToString().StartsWith(FindInput_PhoneNumber.ToString()));
+            var list = currentPatients.Where(x => x.PhoneNumber.ToString().StartsWith(FindInput_PhoneNumber.ToString()));
+
+            List<PatientModel> result = new();
             foreach (var patient in list)
             {
-                PatientsToView.Add(patient);
+                result.Add(patient);
             }
+            return result;
         }
+
+
         #endregion
 
         #region Receiving responses from the server
@@ -374,7 +441,7 @@ namespace MedicalPlusFront.ViewModel
                 ShowMessageBox("Новий паціент був доданий!", "Результат",
                     System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                 GetAllPatients();
-                ClearInputs();
+                ClearCreatingInputs();
             }
             else
                 ShowMessageBox($"Шось пішло не так. Статус код: {result.StatusCode}", "Помилка",
