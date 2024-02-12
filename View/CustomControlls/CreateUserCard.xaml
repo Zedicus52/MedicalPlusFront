@@ -10,7 +10,11 @@
     <Border Background="#B7D5E0" BorderBrush="#575176" CornerRadius="4" BorderThickness="1"  
                     DockPanel.Dock="Top">
         <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center" Orientation="Vertical" Margin="5">
-            <TextBlock Text="{Binding ElementName=Root, Path=TextIdCreate}" Style="{StaticResource IdCreateUser}"/>
+            <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
+                <TextBlock Margin="0" Text="Ідентифікаційний номер: " Style="{StaticResource IdCreateUser}"/>
+                <TextBlock Margin="0" Text="{Binding ElementName=Root, Path=TextIdCreate}" Style="{StaticResource IdCreateUser}"/>
+
+            </StackPanel>
             <v:TextBoxWithPlaceHolder 
                     Text="{Binding ElementName=Root, Path=SurnameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                     PlaceHolderText="Прізвище"/>
@@ -26,7 +30,7 @@
             <v:TextBoxWithPlaceHolder 
                     Text="{Binding ElementName=Root, Path=BirthdayInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                     PlaceHolderText="Дата народження"/>
-            <v:ComboxWithPlaceHolder 
+            <v:ComboxWithPlaceHolder  x:Name="GenderCombox"
                 ComboxContent="{Binding ElementName=Root, Path=AllGenders, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 ComboxSelectedItem="{Binding ElementName=Root, Path=SelectedGender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"                    
                 PlaceHolderText="Стать"

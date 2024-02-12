@@ -14,7 +14,7 @@
     <Border CornerRadius="6" BorderBrush="#575176" Background="#B7D5E0" BorderThickness="2" >
         <StackPanel  Orientation="Vertical">
             <Image  Style="{StaticResource UsersImg}"
-                    Source="{Binding ElementName=Root, Path=CardIcon, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    Source="{Binding ElementName=Root, Path=CardIcon, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Style="{StaticResource MemberButton}" Template="{StaticResource DefaultButton}"
                     Content="{Binding ElementName=Root, Path=Placeholder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
         </StackPanel>

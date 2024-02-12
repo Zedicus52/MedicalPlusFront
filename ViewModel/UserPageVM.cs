@@ -13,7 +13,7 @@ namespace MedicalPlusFront.ViewModel
     {
         #region Find Users Props
 
-        public int FindInput_PhoneNumber
+        public string FindInput_PhoneNumber
         {
             get => _findInput_PhoneNumber;
             set
@@ -23,7 +23,7 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
-        public int FindInput_PatientId
+        public string FindInput_PatientId
         {
             get => _findInput_PatientId;
             set
@@ -82,14 +82,22 @@ namespace MedicalPlusFront.ViewModel
                 {
                     PatientsToView = new ObservableCollection<PatientModel>();
 
-                    if (FindInput_PatientId != 0)
+                    List<PatientModel> searchFrom = new List<PatientModel>(_allPatients);  
+                    
+                    if (string.IsNullOrEmpty(FindInput_PatientId) == false)
                         FindById();
-                    if (FindInput_PhoneNumber != 0)
-                        FindByPhoneNumber();
+
+                    if (string.IsNullOrEmpty(FindInput_PhoneNumber) == false)
+                        searchFrom = new List<PatientModel>(FindByPhoneNumber(searchFrom));
+
                     if (string.IsNullOrEmpty(FindInput_Fio) == false)
-                        FindByFio();
+                        searchFrom = new List<PatientModel>(FindByFio(searchFrom));
 
+                    if (string.IsNullOrEmpty(FindInput_BeforeDate) == false || string.IsNullOrEmpty(FindInput_AfterDate) == false)
+                       searchFrom = new List<PatientModel>(FindByBirthday(searchFrom));
 
+                    foreach (var patient in searchFrom)
+                        PatientsToView.Add(patient);
                 }));
             }
         }
@@ -101,13 +109,14 @@ namespace MedicalPlusFront.ViewModel
                 return _clearFindCommand ?? (_clearFindCommand = new RelayCommand(() =>
                 {
                     PatientsToView = new ObservableCollection<PatientModel>(_allPatients);
+                    ClearFindInputs();
                 }));
             }
         }
 
 
-        private int _findInput_PhoneNumber;
-        private int _findInput_PatientId;
+        private string _findInput_PhoneNumber;
+        private string _findInput_PatientId;
         private string _findInput_Fio;
         private bool _findInput_CaseSensetive;
         private string _findInput_AfterDate;
@@ -118,6 +127,16 @@ namespace MedicalPlusFront.ViewModel
         #endregion
 
         #region Create User Props
+
+        public string PatientId
+        {
+            get => _patientId;
+            set
+            {
+                _patientId = value;
+                OnPropertyChanged("PatientId");
+            }
+        }
 
         public string SurnameInput
         {
@@ -138,7 +157,6 @@ namespace MedicalPlusFront.ViewModel
                 OnPropertyChanged("NameInput");
             }
         }
-
 
         public string PatronymicInput
         {
@@ -190,7 +208,7 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
-        public GenderModel SelectedGender
+        public GenderModel? SelectedGender
         {
             get => _selectedGender;
             set
@@ -199,7 +217,6 @@ namespace MedicalPlusFront.ViewModel
                 OnPropertyChanged("SelectedGender");
             }
         }
-
 
         public RelayCommand CreateUserCommand
         {
@@ -212,13 +229,17 @@ namespace MedicalPlusFront.ViewModel
                     || string.IsNullOrEmpty(_birthDateInput) || _selectedGender == null)
                         return;
 
-                    TryCreatePatient();
+                    if (_isUpdating == false)
+                        TryCreatePatient();
+                    else
+                        TryUpdatePatient();
 
                 }));
             }
         }
 
         private string _surnameInput;
+        private string _patientId;
         private string _nameInput;
         private string _patronymicInput;
         private string _phoneFaxInput;
@@ -251,13 +272,46 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
+        public PatientModel SelectedPatient
+        {
+            get => _selectedPatient;
+            set
+            {
+                _selectedPatient = value;
+                OnPropertyChanged("SelectedPatient");
+                if(value != default)
+                {
+                    SetDataToInputs();
+                    _isUpdating = true;
+                }
+            }
+        }
+
+        public RelayCommand ClearCommand
+        {
+            get
+            {
+                return _clearCommand ?? (_clearCommand = new RelayCommand(() =>
+                {
+                    _isUpdating = false;
+                    SelectedPatient = new PatientModel();
+                    ClearCreatingInputs();
+                }));
+            }
+        }
+
         private ObservableCollection<PatientModel> _allPatients;
         private ObservableCollection<PatientModel> _patientsToView;
 
         private bool _isCreationInteractable;
+        private bool _isUpdating;
+        private PatientModel _selectedPatient;
+        private RelayCommand _clearCommand;
 
         public UserPageVM()
         {
+            _selectedPatient = new PatientModel();
+            _isUpdating = false;
             _allGenders = new ObservableCollection<GenderModel>();
             _allPatients = new ObservableCollection<PatientModel>();
             _patientsToView = new ObservableCollection<PatientModel>();
@@ -267,16 +321,22 @@ namespace MedicalPlusFront.ViewModel
         protected override void SendRequests()
         {
             IsCreationInteractable = false;
-            var gendersTask = ApiAccessPoint.Instance.GetGenders(MainWindowVM.GetInstance().JwtToken);
-            gendersTask.ContinueWith(res => OnGetGenders(res.Result));
+            GetAllGenders();
             GetAllPatients();
-
         }
 
-        private void GetAllPatients()
+        private void TryUpdatePatient()
         {
-            var patientTasks = ApiAccessPoint.Instance.GetAllPatients(MainWindowVM.GetInstance().JwtToken);
-            patientTasks.ContinueWith(res => OnGetAllPatients(res.Result));
+            _selectedPatient.Fio.Surname = _surnameInput;
+            _selectedPatient.Fio.Name = _nameInput;
+            _selectedPatient.Fio.Patronymic = _patronymicInput;
+            _selectedPatient.PhoneNumber = int.Parse(_phoneFaxInput);
+            _selectedPatient.BirthDate = DateTime.Parse(_birthDateInput);
+            _selectedPatient.Gender = _selectedGender;
+
+            var res = ApiAccessPoint.Instance.UpdatePatient(_selectedPatient,
+                MainWindowVM.GetInstance().JwtToken);
+            res.ContinueWith(t => OnPatientUpdated(t.Result));
         }
 
         private void TryCreatePatient()
@@ -292,7 +352,151 @@ namespace MedicalPlusFront.ViewModel
 
             var res = ApiAccessPoint.Instance.CreatePatient(patientModel,
                 MainWindowVM.GetInstance().JwtToken);
-            res.ContinueWith(t => OnUserCreated(t.Result));
+            res.ContinueWith(t => OnPatientCreated(t.Result));
+        }
+
+        private void SetDataToInputs()
+        {
+            SurnameInput = _selectedPatient.Fio.Surname;
+            NameInput = _selectedPatient.Fio.Name;
+            PatronymicInput = _selectedPatient.Fio.Patronymic;
+            PhoneFaxInput = _selectedPatient.PhoneNumber.ToString();
+            BirthDateInput = _selectedPatient.BirthDate.ToShortDateString();
+            SelectedGender = _selectedPatient.Gender;
+        }
+
+        private void ClearFindInputs()
+        {
+            FindInput_PatientId = string.Empty;
+            FindInput_PhoneNumber = string.Empty;
+            FindInput_Fio = string.Empty;
+            FindInput_AfterDate = string.Empty;
+            FindInput_BeforeDate = string.Empty;
+            FindInput_CaseSensetive = false;
+        }
+
+        private void ClearCreatingInputs()
+        {
+            SurnameInput = string.Empty;
+            NameInput = string.Empty;
+            PatronymicInput = string.Empty;
+            PhoneFaxInput = string.Empty;
+            BirthDateInput = string.Empty;
+            SelectedGender = default;
+        }
+
+        #region Sending requests to the server
+
+        private void GetAllGenders()
+        {
+            var gendersTask = ApiAccessPoint.Instance.GetGenders(MainWindowVM.GetInstance().JwtToken);
+            gendersTask.ContinueWith(res => OnGetGenders(res.Result));
+        }
+
+        private void GetAllPatients()
+        {
+            var patientTasks = ApiAccessPoint.Instance.GetAllPatients(MainWindowVM.GetInstance().JwtToken);
+            patientTasks.ContinueWith(res => OnGetAllPatients(res.Result));
+        }
+        #endregion
+
+        #region Finding 
+
+        private List<PatientModel> FindByBirthday(List<PatientModel> currentPatients)
+        {
+
+            List<PatientModel> listAfter = new();
+            List<PatientModel> listBefore = new();
+            if(string.IsNullOrEmpty(FindInput_AfterDate) == false)
+            {
+                DateTime after = DateTime.Parse(FindInput_AfterDate);
+                listAfter.AddRange(currentPatients.Where(p => p.BirthDate > after));
+            }
+
+            if(string.IsNullOrEmpty(FindInput_BeforeDate) == false)
+            {
+                DateTime before = DateTime.Parse(FindInput_BeforeDate);
+                listBefore.AddRange(currentPatients.Where(p => p.BirthDate < before));
+            }
+
+            IEnumerable<PatientModel> list;
+            if(listBefore.Any() && listAfter.Any())
+                list = listBefore.Intersect(listAfter);
+            else
+                list = listAfter.Any() ? listAfter.Union(listBefore) : listBefore;
+
+            var result = new List<PatientModel>();
+            foreach (var patient in list)
+            {
+                result.Add(patient);
+            }
+            return result;
+        }
+
+
+        private List<PatientModel> FindByFio(List<PatientModel> currentPatients)
+        {
+            IEnumerable<PatientModel> list;
+
+            if(_findInput_CaseSensetive)
+                list = currentPatients.Where(x => x.Fio.ToString().StartsWith(FindInput_Fio));
+            else
+                list = currentPatients.Where(x => x.Fio.ToString().ToLower().StartsWith(FindInput_Fio.ToLower()));
+
+            var result = new List<PatientModel>();
+            foreach (var patient in list)
+            {
+                result.Add(patient);
+            }
+            return result;
+        }
+
+        private void FindById()
+        {
+            int id = int.Parse(FindInput_PatientId);
+            var list = _allPatients.Where(x => x.IdPatient.Equals(id));
+            foreach (var patient in list)
+            {
+                PatientsToView.Add(patient);
+            }
+        }
+
+        private List<PatientModel> FindByPhoneNumber(List<PatientModel> currentPatients)
+        {
+            var list = currentPatients.Where(x => x.PhoneNumber.ToString().StartsWith(FindInput_PhoneNumber.ToString()));
+
+            List<PatientModel> result = new();
+            foreach (var patient in list)
+            {
+                result.Add(patient);
+            }
+            return result;
+        }
+
+
+        #endregion
+
+        #region Receiving responses from the server
+
+        private void OnPatientUpdated(IFlurlResponse? result)
+        {
+            _isUpdating = false;
+            if (result == null)
+            {
+                ShowConnectionErrorMessageBox();
+                return;
+            }
+            if (result.StatusCode == 200)
+            {
+                ShowMessageBox("Данні паціента оновленні!", "Результат",
+                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                GetAllPatients();
+                ClearCreatingInputs();
+                _selectedPatient = new PatientModel();
+            }
+            else
+                ShowMessageBox($"Шось пішло не так. Статус код: {result.StatusCode}", "Помилка",
+                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
         }
 
         private void OnGetAllPatients(IFlurlResponse? result)
@@ -309,34 +513,9 @@ namespace MedicalPlusFront.ViewModel
                 PatientsToView = new ObservableCollection<PatientModel>(models);
             }
         }
-        private void FindByFio()
-        {
-            var list = _allPatients.Where(x => x.Fio.ToString().StartsWith(FindInput_Fio));
-            foreach (var patient in list)
-            {
-                PatientsToView.Add(patient);
-            }
-        }
 
-        private void FindById()
-        {
-            var list = _allPatients.Where(x => x.IdPatient.Equals(FindInput_PatientId));
-            foreach (var patient in list)
-            {
-                PatientsToView.Add(patient);
-            }
-        }
 
-        private void FindByPhoneNumber()
-        {
-            var list = _allPatients.Where(x => x.PhoneNumber.ToString().StartsWith(FindInput_PhoneNumber.ToString()));
-            foreach (var patient in list)
-            {
-                PatientsToView.Add(patient);
-            }
-        }
-
-        private void OnUserCreated(IFlurlResponse? result)
+        private void OnPatientCreated(IFlurlResponse? result)
         {
             IsCreationInteractable = true;
             if (result == null)
@@ -350,6 +529,7 @@ namespace MedicalPlusFront.ViewModel
                 ShowMessageBox("Новий паціент був доданий!", "Результат",
                     System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                 GetAllPatients();
+                ClearCreatingInputs();
             }
             else
                 ShowMessageBox($"Шось пішло не так. Статус код: {result.StatusCode}", "Помилка",
@@ -371,5 +551,6 @@ namespace MedicalPlusFront.ViewModel
                 AllGenders = new ObservableCollection<GenderModel>(list);
             }
         }
+        #endregion
     }
 }

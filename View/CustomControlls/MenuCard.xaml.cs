@@ -38,6 +38,14 @@ namespace MedicalPlusFront.View
             get { return (string)GetValue(CardIconProperty); }
             set  { SetValue(CardIconProperty, value); }
         }
+
+        public static readonly DependencyProperty CardIconImageProperty =
+            DependencyProperty.Register("CardImageIcon", typeof(BitmapImage), typeof(MenuCard));
+        public BitmapImage CardImageIcon
+        {
+            get { return (BitmapImage)GetValue(CardIconImageProperty); }
+            set { SetValue(CardIconImageProperty, value); }
+        }
         #endregion
 
         #region ButtonClickProperty

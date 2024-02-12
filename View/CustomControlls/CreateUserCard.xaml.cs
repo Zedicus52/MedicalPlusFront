@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Linq;
+using MedicalPlusFront.View.CustomControlls;
 
 namespace MedicalPlusFront.View
 {
@@ -28,8 +30,8 @@ namespace MedicalPlusFront.View
 
         public string TextIdCreate
         {
-            get { return (string)GetValue(IdCreateProperty); } 
-            set { SetValue(IdCreateProperty, value);}
+            get { return (string)GetValue(IdCreateProperty); }
+            set { SetValue(IdCreateProperty, value); }
         }
 
         #endregion
@@ -134,16 +136,34 @@ namespace MedicalPlusFront.View
         private static readonly DependencyProperty AllGenderProperty =
             DependencyProperty.Register("AllGenders", typeof(IEnumerable), typeof(CreateUserCard));
 
-        public IEnumerable AllGenders
+        public IEnumerable<GenderModel> AllGenders
         {
-            get { return (IEnumerable)GetValue(AllGenderProperty); }
+            get { return (IEnumerable<GenderModel>)GetValue(AllGenderProperty); }
             set { SetValue(AllGenderProperty, value); }
         }
 
 
         #region Selected Gender
         private static readonly DependencyProperty SelectedGenderProperty =
-            DependencyProperty.Register("SelectedGender", typeof(object), typeof(CreateUserCard));
+            DependencyProperty.Register("SelectedGender", typeof(object), typeof(CreateUserCard), new PropertyMetadata(default, OnGenderChanged));
+
+        private static void OnGenderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as CreateUserCard).SetSelectedGender(e.NewValue as GenderModel);
+        }
+
+        private void SetSelectedGender(GenderModel v)
+        {
+            if (v != null)
+            {
+                ComboxWithPlaceHolder box = (ComboxWithPlaceHolder)FindName("GenderCombox");
+
+                var list = AllGenders.ToList();
+
+                var item = list.FirstOrDefault(x => x.IdGender.Equals(v.IdGender));
+                box.SetSelectedIndex(list.IndexOf(item));
+            }
+        }
 
         public object SelectedGender
         {
@@ -205,17 +225,17 @@ namespace MedicalPlusFront.View
 
         public static IEnumerable<T> FindVisualButton<T>(DependencyObject depObj) where T : DependencyObject
         {
-            if(depObj != null)
+            if (depObj != null)
             {
                 for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
                 {
                     DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
-                    if(child != null && child is T)
+                    if (child != null && child is T)
                     {
                         yield return (T)child;
                     }
 
-                    foreach(T childofChild in FindVisualButton<T>(child))
+                    foreach (T childofChild in FindVisualButton<T>(child))
                     {
                         yield return childofChild;
                     }

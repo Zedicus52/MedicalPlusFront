@@ -5,11 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MedicalPlusFront.View"
       xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" 
+      xmlns:convertors ="clr-namespace:MedicalPlusFront.Convertors"
       d:DataContext="{d:DesignInstance Type=viewmodel:MainMenuVM}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainMenuPage">
-
+    <Page.Resources>
+        <convertors:StringToImageConvertor x:Key="ImageNameToImage"/>
+    </Page.Resources>
     <Grid Background="#E1EFF0">
 
         <Grid.ColumnDefinitions>
@@ -20,12 +23,12 @@
 
         <Grid Grid.Column="0" Margin="20, 22, 20, 20">
             <local:MenuCard  ButtonClick="{Binding OpenUsers}"
-                CardIcon="../Icons/users.png" Placeholder="Користувачі"/>
+               CardIcon="/MedicalPlusFront;component/View/Icons/users.png" Placeholder="Користувачі"/>
         </Grid>
 
         <Grid Grid.Column="1" Margin="20, 22, 20, 20">
             <local:MenuCard ButtonClick="{Binding OpenJournal}"
-                CardIcon="../Icons/log.png" Placeholder="Журнал запису"/>
+                CardIcon="/MedicalPlusFront;component/View/Icons/log.png" Placeholder="Журнал запису"/>
         </Grid>
 
         <Grid Grid.Column="2">
@@ -43,7 +46,7 @@
 
             <Grid Visibility="{Binding AdminComponentsVisibility, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="20">
                 <local:MenuCard ButtonClick="{Binding OpenEmployees}"
-                    CardIcon="../Icons/employes.png" Placeholder="Працівники" Margin="0, 0, 0, 130"/>
+                    CardIcon="/MedicalPlusFront;component/View/Icons/employes.png" Placeholder="Працівники" Margin="0, 0, 0, 130"/>
             </Grid>
 
         </Grid>
