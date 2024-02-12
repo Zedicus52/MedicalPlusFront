@@ -12,7 +12,7 @@
       Title="UsersPage">
 
     <Grid Background="#E1EFF0">
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
@@ -23,7 +23,7 @@
             <StackPanel>
                 <Button Command="{Binding BackCommand}" Content="Назад" Template="{StaticResource DefaultButton}"/>
                 <ScrollViewer>
-                    <ListBox  ItemsSource="{Binding PatientsToView}" HorizontalContentAlignment="Stretch">
+                    <ListBox  ItemsSource="{Binding PatientsToView}" SelectedItem="{Binding SelectedPatient}" HorizontalContentAlignment="Stretch">
                         <ListBox.Resources>
                             <convertors:GenderToImageConvertor x:Key="GenderToImage"/>
                         </ListBox.Resources>
@@ -55,17 +55,22 @@
         </Grid>
 
         <Grid Margin="15" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
-            <local:CreateUserCard 
-                IsEnabled="{Binding IsCreationInteractable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                TextIdCreate="Ідентифікаційний номер: 1203"
-                NameInput="{Binding NameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                SurnameInput="{Binding SurnameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                PatronymicInput="{Binding PatronymicInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                PhoneNumberInput="{Binding PhoneFaxInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                BirthdayInput="{Binding BirthDateInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                AllGenders="{Binding AllGenders, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                SelectedGender="{Binding SelectedGender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                SaveCommand="{Binding CreateUserCommand}"/>
+            <StackPanel>
+                <local:CreateUserCard 
+                    IsEnabled="{Binding IsCreationInteractable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    TextIdCreate="{Binding PatientId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    NameInput="{Binding NameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    SurnameInput="{Binding SurnameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    PatronymicInput="{Binding PatronymicInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    PhoneNumberInput="{Binding PhoneFaxInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    BirthdayInput="{Binding BirthDateInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    AllGenders="{Binding AllGenders, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    SelectedGender="{Binding SelectedGender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    SaveCommand="{Binding CreateUserCommand}"/>
+                <Button Command="{Binding ClearCommand}" Content="Очистити" Template="{StaticResource DefaultButton}"/>
+            </StackPanel>
+
+
         </Grid>
     </Grid>
 </Page>

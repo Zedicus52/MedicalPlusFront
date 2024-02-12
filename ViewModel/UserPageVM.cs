@@ -5,9 +5,7 @@ using MedicalPlusFront.WebModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Metrics;
 using System.Linq;
-using System.Windows.Threading;
 
 namespace MedicalPlusFront.ViewModel
 {
@@ -130,6 +128,16 @@ namespace MedicalPlusFront.ViewModel
 
         #region Create User Props
 
+        public string PatientId
+        {
+            get => _patientId;
+            set
+            {
+                _patientId = value;
+                OnPropertyChanged("PatientId");
+            }
+        }
+
         public string SurnameInput
         {
             get => _surnameInput;
@@ -149,7 +157,6 @@ namespace MedicalPlusFront.ViewModel
                 OnPropertyChanged("NameInput");
             }
         }
-
 
         public string PatronymicInput
         {
@@ -211,7 +218,6 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
-
         public RelayCommand CreateUserCommand
         {
             get
@@ -223,13 +229,17 @@ namespace MedicalPlusFront.ViewModel
                     || string.IsNullOrEmpty(_birthDateInput) || _selectedGender == null)
                         return;
 
-                    TryCreatePatient();
+                    if (_isUpdating == false)
+                        TryCreatePatient();
+                    else
+                        TryUpdatePatient();
 
                 }));
             }
         }
 
         private string _surnameInput;
+        private string _patientId;
         private string _nameInput;
         private string _patronymicInput;
         private string _phoneFaxInput;
@@ -262,13 +272,46 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
+        public PatientModel SelectedPatient
+        {
+            get => _selectedPatient;
+            set
+            {
+                _selectedPatient = value;
+                OnPropertyChanged("SelectedPatient");
+                if(value != default)
+                {
+                    SetDataToInputs();
+                    _isUpdating = true;
+                }
+            }
+        }
+
+        public RelayCommand ClearCommand
+        {
+            get
+            {
+                return _clearCommand ?? (_clearCommand = new RelayCommand(() =>
+                {
+                    _isUpdating = false;
+                    SelectedPatient = new PatientModel();
+                    ClearCreatingInputs();
+                }));
+            }
+        }
+
         private ObservableCollection<PatientModel> _allPatients;
         private ObservableCollection<PatientModel> _patientsToView;
 
         private bool _isCreationInteractable;
+        private bool _isUpdating;
+        private PatientModel _selectedPatient;
+        private RelayCommand _clearCommand;
 
         public UserPageVM()
         {
+            _selectedPatient = new PatientModel();
+            _isUpdating = false;
             _allGenders = new ObservableCollection<GenderModel>();
             _allPatients = new ObservableCollection<PatientModel>();
             _patientsToView = new ObservableCollection<PatientModel>();
@@ -280,6 +323,20 @@ namespace MedicalPlusFront.ViewModel
             IsCreationInteractable = false;
             GetAllGenders();
             GetAllPatients();
+        }
+
+        private void TryUpdatePatient()
+        {
+            _selectedPatient.Fio.Surname = _surnameInput;
+            _selectedPatient.Fio.Name = _nameInput;
+            _selectedPatient.Fio.Patronymic = _patronymicInput;
+            _selectedPatient.PhoneNumber = int.Parse(_phoneFaxInput);
+            _selectedPatient.BirthDate = DateTime.Parse(_birthDateInput);
+            _selectedPatient.Gender = _selectedGender;
+
+            var res = ApiAccessPoint.Instance.UpdatePatient(_selectedPatient,
+                MainWindowVM.GetInstance().JwtToken);
+            res.ContinueWith(t => OnPatientUpdated(t.Result));
         }
 
         private void TryCreatePatient()
@@ -295,7 +352,17 @@ namespace MedicalPlusFront.ViewModel
 
             var res = ApiAccessPoint.Instance.CreatePatient(patientModel,
                 MainWindowVM.GetInstance().JwtToken);
-            res.ContinueWith(t => OnUserCreated(t.Result));
+            res.ContinueWith(t => OnPatientCreated(t.Result));
+        }
+
+        private void SetDataToInputs()
+        {
+            SurnameInput = _selectedPatient.Fio.Surname;
+            NameInput = _selectedPatient.Fio.Name;
+            PatronymicInput = _selectedPatient.Fio.Patronymic;
+            PhoneFaxInput = _selectedPatient.PhoneNumber.ToString();
+            BirthDateInput = _selectedPatient.BirthDate.ToShortDateString();
+            SelectedGender = _selectedPatient.Gender;
         }
 
         private void ClearFindInputs()
@@ -411,6 +478,27 @@ namespace MedicalPlusFront.ViewModel
 
         #region Receiving responses from the server
 
+        private void OnPatientUpdated(IFlurlResponse? result)
+        {
+            _isUpdating = false;
+            if (result == null)
+            {
+                ShowConnectionErrorMessageBox();
+                return;
+            }
+            if (result.StatusCode == 200)
+            {
+                ShowMessageBox("Данні паціента оновленні!", "Результат",
+                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                GetAllPatients();
+                ClearCreatingInputs();
+                _selectedPatient = new PatientModel();
+            }
+            else
+                ShowMessageBox($"Шось пішло не так. Статус код: {result.StatusCode}", "Помилка",
+                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+        }
+
         private void OnGetAllPatients(IFlurlResponse? result)
         {
             if (result == null)
@@ -427,7 +515,7 @@ namespace MedicalPlusFront.ViewModel
         }
 
 
-        private void OnUserCreated(IFlurlResponse? result)
+        private void OnPatientCreated(IFlurlResponse? result)
         {
             IsCreationInteractable = true;
             if (result == null)

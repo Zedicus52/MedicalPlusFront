@@ -104,6 +104,22 @@ public class ApiAccessPoint
         }
     }
 
+    public async Task<IFlurlResponse?> UpdatePatient(PatientModel patient, string jwtToken)
+    {
+        try
+        {
+            return await _baseUrl.AppendPathSegment("patient/update")
+                .WithOAuthBearerToken(jwtToken)
+                .PutJsonAsync(patient);
+        }
+        catch (FlurlHttpException e)
+        {
+            if (e.StatusCode != null)
+                return new FlurlResponse(e.Call);
+            return null;
+        }
+    }
+
     public async Task<IFlurlResponse?> GetAllPatients(string jwtToken)
     {
         try

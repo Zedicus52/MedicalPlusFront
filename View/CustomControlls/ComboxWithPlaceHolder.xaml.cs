@@ -65,6 +65,12 @@ namespace MedicalPlusFront.View.CustomControlls
             box.SelectedIndex = -1;
         }
 
+        public void SetSelectedIndex(int v)
+        {
+            ComboBox box = (ComboBox)FindName("MainComboBox");
+            box.SelectedIndex = v;
+        }
+
         public object ComboxSelectedItem
         {
             get { return (object)GetValue(ComboxSelectedProperty); }
