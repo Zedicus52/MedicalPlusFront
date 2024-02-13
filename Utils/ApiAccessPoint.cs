@@ -144,7 +144,7 @@ public class ApiAccessPoint
     {
         try
         {
-            return await _baseUrl.AppendPathSegment("auth/regUser")
+            return await _baseUrl.AppendPathSegment("auth/create")
                 .WithOAuthBearerToken(jwtToken)
                 .PostJsonAsync(employeeModel);
         }

@@ -188,14 +188,19 @@ namespace MedicalPlusFront.ViewModel
             {
                 return _findCommand ?? (_findCommand = new RelayCommand(() =>
                 {
-                    EmployeesView = new ObservableCollection<EmployeeModel>();
+                    EmployeeToView = new ObservableCollection<EmployeeModel>();
+
+                    List<EmployeeModel> searchForm = new List<EmployeeModel>(_allEmployees);
 
                     if (!string.IsNullOrEmpty(FilterEmployeeRole))
                         FindByRole();
                     if (!string.IsNullOrEmpty(FilterEmployeeId))
                         FindById();
                     if (!string.IsNullOrEmpty(FilterEmployeeFio))
-                        FindByFio();
+                        searchForm = new List<EmployeeModel>(FindByFio(searchForm));
+
+                    foreach (var employee in searchForm)
+                        EmployeeToView.Add(employee);
 
                 }));
             }
@@ -207,12 +212,13 @@ namespace MedicalPlusFront.ViewModel
             {
                 return _clearCommand ?? (_clearCommand = new RelayCommand(() =>
                 {
-                    EmployeesView = new ObservableCollection<EmployeeModel>(_allEmployees);
+                    _employeesToView = new ObservableCollection<EmployeeModel>(_allEmployees);
                 }));
             }
         }
 
         private bool _caseSensetive;
+        private bool _isUpdating;
         private string _filterEmployeeRole;
         private string _filterEmployeeId;
         private string _filterEmployeeFio;
@@ -227,19 +233,27 @@ namespace MedicalPlusFront.ViewModel
             employeesTasks.ContinueWith(task => OnGetAllEmployees(task.Result));
         }
 
+        private void GetAllRoles()
+        {
+            var res = ApiAccessPoint.Instance.GetUserRoles(MainWindowVM.GetInstance().JwtToken);
+            res.ContinueWith((task) => OnGetRoles(task.Result));
+        }
+
         private ObservableCollection<EmployeeModel> _allEmployees;
-        private ObservableCollection<EmployeeModel> EmployeesView;
+        private ObservableCollection<EmployeeModel> _employeesToView;
+        private ObservableCollection<GenderModel> _allGenders;
 
         private void TryCreateEmployee()
         {
             EmployeeModel employeeModel = new();
+            employeeModel.UserName = _employeeLogin;
+            employeeModel.Password = _employeePassword;
+            employeeModel.Email = _employeeEmail;
             employeeModel.Fio.Name = _employeeName;
             employeeModel.Fio.Surname = _employeeSurname;
             employeeModel.Fio.Patronymic = _employeePatronymic;
-            employeeModel.Email = _employeeEmail;
+            employeeModel.Gender.Name = _employeeGender;
             employeeModel.Role = _employeeRole;
-            employeeModel.Login = _employeeLogin;
-            employeeModel.Password = _employeePassword;
 
             var res = ApiAccessPoint.Instance.CreateEmployee(employeeModel, 
                 MainWindowVM.GetInstance().JwtToken);
@@ -257,7 +271,7 @@ namespace MedicalPlusFront.ViewModel
             {
                 List<EmployeeModel> models = result.GetJsonAsync<List<EmployeeModel>>().Result;
                 _allEmployees = new ObservableCollection<EmployeeModel>(models);
-                EmployeesView = new ObservableCollection<EmployeeModel>(models);
+                EmployeeToView = new ObservableCollection<EmployeeModel>(models);
             }
         }
 
@@ -266,7 +280,7 @@ namespace MedicalPlusFront.ViewModel
             var list = _allEmployees.Where(x => x.Role.Equals(EmployeeRole));
             foreach (var employee in list)
             {
-                EmployeesView.Add(employee);
+                _employeesToView.Add(employee);
             }
         }
 
@@ -275,17 +289,24 @@ namespace MedicalPlusFront.ViewModel
             var list = _allEmployees.Where(x => x.IdEmployee.Equals(FilterEmployeeId));
             foreach(var employee in list)
             {
-                EmployeesView.Add(employee);
+                _employeesToView.Add(employee);
             }
         }
 
-        private void FindByFio()
+        private List<EmployeeModel> FindByFio(List<EmployeeModel> currentEmployee)
         {
-            var list = _allEmployees.Where(x => x.Fio.ToString().StartsWith(FilterEmployeeFio));
+            IEnumerable<EmployeeModel> list;
+            if (_caseSensetive)
+                list = currentEmployee.Where(x => x.Fio.ToString().StartsWith(FilterEmployeeFio));
+            else
+                list = currentEmployee.Where(x => x.Fio.ToString().ToLower().StartsWith(FilterEmployeeFio.ToLower()));
+
+            var result = new List<EmployeeModel>();
             foreach(var employee in list)
             {
-                EmployeesView.Add(employee);
+                result.Add(employee);   
             }
+            return result;
         }
 
         private void OnEmoloyeeCreated(IFlurlResponse? result)
@@ -308,35 +329,42 @@ namespace MedicalPlusFront.ViewModel
                     System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
         }
 
-        public ObservableCollection<SomeUser> ListOfPeople
+        public ObservableCollection<EmployeeModel> EmployeeToView
         {
-            get => _listPeople;
+            get => _employeesToView;
             set
             {
-                _listPeople = value;
-                OnPropertyChanged("ListOfPeople");
+                _employeesToView = value;
+                OnPropertyChanged("EmployeeToView");
             }
         }
 
-        private ObservableCollection<SomeUser> _listPeople;
+        public ObservableCollection<GenderModel> AllGenders
+        {
+            get => _allGenders;
+            set
+            {
+                _allGenders = value;
+                OnPropertyChanged("AllGenders");
+            }
+        }
 
         public EmployeesPageVM()
         {
+            _isUpdating = true;
             _employeesRoles = new ObservableCollection<Role>();
+            _employeesToView = new ObservableCollection<EmployeeModel>();
+            _allGenders = new ObservableCollection<GenderModel>();
+            _allEmployees = new ObservableCollection<EmployeeModel>();
             SendRequests();
-            _listPeople = new ObservableCollection<SomeUser>
-           {
-               new SomeUser { Id = 1, Birthday="2000.02.05", Fio = "Some some some"},
-               new SomeUser { Id = 2, Birthday="2000.02.05", Fio = "Some some some"},
-               new SomeUser { Id = 3, Birthday="2000.02.05", Fio = "Some some some"},
-               new SomeUser { Id = 4, Birthday="2000.02.05", Fio = "Some some some"}
-           };
         }
+
 
         protected override void SendRequests()
         {
-            var res = ApiAccessPoint.Instance.GetUserRoles(MainWindowVM.GetInstance().JwtToken);
-            res.ContinueWith((task) => OnGetRoles(task.Result));
+            IsCreationInteractable = true;
+            GetAllEmployees();
+            GetAllRoles();
         }
 
         private void OnGetRoles(IFlurlResponse? response)

@@ -22,7 +22,7 @@
             <StackPanel>
                 <Button Command="{Binding BackCommand}" Content="Назад" Template="{StaticResource DefaultButton}"/>
                 <ScrollViewer>
-                    <ListBox  ItemsSource="{Binding ListOfPeople}" HorizontalContentAlignment="Stretch">
+                    <ListBox  ItemsSource="{Binding EmployeeToView}" HorizontalContentAlignment="Stretch">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <v:UserCard
