@@ -75,6 +75,30 @@ namespace MedicalPlusFront.View
             set { SetValue(CaseSensetiveProperty, value); }
         }
         #endregion
+
+        #region FindEmployeeProperty
+        private static readonly DependencyProperty FindEmployeeProperty =
+            DependencyProperty.Register("FindCommand", typeof(ICommand), typeof(SortEmployeeCard));
+
+        public ICommand FindCommand
+        {
+            get { return (ICommand)GetValue(FindEmployeeProperty); }
+            set { SetValue(FindEmployeeProperty, value); }
+        }
+        #endregion
+
+        #region ClearEmployeeProperty
+        private static readonly DependencyProperty ClearEmployeeProperty =
+            DependencyProperty.Register("ClearCommand", typeof(ICommand), typeof(SortEmployeeCard));
+
+        public ICommand ClearCommand
+        {
+            get { return (ICommand)GetValue(ClearEmployeeProperty); }
+            set { SetValue(ClearEmployeeProperty, value); }
+        }
+        #endregion
+
+
         public SortEmployeeCard()
         {
             InitializeComponent();

@@ -24,6 +24,12 @@
             <CheckBox 
                 IsChecked="{Binding ElementName=Root, Path=CaseSensetive, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                 Style="{StaticResource CheckRegister}"/>
+            <Button Content="Знайти" 
+                    Template="{StaticResource DefaultButton}" 
+                    Command="{Binding ElementName=Root, Path=FindCommand}"/>
+            <Button Content="Очистити" 
+                    Template="{StaticResource DefaultButton}"
+                    Command="{Binding ElementName=Root, Path=ClearCommand}"/>
         </StackPanel>
     </Border>
 </UserControl>

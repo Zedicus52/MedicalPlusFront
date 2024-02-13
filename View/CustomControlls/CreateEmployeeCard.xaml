@@ -24,6 +24,9 @@
                 <v:TextBoxWithPlaceHolder
                     Text="{Binding ElementName=Root, Path=PatronymicInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     PlaceHolderText="По Батькові"/>
+                <v:TextBoxWithPlaceHolder
+                    Text="{Binding ElementName=Root, Path=EmailInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    PlaceHolderText="Електронна пошта"/>
                 <v:ComboxWithPlaceHolder 
                     PlaceHolderText="Роль" 
                     ComboxContent="{Binding ElementName=Root, Path=UserRoles, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"

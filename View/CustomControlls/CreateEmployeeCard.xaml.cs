@@ -160,6 +160,18 @@ namespace MedicalPlusFront.View
         }
         #endregion
 
+        #region EmailProperty
+        private static readonly DependencyProperty EmailProperty =
+            DependencyProperty.Register("EmailInput", typeof(string), typeof(CreateEmployeeCard));
+
+        public string EmailInput
+        {
+            get { return(string)GetValue(EmailProperty); }
+            set { SetValue(EmailProperty, value); }
+        }
+
+        #endregion
+
         #region SaveButtonCommandProperty
         public static readonly DependencyProperty SaveButtonCommandProperty =
             DependencyProperty.Register("SaveCommand", typeof(ICommand),

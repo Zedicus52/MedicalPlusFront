@@ -43,7 +43,9 @@
                 Roles="{Binding EmployeesRoles, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 SelectedRole="{Binding FilterEmployeeRole, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 FioInput="{Binding FilterEmployeeFio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                IdNumberInput="{Binding FilterEmployeeId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                IdNumberInput="{Binding FilterEmployeeId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                FindCommand="{Binding FindEmployee}"
+                ClearCommand="{Binding ClearEmployee}"/>
         </Grid>
 
         <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5">
@@ -52,6 +54,7 @@
                 SurnameInput="{Binding EmployeeSurname, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 NameInput="{Binding EmployeeName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 PatronymicInput="{Binding EmployeePatronymic, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                EmailInput="{Binding EmployeeEmail, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 SelectedRole="{Binding EmployeeRole, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 UserRoles="{Binding EmployeesRoles, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 LoginInput="{Binding EmployeeLogin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"

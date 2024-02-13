@@ -137,4 +137,40 @@ public class ApiAccessPoint
     }
 
     #endregion
+
+    #region Users
+
+    public async Task<IFlurlResponse?> CreateEmployee(EmployeeModel employeeModel, string jwtToken)
+    {
+        try
+        {
+            return await _baseUrl.AppendPathSegment("auth/regUser")
+                .WithOAuthBearerToken(jwtToken)
+                .PostJsonAsync(employeeModel);
+        }
+        catch(FlurlHttpException e)
+        {
+            if(e.StatusCode != null)
+                return new FlurlResponse(e.Call);
+            return null;
+        }
+    }
+
+    public async Task<IFlurlResponse?> GetAllEmployees(string jwtToken)
+    {
+        try
+        {
+            return await _baseUrl.AppendPathSegment("user/getAll")
+                .WithOAuthBearerToken(jwtToken)
+                .GetAsync();
+        }
+        catch(FlurlHttpException e)
+        {
+            if (e.StatusCode != null)
+                return new FlurlResponse(e.Call);
+            return null;
+        }
+    }
+
+    #endregion
 }
