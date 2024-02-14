@@ -58,7 +58,7 @@
             <StackPanel>
                 <local:CreateUserCard 
                     IsEnabled="{Binding IsCreationInteractable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    TextIdCreate="{Binding PatientId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    TextIdCreate="{Binding SelectedPatient.IdPatient, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     NameInput="{Binding NameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     SurnameInput="{Binding SurnameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     PatronymicInput="{Binding PatronymicInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"

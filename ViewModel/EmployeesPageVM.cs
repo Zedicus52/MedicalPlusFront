@@ -110,6 +110,8 @@ namespace MedicalPlusFront.ViewModel
             {
                 return _clearEmployee ?? (_clearEmployee = new RelayCommand(() =>
                 {
+                    IsNotUpdating = true;
+                    _selectedEmployee = new EmployeeModel();
                     ClearCreatingInputs();
                 }));
             }
@@ -121,12 +123,17 @@ namespace MedicalPlusFront.ViewModel
             {
                 return _createEmployee ?? (_createEmployee = new RelayCommand(() =>
                 {
-                    if (string.IsNullOrEmpty(_employeeSurname) || string.IsNullOrEmpty(_employeeName) || string.IsNullOrEmpty(_employeeEmail) ||
-                    string.IsNullOrEmpty(_employeePatronymic) || _employeeRole == null || string.IsNullOrEmpty(_employeeLogin) ||
-                    string.IsNullOrEmpty(_employeePassword))
-                        return;
+                    if (!string.IsNullOrEmpty(_employeeSurname) && !string.IsNullOrEmpty(_employeeName) && !string.IsNullOrEmpty(_employeeEmail) &&
+                    !string.IsNullOrEmpty(_employeePatronymic) && _employeeRole != null && _selectedGender != null && !string.IsNullOrEmpty(_employeeLogin) &&
+                    !string.IsNullOrEmpty(_employeePassword) && IsNotUpdating)
+                        TryCreateEmployee();
+                    else if(IsNotUpdating == false && !string.IsNullOrEmpty(_employeeSurname) && !string.IsNullOrEmpty(_employeeName) 
+                    && !string.IsNullOrEmpty(_employeePatronymic) && _employeeRole != null && _selectedGender != null)
+                    {
+                        TryUpdateEmployee();
+                    }
 
-                    TryCreateEmployee();
+
                 }));
             }
         }
@@ -231,7 +238,7 @@ namespace MedicalPlusFront.ViewModel
         }
 
         private bool _caseSensetive;
-        private bool _isUpdating;
+        private bool _isNotUpdating;
         private Role _filterEmployeeRole;
         private string _filterEmployeeId;
         private string _filterEmployeeFio;
@@ -239,6 +246,22 @@ namespace MedicalPlusFront.ViewModel
         private RelayCommand _findCommand;
         private RelayCommand _clearFindCommand;
         #endregion
+
+        public EmployeeModel? SelectedEmployee
+        {
+            get => _selectedEmployee;
+            set
+            {
+                _selectedEmployee = value;
+                OnPropertyChanged("SelectedEmployee");
+                if (value != default)
+                {
+                    IsNotUpdating = false;
+                    SetDataToInputs();
+                }
+            }
+        }
+
 
         public GenderModel? SelectedGender
         {
@@ -270,14 +293,26 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
+        public bool IsNotUpdating
+        {
+            get => _isNotUpdating;
+            set
+            {
+                _isNotUpdating = value;
+                OnPropertyChanged("IsNotUpdating");
+            }
+        }
+
         private ObservableCollection<EmployeeModel> _allEmployees;
         private ObservableCollection<EmployeeModel> _employeesToView;
         private ObservableCollection<GenderModel> _allGenders;
         private GenderModel _selectedGender;
+        private EmployeeModel _selectedEmployee;
 
         public EmployeesPageVM()
         {
-            _isUpdating = true;
+            _isNotUpdating = true;
+            _selectedEmployee = new EmployeeModel();
             _employeesRoles = new ObservableCollection<Role>();
             _employeesToView = new ObservableCollection<EmployeeModel>();
             _allGenders = new ObservableCollection<GenderModel>();
@@ -302,8 +337,32 @@ namespace MedicalPlusFront.ViewModel
             res.ContinueWith(x => OnEmoloyeeCreated(x.Result));
         }
 
+        private void TryUpdateEmployee()
+        {
+            _selectedEmployee.Fio.Surname = _employeeSurname;
+            _selectedEmployee.Fio.Name = _employeeName;
+            _selectedEmployee.Fio.Patronymic = _employeePatronymic;
+            _selectedEmployee.Gender = _selectedGender;
+            _selectedEmployee.Role = _employeeRole;
+
+
+            var res = ApiAccessPoint.Instance.UpdateEmployee(_selectedEmployee,
+                MainWindowVM.GetInstance().JwtToken);
+            res.ContinueWith(t => OnEmployeeUpdated(t.Result));
+        }
+
+        private void SetDataToInputs()
+        {
+            EmployeeSurname= _selectedEmployee.Fio.Surname;
+            EmployeeName = _selectedEmployee.Fio.Name;
+            EmployeePatronymic = _selectedEmployee.Fio.Patronymic;
+            EmployeeRole = _selectedEmployee.Role;
+            SelectedGender = _selectedEmployee.Gender;
+        }
+
         private void ClearCreatingInputs()
         {
+            SelectedEmployee = default;
             EmployeeLogin = string.Empty;
             EmployeeName = string.Empty;
             EmployeePatronymic = string.Empty;
@@ -363,7 +422,7 @@ namespace MedicalPlusFront.ViewModel
 
             if (result.StatusCode == 200)
             {
-                ShowMessageBox("Новий паціент був доданий!", "Результат",
+                ShowMessageBox("Новий працівник був доданий!", "Результат",
                     System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                 ClearCreatingInputs();
                 GetAllEmployees();
@@ -416,6 +475,27 @@ namespace MedicalPlusFront.ViewModel
                 List<Role> roles = response.GetJsonAsync<List<Role>>().Result;
                 EmployeesRoles = new ObservableCollection<Role>(roles);
             }
+        }
+
+        private void OnEmployeeUpdated(IFlurlResponse? result)
+        {
+            IsNotUpdating = true;
+            if (result == null)
+            {
+                ShowConnectionErrorMessageBox();
+                return;
+            }
+            if (result.StatusCode == 200)
+            {
+                ShowMessageBox("Данні працівника оновленні!", "Результат",
+                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                GetAllEmployees();
+                ClearCreatingInputs();
+                _selectedEmployee = new EmployeeModel();
+            }
+            else
+                ShowMessageBox($"Шось пішло не так. Статус код: {result.StatusCode}", "Помилка",
+                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
         }
 
         #endregion

@@ -111,23 +111,43 @@ namespace MedicalPlusFront.View
 
         #region RolesProperty
         private static readonly DependencyProperty RolesProperty =
-            DependencyProperty.Register("UserRoles", typeof(IEnumerable), typeof(CreateEmployeeCard));
+            DependencyProperty.Register("UserRoles", typeof(IEnumerable<Role>), typeof(CreateEmployeeCard));
 
-        public IEnumerable UserRoles
+       
+
+        public IEnumerable<Role> UserRoles
         {
-            get { return (IEnumerable)GetValue(RolesProperty); }
+            get { return (IEnumerable<Role>)GetValue(RolesProperty); }
             set { SetValue(RolesProperty, value); }
         }
         #endregion
 
         #region SelectedRoleProperty
         private static readonly DependencyProperty SelectedRoleProperty =
-            DependencyProperty.Register("SelectedRole", typeof(object), typeof(CreateEmployeeCard));
+            DependencyProperty.Register("SelectedRole", typeof(object), typeof(CreateEmployeeCard), new PropertyMetadata(default, OnRoleChanged));
 
         public object SelectedRole
         {
             get { return (object)GetValue(SelectedRoleProperty); }
             set { SetValue(SelectedRoleProperty, value); }
+        }
+
+        private static void OnRoleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as CreateEmployeeCard).SetSelectedRole(e.NewValue as Role);
+        }
+
+        private void SetSelectedRole(Role v)
+        {
+            if (v != null)
+            {
+                ComboxWithPlaceHolder box = (ComboxWithPlaceHolder)FindName("RolesCombox");
+
+                var list = UserRoles.ToList();
+
+                var item = list.FirstOrDefault(x => x.Id.Equals(v.Id));
+                box.SetSelectedIndex(list.IndexOf(item));
+            }
         }
         #endregion
 
@@ -183,6 +203,17 @@ namespace MedicalPlusFront.View
         {
             get { return (ICommand)GetValue(SaveButtonCommandProperty); }
             set { SetValue(SaveButtonCommandProperty, value); }
+        }
+        #endregion
+
+        #region IsUpdating
+        private static readonly DependencyProperty IsUpdatingProperty =
+            DependencyProperty.Register("IsUpdating", typeof(bool), typeof(CreateEmployeeCard));
+
+        public bool IsUpdating
+        {
+            get { return (bool)GetValue(IsUpdatingProperty); }
+            set { SetValue(IsUpdatingProperty, value); }
         }
         #endregion
 

@@ -24,7 +24,7 @@
             <StackPanel>
                 <Button Command="{Binding BackCommand}" Content="Назад" Template="{StaticResource DefaultButton}"/>
                 <ScrollViewer>
-                    <ListBox  ItemsSource="{Binding EmployeeToView}" HorizontalContentAlignment="Stretch">
+                    <ListBox  ItemsSource="{Binding EmployeeToView}" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedEmployee}">
                         <ListBox.Resources>
                             <convertors:GenderToImageConvertor x:Key="GenderToImage"/>
                         </ListBox.Resources>
@@ -56,7 +56,8 @@
         <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5">
             <StackPanel>
             <v:CreateEmployeeCard 
-                TextIdCreate="Ідентифікаційний номер: 1203"
+                IsUpdating="{Binding IsNotUpdating, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                TextIdCreate="{Binding SelectedEmployee.UserId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 SurnameInput="{Binding EmployeeSurname, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 NameInput="{Binding EmployeeName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 PatronymicInput="{Binding EmployeePatronymic, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
