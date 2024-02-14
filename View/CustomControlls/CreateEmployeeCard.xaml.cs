@@ -1,4 +1,5 @@
 ﻿using MedicalPlusFront.ValidationRules;
+using MedicalPlusFront.View.CustomControlls;
 using MedicalPlusFront.WebModels;
 using System;
 using System.Collections;
@@ -184,6 +185,48 @@ namespace MedicalPlusFront.View
             set { SetValue(SaveButtonCommandProperty, value); }
         }
         #endregion
+
+        #region AllGenders
+        private static readonly DependencyProperty AllGenderProperty =
+            DependencyProperty.Register("AllGenders", typeof(IEnumerable), typeof(CreateEmployeeCard));
+
+        public IEnumerable<GenderModel> AllGenders
+        {
+            get { return (IEnumerable<GenderModel>)GetValue(AllGenderProperty); }
+            set { SetValue(AllGenderProperty, value); }
+        }
+
+
+        #region Selected Gender
+        private static readonly DependencyProperty SelectedGenderProperty =
+            DependencyProperty.Register("SelectedGender", typeof(object), typeof(CreateEmployeeCard), new PropertyMetadata(default, OnGenderChanged));
+
+        private static void OnGenderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as CreateEmployeeCard).SetSelectedGender(e.NewValue as GenderModel);
+        }
+
+        private void SetSelectedGender(GenderModel v)
+        {
+            if (v != null)
+            {
+                ComboxWithPlaceHolder box = (ComboxWithPlaceHolder)FindName("GenderCombox");
+
+                var list = AllGenders.ToList();
+
+                var item = list.FirstOrDefault(x => x.IdGender.Equals(v.IdGender));
+                box.SetSelectedIndex(list.IndexOf(item));
+            }
+        }
+
+        public object SelectedGender
+        {
+            get { return (IEnumerable)GetValue(SelectedGenderProperty); }
+            set { SetValue(SelectedGenderProperty, value); }
+        }
+        #endregion
+        #endregion
+
 
         private PasswordBox _mainPasswordBox;
         private Button _lastClickedButton;

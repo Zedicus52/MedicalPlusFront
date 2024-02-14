@@ -6,6 +6,8 @@
       xmlns:v="clr-namespace:MedicalPlusFront.View"
       xmlns:vm="clr-namespace:MedicalPlusFront.ViewModel"
       mc:Ignorable="d" 
+      xmlns:convertors="clr-namespace:MedicalPlusFront.Convertors"
+      
       d:DesignHeight="1000" d:DesignWidth="1500"
       d:DataContext="{d:DesignInstance Type=vm:EmployeesPageVM}"
       Title="EmployeePage">
@@ -23,13 +25,16 @@
                 <Button Command="{Binding BackCommand}" Content="Назад" Template="{StaticResource DefaultButton}"/>
                 <ScrollViewer>
                     <ListBox  ItemsSource="{Binding EmployeeToView}" HorizontalContentAlignment="Stretch">
+                        <ListBox.Resources>
+                            <convertors:GenderToImageConvertor x:Key="GenderToImage"/>
+                        </ListBox.Resources>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <v:UserCard
-                    MainTitleText="{Binding Fio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    AdditionInfo="{Binding Birthday, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    UserIdText="{Binding Id, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    IconPath="../Icons/man.png"/>
+                    MainTitleText="{Binding Fio, UpdateSourceTrigger=PropertyChanged}"
+                    AdditionInfo="{Binding Role.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    UserIdText="{Binding UserId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    IconImage="{Binding Gender.IdGender, Converter={StaticResource GenderToImage}}"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -45,10 +50,11 @@
                 FioInput="{Binding FilterEmployeeFio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 IdNumberInput="{Binding FilterEmployeeId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 FindCommand="{Binding FindEmployee}"
-                ClearCommand="{Binding ClearEmployee}"/>
+                ClearCommand="{Binding ClearFindEmployee}"/>
         </Grid>
 
         <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5">
+            <StackPanel>
             <v:CreateEmployeeCard 
                 TextIdCreate="Ідентифікаційний номер: 1203"
                 SurnameInput="{Binding EmployeeSurname, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
@@ -59,8 +65,11 @@
                 UserRoles="{Binding EmployeesRoles, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 LoginInput="{Binding EmployeeLogin, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 PasswordInput="{Binding EmployeePassword, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                GenderInput="{Binding EmployeeGender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                AllGenders="{Binding AllGenders, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                SelectedGender="{Binding SelectedGender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 SaveCommand="{Binding CreateEmployee}"/>
+            <Button Command="{Binding ClearEmployeeInputs}" Content="Очистити" Template="{StaticResource DefaultButton}"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

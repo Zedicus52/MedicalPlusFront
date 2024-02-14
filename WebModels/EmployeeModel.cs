@@ -1,16 +1,11 @@
-﻿using MedicalPlusFront.WebModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace MedicalPlusFront.WebModels
 {
     [Serializable]
     public class EmployeeModel
     {
-        public string IdEmployee { get; set; }
+        public string UserId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string CurrentPassword { get; set; }
@@ -22,7 +17,7 @@ namespace MedicalPlusFront.WebModels
 
         public EmployeeModel()
         {
-            this.IdEmployee = string.Empty;
+            this.UserId = string.Empty;
             this.UserName = string.Empty;
             this.Password = string.Empty;
             this.CurrentPassword = string.Empty;

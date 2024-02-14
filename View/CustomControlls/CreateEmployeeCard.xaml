@@ -27,6 +27,10 @@
                 <v:TextBoxWithPlaceHolder
                     Text="{Binding ElementName=Root, Path=EmailInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     PlaceHolderText="Електронна пошта"/>
+                <v:ComboxWithPlaceHolder  x:Name="GenderCombox" Margin="0,0,0,25"
+                    ComboxContent="{Binding ElementName=Root, Path=AllGenders, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    ComboxSelectedItem="{Binding ElementName=Root, Path=SelectedGender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"                    
+                    PlaceHolderText="Стать"/>
                 <v:ComboxWithPlaceHolder 
                     PlaceHolderText="Роль" 
                     ComboxContent="{Binding ElementName=Root, Path=UserRoles, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
@@ -42,7 +46,8 @@
                     <!--<TextBlock x:Name="PasswordPlaceHolder" Text="Пароль" Style="{StaticResource PasswordPlaceHolderEmp}"/>
                     <TextBlock TextWrapping="Wrap" x:Name="PasswordErrorText" Style="{StaticResource PasswordErrorTextWithout}"/>-->
                 </StackPanel>
-                <Grid>
+                
+                <!--<Grid>
                     <Border Style="{StaticResource GenderBorder}" Margin="0, 0, 0, 0">
                         <StackPanel Orientation="Horizontal" >
                             <Button x:Name="Male" Click="ButtonSelect_Click" Style="{StaticResource GenderBtn}">
@@ -58,7 +63,7 @@
                             </Button>
                         </StackPanel>
                     </Border>
-                </Grid>
+                </Grid>-->
 
                 <Button x:Name="SaveEmployeeBtn" Command="{Binding ElementName=Root, Path=SaveCommand}" Content="Зберігти" 
                         Template="{StaticResource DefaultButton}" Style="{StaticResource LoginButton}"
