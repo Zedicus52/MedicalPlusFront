@@ -1,0 +1,75 @@
+﻿<Page x:Class="MedicalPlusFront.View.SelectUsersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MedicalPlusFront.View"
+      xmlns:convertors="clr-namespace:MedicalPlusFront.Convertors"
+      xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel"       
+      d:DataContext="{d:DesignInstance Type=viewmodel:SelectUserPageVM}"
+      xmlns:local1="clr-namespace:MedicalPlusFront.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="800"
+      Title="SelectUsersPage">
+
+    <Grid Background="#E1EFF0">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Margin="15" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <StackPanel>
+                <Button Command="{Binding BackCommand}" Content="Назад" Template="{StaticResource DefaultButton}"/>
+                <ScrollViewer>
+                    <ListBox  ItemsSource="{Binding PatientsToView}" SelectedItem="{Binding SelectedPatient}" HorizontalContentAlignment="Stretch">
+                        <ListBox.Resources>
+                            <convertors:GenderToImageConvertor x:Key="GenderToImage"/>
+                        </ListBox.Resources>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <local:UserCard MainTitleText="{Binding Fio, UpdateSourceTrigger=PropertyChanged}"
+                                                AdditionInfo="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                UserIdText="{Binding IdPatient, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                IconImage="{Binding Gender.IdGender, Converter={StaticResource GenderToImage}}"/>       
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+            </StackPanel>
+        </Grid>
+
+        <Grid Margin="15" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <local:FindUserCard 
+                FioInput="{Binding FindInput_Fio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                IdNumberInput="{Binding FindInput_PatientId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                PhoneNumberInput="{Binding FindInput_PhoneNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                CaseSensetiveInput="{Binding FindInput_CaseSensetive, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                AfterDateInput="{Binding FindInput_AfterDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                BeforeDateInput="{Binding FindInput_BeforeDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                FindCommand="{Binding FindCommand}"
+                ClearCommand="{Binding ClearFindCommand}"
+                />
+        </Grid>
+
+        <Grid Margin="15" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
+            <StackPanel>
+                <local:CreateUserCard 
+                    IsEnabled="{Binding IsCreationInteractable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    TextIdCreate="{Binding SelectedPatient.IdPatient, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    NameInput="{Binding NameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    SurnameInput="{Binding SurnameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    PatronymicInput="{Binding PatronymicInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    PhoneNumberInput="{Binding PhoneFaxInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    BirthdayInput="{Binding BirthDateInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    AllGenders="{Binding AllGenders, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    SelectedGender="{Binding SelectedGender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    SaveCommand="{Binding SelectUserCommand}"/>
+                <Button Command="{Binding ClearCommand}" Content="Очистити" Template="{StaticResource DefaultButton}"/>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</Page>

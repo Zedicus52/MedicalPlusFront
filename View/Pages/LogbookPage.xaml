@@ -63,7 +63,8 @@
                               DiagnosisInput="{Binding UserDiagnosisInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                               ResearchNumberInput="{Binding UserResearchNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                               CaseSensetiveInput="{Binding CaseSensetiveInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <Button Content="Створити нове&#x0a; дослідження" Template="{StaticResource DefaultButton}" Style="{StaticResource LogbookButton}"/>
+            <Button Content="Створити нове&#x0a; дослідження" Command="{Binding OpenProblem}" 
+                    Template="{StaticResource DefaultButton}" Style="{StaticResource LogbookButton}"/>
         </StackPanel>
 
     </Grid>

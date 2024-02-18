@@ -32,6 +32,8 @@
                         <vv:TextBoxWithPlaceHolder 
                         Text="{Binding ResearchNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         PlaceHolderText="Номер дослідження"/>
+                        <Button Height="30" Margin="0,5" Command="{Binding CreateCommand}" 
+                                Content="Зберегти зміни" Template="{StaticResource DefaultButton}"/>
                         <StackPanel HorizontalAlignment="Left">
                             <TextBlock Text="Пацієнт" Foreground="#575176" FontSize="14" Margin="5"/>
                             <Button Content="Обрати" Command="{Binding SelectPatientCommand}" 

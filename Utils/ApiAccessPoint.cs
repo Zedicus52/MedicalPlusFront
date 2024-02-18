@@ -86,6 +86,83 @@ public class ApiAccessPoint
         }
     }
 
+    #region Difficulties
+
+    public async Task<IFlurlResponse?> GetDifficulties(string jwtToken)
+    {
+        try
+        {
+            return await _baseUrl.AppendPathSegment("difficulty/getAll")
+                .WithOAuthBearerToken(jwtToken)
+                .GetAsync();
+        }
+        catch (FlurlHttpException e)
+        {
+            if(e.StatusCode != null)
+            {
+                return new FlurlResponse(e.Call);
+            }
+            return null;
+        }
+    }
+
+    #endregion
+
+    #region Problems
+    public async Task<IFlurlResponse?> CreateProblem(ProblemModel problem, string jwtToken)
+    {
+        try
+        {
+            return await _baseUrl.AppendPathSegment("problem/create")
+                .WithOAuthBearerToken(jwtToken)
+                .PostJsonAsync(problem);
+        }
+        catch(FlurlHttpException e)
+        {
+            if(e.StatusCode != null)
+            {
+                return new FlurlResponse(e.Call);
+            }
+            return null;
+        }
+    }
+
+    public async Task<IFlurlResponse?> UpdateProblem(ProblemModel problem, string jwtToken)
+    {
+        try
+        {
+            return await _baseUrl.AppendPathSegment("problem/update")
+                .WithOAuthBearerToken(jwtToken)
+                .PutJsonAsync(problem);
+        }
+        catch (FlurlHttpException e)
+        {
+            if(e.StatusCode != null)
+            {
+                return new FlurlResponse(e.Call);
+            }
+            return null;
+        }
+    }
+
+    public async Task<IFlurlResponse?> GetProblems(string jwtToken)
+    {
+        try
+        {
+            return await _baseUrl.AppendPathSegment("problem/getAll")
+                .WithOAuthBearerToken(jwtToken)
+                .GetAsync();
+        }
+        catch (FlurlHttpException e)
+        {
+            if (e.StatusCode != null)
+                return new FlurlResponse(e.Call);
+            return null;
+        }
+    }
+
+    #endregion
+
     #region Patients
 
     public async Task<IFlurlResponse?> CreatePatient(PatientModel patient,string jwtToken)

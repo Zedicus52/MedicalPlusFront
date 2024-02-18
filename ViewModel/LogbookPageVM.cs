@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -69,12 +70,24 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
+        public RelayCommand OpenProblem
+        {
+            get
+            {
+                return _openProblem ?? (_openProblem = new RelayCommand(() =>
+                {
+                    MainWindowVM.GetInstance().SetVM<DisasePageVM>();
+                }));
+            }
+        }
+
         private string _selectedHeavines;
         private ObservableCollection<string> _heavines;
         private ObservableCollection<string> _userNames;
         private ObservableCollection<string> _creationDates;
         private string _selectedCreationTime;
         private string _selectedUserName;
+        private RelayCommand _openProblem;
 
         #endregion
 

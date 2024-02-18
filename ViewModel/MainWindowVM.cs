@@ -23,7 +23,13 @@ namespace MedicalPlusFront.ViewModel
         }
         private static MainWindowVM _instance;
         #endregion
+        public PatientModel SelectedPatient { get; private set; }
 
+        public void ShowPatientDetails(PatientModel patient)
+        {
+            SelectedPatient = patient;
+            SetVM<SelectUserPageVM>();
+        }
         public string JwtToken => _loginResult.Token;
 
         public BaseVM SelectedViewModel
