@@ -5,10 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MedicalPlusFront.View.Pages"
       xmlns:v="clr-namespace:MedicalPlusFront.View"
-      xmlns:vv="clr-namespace:MedicalPlusFront.View.CustomControlls" xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:DisasePageVM}"
+      xmlns:convertors="clr-namespace:MedicalPlusFront.Convertors"
+      xmlns:vv="clr-namespace:MedicalPlusFront.View.CustomControlls" 
+      xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:DisasePageVM}"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="1080" d:DesignWidth="1920"
       Title="DisasePage">
+    <Page.Resources>
+        <convertors:GenderToImageConvertor x:Key="GenderToImage"/>
+    </Page.Resources>
 
     <Grid>
         <Border Background="#B7D5E0" BorderBrush="#575176" BorderThickness="2" 
@@ -28,19 +33,15 @@
                     <StackPanel Grid.Row="0" Margin="10">
                         <Button Height="30" Margin="0,5" Command="{Binding BackCommand}" 
                                 Content="Назад" Template="{StaticResource DefaultButton}"/>
-
-                        <vv:TextBoxWithPlaceHolder 
-                        Text="{Binding ResearchNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                        PlaceHolderText="Номер дослідження"/>
-                        <Button Height="30" Margin="0,5" Command="{Binding CreateCommand}" 
-                                Content="Зберегти зміни" Template="{StaticResource DefaultButton}"/>
-                        <StackPanel HorizontalAlignment="Left">
+                        <StackPanel Margin="10">
                             <TextBlock Text="Пацієнт" Foreground="#575176" FontSize="14" Margin="5"/>
-                            <Button Content="Обрати" Command="{Binding SelectPatientCommand}" 
-                                    Template="{StaticResource DefaultButton}" Height="30" Width="130" FontSize="15"/>
+                            <v:UserCard MainTitleText="{Binding SelectedPatient.Fio}"
+                                AdditionInfo="{Binding SelectedPatient.BirthDate}"
+                                UserIdText="{Binding SelectedPatient.MedicalCardNumber}"
+                                IconImage="{Binding SelectedPatient.Gender.IdGender, Converter={StaticResource GenderToImage}}"/>
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel Grid.Row="1" Margin="0,15,0,0">
+                    <!--<StackPanel Grid.Row="1" Margin="0,15,0,0">
                         <Grid>
                             <TextBlock  Text="{Binding CreatedDate}" Style="{StaticResource CreateDate}"/>
                             <v:UserCard 
@@ -59,24 +60,44 @@
                                 UserIdText="id: 1208" 
                                 Margin="5, 30, 0, 0"/>
                         </Grid>
-                    </StackPanel>
+                    </StackPanel>-->
                 </Grid>
                 <StackPanel Grid.Column="1">
-                    <vv:TextArea 
-                        TextAreaInput="{Binding DiagnosisInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  
-                        Margin="5" TextBoxHeight="200" PlaceHolderTextArea="Діагноз" />
+
+                    <vv:TextBoxWithPlaceHolder  Margin="5,10"
+                        Text="{Binding ResearchNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        PlaceHolderText="Номер дослідження"/>
                     <vv:ComboxWithPlaceHolder 
                         ComboxContent="{Binding AllDifficults, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         ComboxSelectedItem="{Binding SelectedDifficulty, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                        Margin="5" PlaceHolderText="Важкість"/>
+                        Margin="5" PlaceHolderText="Біопсія"/>
+                    <vv:TextArea 
+                        TextAreaInput="{Binding ClinicalDataInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  
+                        Margin="5" TextBoxHeight="200" PlaceHolderTextArea="Клінічний дані" />
+                    <vv:TextArea 
+                        TextAreaInput="{Binding DiagnosisInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  
+                        Margin="5" TextBoxHeight="200" PlaceHolderTextArea="Клінічний діагноз" />
+
+                    <Button Height="50" Margin="5" Command="{Binding CreateCommand}" 
+                                Content="Зберегти зміни" Template="{StaticResource DefaultButton}"/>
+
                 </StackPanel>
-                <StackPanel Grid.Column="2">
+                <StackPanel Grid.Column="2" Visibility="{Binding AdminComponentsVisibility}">
+                    <vv:TextBoxWithPlaceHolder  Margin="5,10"
+                        Text="{Binding OperationDateInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        PlaceHolderText="Дата операції"/>
+                    <vv:TextArea 
+                        TextAreaInput="{Binding OperationTypeInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  
+                        Margin="5" TextBoxHeight="100" PlaceHolderTextArea="Вид операції" />
                     <vv:TextArea  
                         TextAreaInput="{Binding MacroDescInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         Margin="5" TextBoxHeight="150" PlaceHolderTextArea="Макро опис" />
                     <vv:TextArea 
                         TextAreaInput="{Binding MicroDescInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         Margin="5" TextBoxHeight="300" PlaceHolderTextArea="Мікро опис" />
+
+                    <Button Height="50" Margin="5" Command="{Binding CreateCommand}" 
+                                Content="Роздрукувати направлення" Template="{StaticResource DefaultButton}"/>
                 </StackPanel>
             </Grid>
         </Border>

@@ -80,6 +80,17 @@ namespace MedicalPlusFront.View
         }
         #endregion
 
+        #region MedicalCardNumberProperty
+        private static readonly DependencyProperty MedicalCardNumberProperty =
+            DependencyProperty.Register("MedicalCardNumberInput", typeof(string), typeof(CreateUserCard));
+
+        public string MedicalCardNumberInput
+        {
+            get { return (string)GetValue(MedicalCardNumberProperty); }
+            set { SetValue(MedicalCardNumberProperty, value); }
+        }
+        #endregion
+
         #region BirthDayProperty
         private static readonly DependencyProperty BirthdayProperty =
             DependencyProperty.Register("BirthdayInput", typeof(string), typeof(CreateUserCard));

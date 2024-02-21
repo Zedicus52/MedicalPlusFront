@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 
 namespace MedicalPlusFront.ViewModel
 {
@@ -85,7 +86,7 @@ namespace MedicalPlusFront.ViewModel
                     List<PatientModel> searchFrom = new List<PatientModel>(_allPatients);  
                     
                     if (string.IsNullOrEmpty(FindInput_PatientId) == false)
-                        FindById();
+                        searchFrom = new List<PatientModel>(FindById(searchFrom));
 
                     if (string.IsNullOrEmpty(FindInput_PhoneNumber) == false)
                         searchFrom = new List<PatientModel>(FindByPhoneNumber(searchFrom));
@@ -178,6 +179,16 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
+        public string MedicalCardNumber
+        {
+            get => _medicalCardNumber;
+            set
+            {
+                _medicalCardNumber = value;
+                OnPropertyChanged("MedicalCardNumber");
+            }
+        }
+
         public string BirthDateInput
         {
             get => _birthDateInput;
@@ -240,6 +251,7 @@ namespace MedicalPlusFront.ViewModel
 
         private string _surnameInput;
         private string _patientId;
+        private string _medicalCardNumber;
         private string _nameInput;
         private string _patronymicInput;
         private string _phoneFaxInput;
@@ -281,11 +293,23 @@ namespace MedicalPlusFront.ViewModel
                 OnPropertyChanged("SelectedPatient");
                 if(value != default)
                 {
+                    DisaseControlVisibility = Visibility.Visible;
                     SetDataToInputs();
                     _isUpdating = true;
                 }
             }
         }
+        public Visibility DisaseControlVisibility
+        {
+            get => _disaseControlVisibility;
+            set
+            {
+                _disaseControlVisibility = value;
+                OnPropertyChanged("DisaseControlVisibility");
+            }
+        }
+
+        private Visibility _disaseControlVisibility;
 
         public RelayCommand ClearCommand
         {
@@ -295,10 +319,37 @@ namespace MedicalPlusFront.ViewModel
                 {
                     _isUpdating = false;
                     SelectedPatient = new PatientModel();
+                    DisaseControlVisibility = Visibility.Collapsed;
                     ClearCreatingInputs();
                 }));
             }
         }
+
+        public RelayCommand CreateNewDisase
+        {
+            get
+            {
+                return _createNewDisase ?? (_createNewDisase = new RelayCommand(() =>
+                {
+                    MainWindowVM.GetInstance().SetSelectedPatient(SelectedPatient);
+                    MainWindowVM.GetInstance().SetVM<DisasePageVM>();
+
+                }));
+            }
+        }
+
+        public override RelayCommand BackCommand
+        {
+            get
+            {
+                return _backCommand ?? (_backCommand = new RelayCommand(() =>
+                {
+                    MainWindowVM.GetInstance().SetVM<MainMenuVM>();
+                }));
+            }
+        }
+
+        private RelayCommand _createNewDisase;
 
         private ObservableCollection<PatientModel> _allPatients;
         private ObservableCollection<PatientModel> _patientsToView;
@@ -312,6 +363,7 @@ namespace MedicalPlusFront.ViewModel
         {
             _selectedPatient = new PatientModel();
             _isUpdating = false;
+            _disaseControlVisibility = Visibility.Collapsed;
             _allGenders = new ObservableCollection<GenderModel>();
             _allPatients = new ObservableCollection<PatientModel>();
             _patientsToView = new ObservableCollection<PatientModel>();
@@ -333,6 +385,7 @@ namespace MedicalPlusFront.ViewModel
             _selectedPatient.PhoneNumber = int.Parse(_phoneFaxInput);
             _selectedPatient.BirthDate = DateTime.Parse(_birthDateInput);
             _selectedPatient.Gender = _selectedGender;
+            _selectedPatient.MedicalCardNumber = int.Parse(_medicalCardNumber);
 
             var res = ApiAccessPoint.Instance.UpdatePatient(_selectedPatient,
                 MainWindowVM.GetInstance().JwtToken);
@@ -348,6 +401,7 @@ namespace MedicalPlusFront.ViewModel
             patientModel.PhoneNumber = int.Parse(_phoneFaxInput);
             patientModel.BirthDate = DateTime.Parse(_birthDateInput);
             patientModel.ApplicationDate = DateTime.Now;
+            patientModel.MedicalCardNumber = int.Parse(_medicalCardNumber);
             patientModel.Gender = _selectedGender;
 
             var res = ApiAccessPoint.Instance.CreatePatient(patientModel,
@@ -359,6 +413,7 @@ namespace MedicalPlusFront.ViewModel
         {
             SurnameInput = _selectedPatient.Fio.Surname;
             NameInput = _selectedPatient.Fio.Name;
+            MedicalCardNumber = _selectedPatient.MedicalCardNumber.ToString();
             PatronymicInput = _selectedPatient.Fio.Patronymic;
             PhoneFaxInput = _selectedPatient.PhoneNumber.ToString();
             BirthDateInput = _selectedPatient.BirthDate.ToShortDateString();
@@ -378,6 +433,7 @@ namespace MedicalPlusFront.ViewModel
         private void ClearCreatingInputs()
         {
             SurnameInput = string.Empty;
+            MedicalCardNumber = string.Empty;
             NameInput = string.Empty;
             PatronymicInput = string.Empty;
             PhoneFaxInput = string.Empty;
@@ -451,14 +507,15 @@ namespace MedicalPlusFront.ViewModel
             return result;
         }
 
-        private void FindById()
+        private List<PatientModel> FindById(List<PatientModel> currentPatients)
         {
-            int id = int.Parse(FindInput_PatientId);
-            var list = _allPatients.Where(x => x.IdPatient.Equals(id));
+            var list = currentPatients.Where(x => x.MedicalCardNumber.ToString().StartsWith(FindInput_PatientId));
+            List<PatientModel> result = new();
             foreach (var patient in list)
             {
-                PatientsToView.Add(patient);
+                result.Add(patient);
             }
+            return result;
         }
 
         private List<PatientModel> FindByPhoneNumber(List<PatientModel> currentPatients)

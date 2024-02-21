@@ -13,7 +13,7 @@ namespace MedicalPlusFront.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 
         #region Back Command
-        public RelayCommand BackCommand
+        public virtual RelayCommand BackCommand
         {
             get
             {

@@ -10,6 +10,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="UsersPage">
+    <Page.Resources>
+        <convertors:GenderToImageConvertor x:Key="GenderToImage"/>
+    </Page.Resources>
 
     <Grid Background="#E1EFF0">
 
@@ -22,17 +25,14 @@
         <Grid Margin="15" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <StackPanel>
                 <Button Command="{Binding BackCommand}" Content="Назад" Template="{StaticResource DefaultButton}"/>
-                <ScrollViewer>
-                    <ListBox  ItemsSource="{Binding PatientsToView}" SelectedItem="{Binding SelectedPatient}" HorizontalContentAlignment="Stretch">
-                        <ListBox.Resources>
-                            <convertors:GenderToImageConvertor x:Key="GenderToImage"/>
-                        </ListBox.Resources>
+                <ScrollViewer VerticalAlignment="Stretch" VerticalScrollBarVisibility="Visible">
+                    <ListBox Height="800"  ItemsSource="{Binding PatientsToView}" SelectedItem="{Binding SelectedPatient}" HorizontalContentAlignment="Stretch">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <local:UserCard
                     MainTitleText="{Binding Fio, UpdateSourceTrigger=PropertyChanged}"
                     AdditionInfo="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    UserIdText="{Binding IdPatient, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    UserIdText="{Binding MedicalCardNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     IconImage="{Binding Gender.IdGender, Converter={StaticResource GenderToImage}}"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -42,26 +42,41 @@
         </Grid>
 
         <Grid Margin="15" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-            <local:FindUserCard 
-                FioInput="{Binding FindInput_Fio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                IdNumberInput="{Binding FindInput_PatientId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                PhoneNumberInput="{Binding FindInput_PhoneNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                CaseSensetiveInput="{Binding FindInput_CaseSensetive, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                AfterDateInput="{Binding FindInput_AfterDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                BeforeDateInput="{Binding FindInput_BeforeDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                FindCommand="{Binding FindCommand}"
-                ClearCommand="{Binding ClearFindCommand}"
-                />
+            <StackPanel>
+                <local:FindUserCard 
+                    FioInput="{Binding FindInput_Fio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    IdNumberInput="{Binding FindInput_PatientId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    PhoneNumberInput="{Binding FindInput_PhoneNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    CaseSensetiveInput="{Binding FindInput_CaseSensetive, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    AfterDateInput="{Binding FindInput_AfterDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    BeforeDateInput="{Binding FindInput_BeforeDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    FindCommand="{Binding FindCommand}"
+                    ClearCommand="{Binding ClearFindCommand}"/>
+
+                <Border Visibility="{Binding DisaseControlVisibility}" Margin="0,130" Padding="0,45" Background="#B7D5E0"  BorderThickness="1" CornerRadius="5" BorderBrush="#575176" DockPanel.Dock="Top">
+                    <StackPanel Margin="10,0">
+                        <local:UserCard MainTitleText="{Binding SelectedPatient.Fio}"
+                        AdditionInfo="{Binding SelectedPatient.BirthDate}"
+                        UserIdText="{Binding SelectedPatient.MedicalCardNumber}"
+                        IconImage="{Binding SelectedPatient.Gender.IdGender, Converter={StaticResource GenderToImage}}"/>
+                        <Button Command="{Binding CreateNewDisase}" Content="Створити нове дослідження" Height="55" Template="{StaticResource DefaultButton}"/>
+                        <Button Content="Переглянути повну інформацію" Height="55" Template="{StaticResource DefaultButton}"/>
+                    </StackPanel>
+
+                </Border>
+            </StackPanel>
+
         </Grid>
 
         <Grid Margin="15" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
             <StackPanel>
                 <local:CreateUserCard 
                     IsEnabled="{Binding IsCreationInteractable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    TextIdCreate="{Binding SelectedPatient.IdPatient, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    TextIdCreate="{Binding SelectedPatient.MedicalCardNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     NameInput="{Binding NameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     SurnameInput="{Binding SurnameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     PatronymicInput="{Binding PatronymicInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    MedicalCardNumberInput="{Binding MedicalCardNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     PhoneNumberInput="{Binding PhoneFaxInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     BirthdayInput="{Binding BirthDateInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     AllGenders="{Binding AllGenders, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"

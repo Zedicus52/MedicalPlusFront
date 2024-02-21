@@ -25,6 +25,9 @@
                     Text="{Binding ElementName=Root, Path=PatronymicInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                     PlaceHolderText="По батькові"/>
             <v:TextBoxWithPlaceHolder 
+                    Text="{Binding ElementName=Root, Path=MedicalCardNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                    PlaceHolderText="Номер медичної карти"/>
+            <v:TextBoxWithPlaceHolder 
                     Text="{Binding ElementName=Root, Path=PhoneNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                     PlaceHolderText="Номер телефону"/>
             <v:TextBoxWithPlaceHolder 

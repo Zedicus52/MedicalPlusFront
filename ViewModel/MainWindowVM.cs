@@ -25,11 +25,7 @@ namespace MedicalPlusFront.ViewModel
         #endregion
         public PatientModel SelectedPatient { get; private set; }
 
-        public void ShowPatientDetails(PatientModel patient)
-        {
-            SelectedPatient = patient;
-            SetVM<SelectUserPageVM>();
-        }
+        
         public string JwtToken => _loginResult.Token;
 
         public BaseVM SelectedViewModel
@@ -71,7 +67,7 @@ namespace MedicalPlusFront.ViewModel
         public MainWindowVM()
         {
             _queryDelay = new TimeSpan(0, 1, 0);
-            _adminComponentsVisibility = Visibility.Visible;
+            _adminComponentsVisibility = Visibility.Collapsed;
             _allVms = new HashSet<BaseVM>();
             SetVM<LoginPageVM>();   
         }
@@ -92,6 +88,13 @@ namespace MedicalPlusFront.ViewModel
             SelectedViewModel = newVm;
         }
 
+        public void SetSelectedPatient(PatientModel model) => SelectedPatient = model;
+
+        public void ShowPatientDetails(PatientModel patient)
+        {
+            SelectedPatient = patient;
+            SetVM<SelectUserPageVM>();
+        }
         public void LogOut()
         {
             _checkExpirationTokenSource.Cancel();
@@ -107,6 +110,8 @@ namespace MedicalPlusFront.ViewModel
             {
                 if (res.StatusCode == 200)
                     AdminComponentsVisibility = Visibility.Visible;
+                else
+                    AdminComponentsVisibility = Visibility.Collapsed;
             }
                 
             _checkExpirationTokenSource = new CancellationTokenSource();
