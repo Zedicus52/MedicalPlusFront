@@ -53,14 +53,13 @@
                     FindCommand="{Binding FindCommand}"
                     ClearCommand="{Binding ClearFindCommand}"/>
 
-                <Border Visibility="{Binding DisaseControlVisibility}" Margin="0,130" Padding="0,45" Background="#B7D5E0"  BorderThickness="1" CornerRadius="5" BorderBrush="#575176" DockPanel.Dock="Top">
+                <Border Visibility="{Binding DisaseControlVisibility}" Margin="0,130" Padding="0,35" Background="#B7D5E0"  BorderThickness="1" CornerRadius="5" BorderBrush="#575176" DockPanel.Dock="Top">
                     <StackPanel Margin="10,0">
                         <local:UserCard MainTitleText="{Binding SelectedPatient.Fio}"
                         AdditionInfo="{Binding SelectedPatient.BirthDate}"
                         UserIdText="{Binding SelectedPatient.MedicalCardNumber}"
                         IconImage="{Binding SelectedPatient.Gender.IdGender, Converter={StaticResource GenderToImage}}"/>
                         <Button Command="{Binding CreateNewDisase}" Content="Створити нове дослідження" Height="55" Template="{StaticResource DefaultButton}"/>
-                        <Button Content="Переглянути повну інформацію" Height="55" Template="{StaticResource DefaultButton}"/>
                     </StackPanel>
 
                 </Border>

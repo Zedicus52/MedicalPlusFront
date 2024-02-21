@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using MedicalPlusFront.Utils;
 using MedicalPlusFront.WebModels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -118,15 +119,6 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
-        public bool IsNotUpdating
-        {
-            get => _isNotUpdating;
-            set
-            {
-                _isNotUpdating = value;
-                OnPropertyChanged("IsNotUpdating");
-            }
-        }
 
         public ObservableCollection<DifficultyModel> AllDifficults
         {
@@ -137,6 +129,32 @@ namespace MedicalPlusFront.ViewModel
                 OnPropertyChanged("AllDifficults");
             }
         }
+
+        public ObservableCollection<ProblemModel> AllProblems
+        {
+            get => _allProblems;
+            set
+            {
+                _allProblems = value;
+                OnPropertyChanged("AllProblems");
+            }
+        }
+
+        public ProblemModel SelectedProblem
+        {
+            get => _selectedProblem;
+            set
+            {
+                _selectedProblem = value;
+                OnPropertyChanged("SelectedProblem");
+                if (value != default)
+                {
+                    SetDataToInputs();
+                    _isUpdating = true;
+                }
+            }
+        }
+
 
         public PatientModel SelectedPatient => MainWindowVM.GetInstance().SelectedPatient;
 
@@ -157,15 +175,35 @@ namespace MedicalPlusFront.ViewModel
             {
                 return _createCommand ?? (_createCommand = new RelayCommand(() =>
                 {
-                    if (!string.IsNullOrEmpty(_diagnosisInput) && !string.IsNullOrEmpty(_researchNumberInput)
-                    && !string.IsNullOrEmpty(_clinicalDataInput) && _selectedDifficulty != null)
+                    if (string.IsNullOrEmpty(_diagnosisInput) || string.IsNullOrEmpty(_researchNumberInput)
+                    || string.IsNullOrEmpty(_clinicalDataInput) || _selectedDifficulty == null)
+                        return;
+
+                    if (_isUpdating == false)
                         TryCreateProblem();
+                    else
+                        TryUpdateProblem();
                 }));
             }
         }
 
+        public RelayCommand ClearCommand
+        {
+            get
+            {
+                return _clearCommand ?? (_clearCommand = new RelayCommand(() =>
+                {
+                    _isUpdating = false;
+                    ClearCreatingInput();
+                    _selectedProblem = new ProblemModel();
+                }));
+            }
+        }
+
+
+
         private bool _isCreationInteractable;
-        private bool _isNotUpdating;
+        private bool _isUpdating;
 
         private string _diagnosisInput;
         private string _researchNumberInput;
@@ -179,8 +217,11 @@ namespace MedicalPlusFront.ViewModel
         private DifficultyModel _selectedDifficulty;
         private bool _isEditing;
         private ObservableCollection<DifficultyModel> _allDifficults;
+        private ObservableCollection<ProblemModel> _allProblems;
+        private ProblemModel? _selectedProblem;
 
         private RelayCommand _createCommand;
+        private RelayCommand _clearCommand;
 
         public Visibility AdminComponentsVisibility
         {
@@ -194,12 +235,27 @@ namespace MedicalPlusFront.ViewModel
 
         public DisasePageVM()
         {
-            _isNotUpdating = true;
+            _isUpdating = false;
             _selectedDifficulty = new DifficultyModel();
+            _selectedProblem = new ProblemModel();
             _allDifficults = new ObservableCollection<DifficultyModel>();
+            _allProblems = new ObservableCollection<ProblemModel>();
             SendRequests();
         }
 
+
+        private void SetDataToInputs()
+        {
+            ResearchNumberInput = _selectedProblem.ResearchNumber;
+            DiagnosisInput = _selectedProblem.Diagnosis;
+            ClinicalDataInput = _selectedProblem.ClinicalData;
+            SelectedDifficulty = _allDifficults.FirstOrDefault(d => d.IdDifficulty.Equals(_selectedProblem.IdDifficulty));
+
+            MacroDescInput = _selectedProblem.MacroDesc;
+            MicroDescInput= _selectedProblem.MicroDesc;
+            OperationTypeInput = _selectedProblem.OperationType;
+            OperationDateInput = _selectedProblem.OperationDate.Equals(DateTime.MinValue) ? "" : _selectedProblem.OperationDate.ToShortDateString();
+        }
         private void OnProblemCreated(IFlurlResponse? result)
         {
             IsCreationInteractable = true;
@@ -215,6 +271,34 @@ namespace MedicalPlusFront.ViewModel
                 ShowMessageBox("Нова проблема була додана!", "Результат",
                     System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                 ClearCreatingInput();
+                GetAllPatientProblems();
+            }
+            else
+            {
+                ShowMessageBox($"Шось пішло не так. Статус код:{result.StatusCode}", "Результат",
+                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
+        }
+
+        private void OnProblemUpdated(IFlurlResponse? result)
+        {
+            IsCreationInteractable = true;
+
+
+            if (result == null)
+            {
+                ShowConnectionErrorMessageBox();
+                return;
+            }
+
+            if (result.StatusCode == 200)
+            {
+                ShowMessageBox("Дані дослідження були оновленні!", "Результат",
+                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                ClearCreatingInput();
+                _isUpdating = false;
+                GetAllPatientProblems();
+
             }
             else
             {
@@ -240,6 +324,22 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
+        private void OnGetPatientProblems(IFlurlResponse? response)
+        {
+            if (response == null)
+            {
+                ShowConnectionErrorMessageBox();
+                return;
+            }
+
+            if (response.StatusCode == 200)
+            {
+                List<ProblemModel> model = response.GetJsonAsync<List<ProblemModel>>().Result;
+                AllProblems = new ObservableCollection<ProblemModel>(model);    
+            }
+        }
+
+
         private void ClearCreatingInput()
         {
             DiagnosisInput = string.Empty;
@@ -248,6 +348,8 @@ namespace MedicalPlusFront.ViewModel
             MicroDescInput = string.Empty;
             MacroDescInput = string.Empty;
             SelectedDifficulty = default;
+            OperationDateInput = string.Empty;
+            OperationTypeInput = string.Empty;
         }
 
 
@@ -257,22 +359,46 @@ namespace MedicalPlusFront.ViewModel
             res.ContinueWith(t => OnGetAllDifficulties(res.Result));
         }
 
+        private void GetAllPatientProblems()
+        {
+            var res = ApiAccessPoint.Instance.GetPatientsProblems(SelectedPatient.IdPatient,MainWindowVM.GetInstance().JwtToken);
+            res.ContinueWith(t => OnGetPatientProblems(t.Result));    
+        }
 
+        private void TryUpdateProblem()
+        {
+            _selectedProblem.ResearchNumber = _researchNumberInput;
+            _selectedProblem.Diagnosis = _diagnosisInput;
+            _selectedProblem.ClinicalData = _clinicalDataInput;
+            _selectedProblem.IdDifficulty = _selectedDifficulty.IdDifficulty;
+            _selectedProblem.IdPatient = SelectedPatient.IdPatient;
+
+            _selectedProblem.MacroDesc = _macroDescInput;
+            _selectedProblem.MicroDesc = _microDescInput;
+
+            _selectedProblem.OperationType = _operationTypeInput;
+            _selectedProblem.OperationDate = DateTime.Parse(_operationDateInput);
+
+            var res = ApiAccessPoint.Instance.UpdateProblem(_selectedProblem,
+                MainWindowVM.GetInstance().JwtToken);
+            res.ContinueWith(x => OnProblemUpdated(x.Result));
+        }
 
         private void TryCreateProblem()
         {
             ProblemModel model = new();
+            model.ResearchNumber = _researchNumberInput;
             model.Diagnosis = _diagnosisInput;
             model.ClinicalData = _clinicalDataInput;
             model.IdDifficulty = _selectedDifficulty.IdDifficulty;
             model.IdPatient = SelectedPatient.IdPatient;
 
-            model.MacroDesc = string.Empty;
-            model.MicroDesc = string.Empty;
+            model.MacroDesc = _macroDescInput;
+            model.MicroDesc = _microDescInput;
             model.IdUser = string.Empty;
             model.IdCreateUser = string.Empty;
-            model.OperationType = string.Empty;
-            model.OperationDate = System.DateTime.MinValue;
+            model.OperationType = _operationTypeInput;
+            model.OperationDate = string.IsNullOrEmpty(_operationDateInput) ? DateTime.MinValue : DateTime.Parse(_operationDateInput);
 
             var res = ApiAccessPoint.Instance.CreateProblem(model,
                 MainWindowVM.GetInstance().JwtToken);
@@ -281,8 +407,8 @@ namespace MedicalPlusFront.ViewModel
 
         protected override void SendRequests()
         {
-            IsCreationInteractable = true;
             GetAllDifficulties();
+            GetAllPatientProblems();
         }
     }
 }

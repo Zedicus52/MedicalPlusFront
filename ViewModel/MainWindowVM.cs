@@ -79,6 +79,7 @@ namespace MedicalPlusFront.ViewModel
             {
                 _previousVM = _selectedVM;
                 SelectedViewModel = vm;
+                SelectedViewModel.OnModelSelected();
                 return;
             }
 

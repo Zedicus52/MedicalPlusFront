@@ -33,6 +33,10 @@ namespace MedicalPlusFront.ViewModel
         }
 
         protected abstract void SendRequests();
+        public virtual void OnModelSelected()
+        {
+            SendRequests();
+        }
 
         protected void ShowConnectionErrorMessageBox()
         {

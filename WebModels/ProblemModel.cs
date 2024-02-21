@@ -16,7 +16,7 @@ namespace MedicalPlusFront.WebModels
 
         public int IdDifficulty { get; set; }
         public int IdPatient { get; set; }
-
+        public string ResearchNumber { get; set; }
         public string Diagnosis { get; set; }
         public string ClinicalData { get; set; }
         public string OperationType { get; set; }
@@ -35,6 +35,7 @@ namespace MedicalPlusFront.WebModels
             IdUser = string.Empty;
             IdDifficulty = 0;
             IdPatient = 0;
+            ResearchNumber = string.Empty;
             Diagnosis = string.Empty;
             MicroDesc = string.Empty;
             MacroDesc = string.Empty;

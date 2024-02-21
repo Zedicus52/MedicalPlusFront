@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Flurl;
 using Flurl.Http;
@@ -145,22 +146,6 @@ public class ApiAccessPoint
         }
     }
 
-    public async Task<IFlurlResponse?> GetProblems(string jwtToken)
-    {
-        try
-        {
-            return await _baseUrl.AppendPathSegment("problem/getAll")
-                .WithOAuthBearerToken(jwtToken)
-                .GetAsync();
-        }
-        catch (FlurlHttpException e)
-        {
-            if (e.StatusCode != null)
-                return new FlurlResponse(e.Call);
-            return null;
-        }
-    }
-
     #endregion
 
     #region Patients
@@ -258,6 +243,23 @@ public class ApiAccessPoint
                 .GetAsync();
         }
         catch(FlurlHttpException e)
+        {
+            if (e.StatusCode != null)
+                return new FlurlResponse(e.Call);
+            return null;
+        }
+    }
+
+    public async Task<IFlurlResponse?> GetPatientsProblems(int patientId,string jwtToken)
+    {
+        try
+        {
+            return await _baseUrl.AppendPathSegment("problem/getByPatientId")
+                .WithOAuthBearerToken(jwtToken)
+                .SetQueryParams(new { patientId })
+                .GetAsync();
+        }
+        catch (FlurlHttpException e)
         {
             if (e.StatusCode != null)
                 return new FlurlResponse(e.Call);
