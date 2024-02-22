@@ -7,20 +7,28 @@
              xmlns:v="clr-namespace:MedicalPlusFront.View.CustomControlls"
              xmlns:assist="clr-namespace:MedicalPlusFront.Utils"
              xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" 
+             xmlns:valid="clr-namespace:MedicalPlusFront.ValidationRules" 
              mc:Ignorable="d"
              x:Name="Root"
              d:DesignHeight="600" d:DesignWidth="800">
     <Grid >
         <StackPanel Grid.Column="1" Orientation="Vertical" Margin="20" 
-                    HorizontalAlignment="Stretch" MaxWidth="320" 
+                    HorizontalAlignment="Stretch" MaxWidth="420" 
                     VerticalAlignment="Center">
                 
                 <TextBlock Style="{StaticResource AuthLabel}" Text="Авторизація" />
-                <v:TextBoxWithPlaceHolder
-                    Text="{Binding ElementName=Root,Path=LoginInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                    PlaceHolderText="Логін"/>
-                
-                <StackPanel Orientation="Vertical">
+            
+            <v:TextBoxWithPlaceHolder PlaceHolderText="Логін">
+                <v:TextBoxWithPlaceHolder.Text>
+                    <Binding Path="LoginInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <valid:LoginValidator />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </v:TextBoxWithPlaceHolder.Text>
+            </v:TextBoxWithPlaceHolder>
+
+            <StackPanel Orientation="Vertical">
                     <PasswordBox assist:PasswordBoxAssistant.BindPassword="True" 
                                  x:Name="PasswordText" Template="{StaticResource DefaultPasswordBox}" 
                                  PasswordChanged="PasswordText_PasswordChanged">

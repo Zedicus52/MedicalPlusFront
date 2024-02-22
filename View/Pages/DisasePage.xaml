@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:MedicalPlusFront.View.Pages"
       xmlns:v="clr-namespace:MedicalPlusFront.View"
       xmlns:convertors="clr-namespace:MedicalPlusFront.Convertors"
+      xmlns:valid="clr-namespace:MedicalPlusFront.ValidationRules" 
       xmlns:vv="clr-namespace:MedicalPlusFront.View.CustomControlls" 
       xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:DisasePageVM}"
       mc:Ignorable="d" 
@@ -86,9 +87,15 @@
                         ComboxContent="{Binding AllDifficults, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         ComboxSelectedItem="{Binding SelectedDifficulty, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         Margin="5" PlaceHolderText="Біопсія"/>
-                    <vv:TextArea 
-                        TextAreaInput="{Binding ClinicalDataInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  
-                        Margin="5" TextBoxHeight="200" PlaceHolderTextArea="Клінічний дані" />
+                    <vv:TextArea  Margin="5" TextBoxHeight="200" PlaceHolderTextArea="Клінічний дані" >
+                        <vv:TextArea.TextAreaInput>
+                            <Binding Path="ClinicalDataInput" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <valid:LoginValidator />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </vv:TextArea.TextAreaInput>
+                    </vv:TextArea>
                     <vv:TextArea 
                         TextAreaInput="{Binding DiagnosisInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  
                         Margin="5" TextBoxHeight="200" PlaceHolderTextArea="Клінічний діагноз" />

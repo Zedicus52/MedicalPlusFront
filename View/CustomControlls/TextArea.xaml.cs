@@ -66,6 +66,17 @@ namespace MedicalPlusFront.View.CustomControlls
         }
         #endregion
 
+        #region Error Text Property
+        public static readonly DependencyProperty ErrorTextProperty =
+            DependencyProperty.Register("ErrorText", typeof(string), typeof(TextArea), new PropertyMetadata(string.Empty));
+
+        public string ErrorText
+        {
+            get { return (string)GetValue(ErrorTextProperty); }
+            set { SetValue(ErrorTextProperty, value); }
+        }
+        #endregion
+
         public TextArea()
         {
             InitializeComponent();
