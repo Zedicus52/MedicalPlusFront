@@ -55,7 +55,7 @@ public static partial class Validator
     [GeneratedRegex(@"^\s|s$")]
     private static partial Regex CheckSpace();
 
-    [GeneratedRegex(@"[À-ßà-ÿ\s]*")]
+    [GeneratedRegex(@"^[À-ÙÜÞß¥ª²¯à-ùüþÿ´º³¿\s]*$")]
     private static partial Regex OnlyLettersAndSpaceBetweenText();
 
     [GeneratedRegex(@"^\d+$")]

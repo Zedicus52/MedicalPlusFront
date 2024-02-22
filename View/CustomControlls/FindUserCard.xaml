@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:v="clr-namespace:MedicalPlusFront.View.CustomControlls" 
+             xmlns:v="clr-namespace:MedicalPlusFront.View.CustomControlls"
+             xmlns:valid="clr-namespace:MedicalPlusFront.ValidationRules" 
              x:Name="Root"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="470">
@@ -11,31 +12,55 @@
         <Border  Background="#B7D5E0"  BorderThickness="1" CornerRadius="5" BorderBrush="#575176" DockPanel.Dock="Top">
             <StackPanel VerticalAlignment="Stretch" Orientation="Vertical" Margin="10">
                 <TextBlock Text="Пошук" Style="{StaticResource HeaderText}"></TextBlock>
-                <v:TextBoxWithPlaceHolder 
-                    Text="{Binding ElementName=Root, Path=PhoneNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                    PlaceHolderText="Номер телефону"/>
+                <v:TextBoxWithPlaceHolder PlaceHolderText="Номер телефону">
+                    <v:TextBoxWithPlaceHolder.Text>
+                        <Binding Path="PhoneNumberInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
+                            <Binding.ValidationRules>
+                                <valid:PhoneNumberValidator/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </v:TextBoxWithPlaceHolder.Text>
+                </v:TextBoxWithPlaceHolder>
                 <v:TextBoxWithPlaceHolder 
                     Text="{Binding ElementName=Root, Path=IdNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                     PlaceHolderText="Ідентифікаційний номер"/>
-                <v:TextBoxWithPlaceHolder 
-                    Text="{Binding ElementName=Root, Path=FioInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                    PlaceHolderText="ПІБ"/>
-                
+                <v:TextBoxWithPlaceHolder PlaceHolderText="ПІБ">
+                    <v:TextBoxWithPlaceHolder.Text>
+                        <Binding Path="FioInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
+                            <Binding.ValidationRules>
+                                <valid:FioValidator/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </v:TextBoxWithPlaceHolder.Text>
+                </v:TextBoxWithPlaceHolder>
+
                 <CheckBox IsChecked="{Binding ElementName=Root, Path=CaseSensetiveInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                           Style="{StaticResource CheckRegister}"/>
 
                 <TextBlock Text="Дата народження:" FontSize="15" Foreground="#575176" Margin="6"/>
-
-                <v:TextBoxWithPlaceHolder 
-                    Text="{Binding ElementName=Root, Path=AfterDateInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                    PlaceHolderText="Після якої дати шукати"/>
-                <v:TextBoxWithPlaceHolder 
-                    Text="{Binding ElementName=Root, Path=BeforeDateInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                    PlaceHolderText="До якої дати шукати"/>
-                    <Button Content="Знайти" Template="{StaticResource DefaultButton}" 
-        Command="{Binding ElementName=Root, Path=FindCommand}"/>
-                    <Button Content="Очистити" Template="{StaticResource DefaultButton}" 
-Command="{Binding ElementName=Root, Path=ClearCommand}"/>
+                <v:TextBoxWithPlaceHolder PlaceHolderText="Після якої дати шукати">
+                    <v:TextBoxWithPlaceHolder.Text>
+                        <Binding Path="AfterDateInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
+                            <Binding.ValidationRules>
+                                <valid:DateValidator/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </v:TextBoxWithPlaceHolder.Text>
+                </v:TextBoxWithPlaceHolder>
+                <v:TextBoxWithPlaceHolder PlaceHolderText="До якої дати шукати">
+                    <v:TextBoxWithPlaceHolder.Text>
+                        <Binding Path="BeforeDateInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
+                            <Binding.ValidationRules>
+                                <valid:DateValidator/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </v:TextBoxWithPlaceHolder.Text>
+                </v:TextBoxWithPlaceHolder>
+                
+                <Button Content="Знайти" Template="{StaticResource DefaultButton}" 
+                        Command="{Binding ElementName=Root, Path=FindCommand}"/>
+                <Button Content="Очистити" Template="{StaticResource DefaultButton}" 
+                        Command="{Binding ElementName=Root, Path=ClearCommand}"/>
             </StackPanel>
         </Border>
     </Grid>

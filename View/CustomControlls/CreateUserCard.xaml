@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:MedicalPlusFront.View.CustomControlls" 
+             xmlns:valid="clr-namespace:MedicalPlusFront.ValidationRules" 
              mc:Ignorable="d" 
              x:Name="Root"
              d:DesignHeight="600" d:DesignWidth="840">
@@ -13,26 +14,55 @@
             <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
                 <TextBlock Margin="0" Text="Ідентифікаційний номер: " Style="{StaticResource IdCreateUser}"/>
                 <TextBlock Margin="0" Text="{Binding ElementName=Root, Path=TextIdCreate}" Style="{StaticResource IdCreateUser}"/>
-
             </StackPanel>
-            <v:TextBoxWithPlaceHolder 
-                    Text="{Binding ElementName=Root, Path=SurnameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                    PlaceHolderText="Прізвище"/>
-            <v:TextBoxWithPlaceHolder 
-                    Text="{Binding ElementName=Root, Path=NameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                    PlaceHolderText="Ім'я"/>
-            <v:TextBoxWithPlaceHolder 
-                    Text="{Binding ElementName=Root, Path=PatronymicInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                    PlaceHolderText="По батькові"/>
+            <v:TextBoxWithPlaceHolder PlaceHolderText="Прізвище">
+                <v:TextBoxWithPlaceHolder.Text>
+                    <Binding Path="SurnameInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <valid:FioValidator/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </v:TextBoxWithPlaceHolder.Text>
+            </v:TextBoxWithPlaceHolder>
+            <v:TextBoxWithPlaceHolder PlaceHolderText="Ім'я">
+                <v:TextBoxWithPlaceHolder.Text>
+                    <Binding Path="NameInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <valid:FioValidator/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </v:TextBoxWithPlaceHolder.Text>
+            </v:TextBoxWithPlaceHolder>
+            <v:TextBoxWithPlaceHolder PlaceHolderText="По батькові">
+                <v:TextBoxWithPlaceHolder.Text>
+                    <Binding Path="PatronymicInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <valid:FioValidator/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </v:TextBoxWithPlaceHolder.Text>
+            </v:TextBoxWithPlaceHolder>
             <v:TextBoxWithPlaceHolder 
                     Text="{Binding ElementName=Root, Path=MedicalCardNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                     PlaceHolderText="Номер медичної карти"/>
-            <v:TextBoxWithPlaceHolder 
-                    Text="{Binding ElementName=Root, Path=PhoneNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                    PlaceHolderText="Номер телефону"/>
-            <v:TextBoxWithPlaceHolder 
-                    Text="{Binding ElementName=Root, Path=BirthdayInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                    PlaceHolderText="Дата народження"/>
+            <v:TextBoxWithPlaceHolder PlaceHolderText="Номер телефону">
+                <v:TextBoxWithPlaceHolder.Text>
+                    <Binding Path="PhoneNumberInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <valid:PhoneNumberValidator/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </v:TextBoxWithPlaceHolder.Text>
+            </v:TextBoxWithPlaceHolder>
+            <v:TextBoxWithPlaceHolder PlaceHolderText="Дата народження">
+                <v:TextBoxWithPlaceHolder.Text>
+                    <Binding Path="BirthdayInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <valid:DateValidator/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </v:TextBoxWithPlaceHolder.Text>
+            </v:TextBoxWithPlaceHolder>
             <v:ComboxWithPlaceHolder  x:Name="GenderCombox"
                 ComboxContent="{Binding ElementName=Root, Path=AllGenders, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 ComboxSelectedItem="{Binding ElementName=Root, Path=SelectedGender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"                    
