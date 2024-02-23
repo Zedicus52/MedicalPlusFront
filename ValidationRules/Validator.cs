@@ -25,10 +25,18 @@ public static partial class Validator
 
     public static bool HasCheckNumber(string input) => CheckNumber().IsMatch(input);
 
+    public static bool HasResearchNumber(string input) => ResearchNumber().IsMatch(input);
+
     public static bool IsCorrectLength(string input, int minLength, int maxLenght)
     {
         int length = input.Length;
         return length >= minLength && length <= maxLenght;
+    }
+
+    public static bool SymbolCountsCheck(string input, int n, int m)
+    {
+        int length = input.Length;
+        return length <= n && length >= m;
     }
 
     [GeneratedRegex("[0-9]+")]
@@ -60,4 +68,7 @@ public static partial class Validator
 
     [GeneratedRegex(@"^\d+$")]
     private static partial Regex CheckNumber();
+
+    [GeneratedRegex(@"^\d+-\d+$")]
+    private static partial Regex ResearchNumber();
 }
