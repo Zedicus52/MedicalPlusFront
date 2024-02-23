@@ -52,7 +52,7 @@ public static partial class Validator
     [GeneratedRegex(@"^0[1-9]|[12][0-9]|3[01]\.(0[1-9]1[0-2])\.(19\d{2}|20\d{2})$")]
     private static partial Regex LimitDateNumbers();
 
-    [GeneratedRegex(@"^\s|s$")]
+    [GeneratedRegex(@"^\s+|\s+$| {2,}")]
     private static partial Regex CheckSpace();
 
     [GeneratedRegex(@"^[À-ÙÜŞß¥ª²¯à-ùüşÿ´º³¿\s]*$")]

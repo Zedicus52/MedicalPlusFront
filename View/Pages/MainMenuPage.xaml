@@ -18,17 +18,11 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0" Margin="20, 22, 20, 20">
             <local:MenuCard  ButtonClick="{Binding OpenUsers}"
                CardIcon="/MedicalPlusFront;component/View/Icons/users.png" Placeholder="Користувачі"/>
-        </Grid>
-
-        <Grid Grid.Column="1" Margin="20, 22, 20, 20">
-            <local:MenuCard ButtonClick="{Binding OpenJournal}"
-                CardIcon="/MedicalPlusFront;component/View/Icons/log.png" Placeholder="Журнал запису"/>
         </Grid>
 
         <Grid Grid.Column="2">
@@ -44,7 +38,7 @@
                                    ExitCommand="{Binding ExitCommand}"/>
             </Grid>
 
-            <Grid Visibility="{Binding AdminComponentsVisibility, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="20">
+            <Grid Visibility="{Binding AdminComponentsVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="1" Margin="20">
                 <local:MenuCard ButtonClick="{Binding OpenEmployees}"
                     CardIcon="/MedicalPlusFront;component/View/Icons/employes.png" Placeholder="Працівники" Margin="0, 0, 0, 130"/>
             </Grid>

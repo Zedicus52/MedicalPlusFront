@@ -16,19 +16,19 @@
                     <v:TextBoxWithPlaceHolder.Text>
                         <Binding Path="PhoneNumberInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
                             <Binding.ValidationRules>
-                                <valid:PhoneNumberValidator/>
+                                <valid:PhoneNumberValidator CanBeEmpty="True"/>
                             </Binding.ValidationRules>
                         </Binding>
                     </v:TextBoxWithPlaceHolder.Text>
                 </v:TextBoxWithPlaceHolder>
                 <v:TextBoxWithPlaceHolder 
                     Text="{Binding ElementName=Root, Path=IdNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                    PlaceHolderText="Ідентифікаційний номер"/>
+                    PlaceHolderText="Номер медичної карти"/>
                 <v:TextBoxWithPlaceHolder PlaceHolderText="ПІБ">
                     <v:TextBoxWithPlaceHolder.Text>
                         <Binding Path="FioInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
                             <Binding.ValidationRules>
-                                <valid:FioValidator/>
+                                <valid:FioValidator CanBeEmpty="True"/>
                             </Binding.ValidationRules>
                         </Binding>
                     </v:TextBoxWithPlaceHolder.Text>
@@ -42,7 +42,7 @@
                     <v:TextBoxWithPlaceHolder.Text>
                         <Binding Path="AfterDateInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
                             <Binding.ValidationRules>
-                                <valid:DateValidator/>
+                                <valid:DateValidator CanBeEmpty="True"/>
                             </Binding.ValidationRules>
                         </Binding>
                     </v:TextBoxWithPlaceHolder.Text>
@@ -51,7 +51,7 @@
                     <v:TextBoxWithPlaceHolder.Text>
                         <Binding Path="BeforeDateInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
                             <Binding.ValidationRules>
-                                <valid:DateValidator/>
+                                <valid:DateValidator CanBeEmpty="True"/>
                             </Binding.ValidationRules>
                         </Binding>
                     </v:TextBoxWithPlaceHolder.Text>

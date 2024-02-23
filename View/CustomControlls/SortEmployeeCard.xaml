@@ -23,7 +23,7 @@
                 <v:TextBoxWithPlaceHolder.Text>
                     <Binding Path="FioInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
                         <Binding.ValidationRules>
-                            <valid:FioValidator/>
+                            <valid:FioValidator CanBeEmpty="True"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </v:TextBoxWithPlaceHolder.Text>

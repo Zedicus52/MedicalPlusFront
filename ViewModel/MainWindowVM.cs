@@ -142,6 +142,7 @@ namespace MedicalPlusFront.ViewModel
         {
             SetVM<LoginPageVM>();
             _loginResult = new LoginResult();
+            AdminComponentsVisibility = Visibility.Collapsed;
         }
 
         public void BackToPreviousPage()

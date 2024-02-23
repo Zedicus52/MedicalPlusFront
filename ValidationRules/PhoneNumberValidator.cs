@@ -8,13 +8,15 @@ using System.Windows.Controls;
 
 namespace MedicalPlusFront.ValidationRules
 {
-    internal class PhoneNumberValidator : ValidationRule
+    public class PhoneNumberValidator : ValidationRule
     {
+
+        public bool CanBeEmpty { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             string phoneNumber = (string)value;
 
-            if (string.IsNullOrEmpty(phoneNumber))
+            if (!CanBeEmpty && string.IsNullOrEmpty(phoneNumber))
                 return new ValidationResult(false, "Обов'язкове для заповнення");
 
             if (!Validator.IsCorrectLength(phoneNumber, 9, 12))

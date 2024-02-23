@@ -31,7 +31,7 @@
                             <DataTemplate>
                                 <local:UserCard
                     MainTitleText="{Binding Fio, UpdateSourceTrigger=PropertyChanged}"
-                    AdditionInfo="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    AdditionInfo="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat='{}{0:Дата народження: dd.MM.yyyy}'}"
                     UserIdText="{Binding MedicalCardNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     IconImage="{Binding Gender.IdGender, Converter={StaticResource GenderToImage}}"/>
                             </DataTemplate>
@@ -45,7 +45,7 @@
             <StackPanel>
                 <local:FindUserCard 
                     FioInput="{Binding FindInput_Fio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    IdNumberInput="{Binding FindInput_PatientId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    IdNumberInput="{Binding FindInput_MedicalCardNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     PhoneNumberInput="{Binding FindInput_PhoneNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     CaseSensetiveInput="{Binding FindInput_CaseSensetive, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     AfterDateInput="{Binding FindInput_AfterDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
@@ -56,7 +56,7 @@
                 <Border Visibility="{Binding DisaseControlVisibility}" Margin="0,130" Padding="0,35" Background="#B7D5E0"  BorderThickness="1" CornerRadius="5" BorderBrush="#575176" DockPanel.Dock="Top">
                     <StackPanel Margin="10,0">
                         <local:UserCard MainTitleText="{Binding SelectedPatient.Fio}"
-                        AdditionInfo="{Binding SelectedPatient.BirthDate}"
+                        AdditionInfo="{Binding SelectedPatient.BirthDate, StringFormat='{}{0:Дата народження: dd.MM.yyyy}'}"
                         UserIdText="{Binding SelectedPatient.MedicalCardNumber}"
                         IconImage="{Binding SelectedPatient.Gender.IdGender, Converter={StaticResource GenderToImage}}"/>
                         <Button Command="{Binding CreateNewDisase}" Content="Створити нове дослідження" Height="55" Template="{StaticResource DefaultButton}"/>

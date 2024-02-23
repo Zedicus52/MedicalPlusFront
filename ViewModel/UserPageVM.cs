@@ -24,13 +24,13 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
-        public string FindInput_PatientId
+        public string FindInput_MedicalCardNumber
         {
             get => _findInput_PatientId;
             set
             {
                 _findInput_PatientId = value;
-                OnPropertyChanged(nameof(FindInput_PatientId));
+                OnPropertyChanged(nameof(FindInput_MedicalCardNumber));
             }
         }
 
@@ -85,7 +85,7 @@ namespace MedicalPlusFront.ViewModel
 
                     List<PatientModel> searchFrom = new List<PatientModel>(_allPatients);  
                     
-                    if (string.IsNullOrEmpty(FindInput_PatientId) == false)
+                    if (string.IsNullOrEmpty(FindInput_MedicalCardNumber) == false)
                         searchFrom = new List<PatientModel>(FindById(searchFrom));
 
                     if (string.IsNullOrEmpty(FindInput_PhoneNumber) == false)
@@ -422,7 +422,7 @@ namespace MedicalPlusFront.ViewModel
 
         private void ClearFindInputs()
         {
-            FindInput_PatientId = string.Empty;
+            FindInput_MedicalCardNumber = string.Empty;
             FindInput_PhoneNumber = string.Empty;
             FindInput_Fio = string.Empty;
             FindInput_AfterDate = string.Empty;
@@ -509,7 +509,7 @@ namespace MedicalPlusFront.ViewModel
 
         private List<PatientModel> FindById(List<PatientModel> currentPatients)
         {
-            var list = currentPatients.Where(x => x.MedicalCardNumber.ToString().StartsWith(FindInput_PatientId));
+            var list = currentPatients.Where(x => x.MedicalCardNumber.ToString().StartsWith(FindInput_MedicalCardNumber));
             List<PatientModel> result = new();
             foreach (var patient in list)
             {
