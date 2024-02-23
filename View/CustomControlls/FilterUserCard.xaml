@@ -32,9 +32,15 @@
             <v:TextBoxWithPlaceHolder 
                 Text="{Binding ElementName=Root, Path=DiagnosisInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 PlaceHolderText="Діагноз"/>
-            <v:TextBoxWithPlaceHolder 
-                Text="{Binding ElementName=Root, Path=ResearchNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                PlaceHolderText="Номер дослідження"/>
+            <v:TextBoxWithPlaceHolder PlaceHolderText="Номер дослідження">
+                <v:TextBoxWithPlaceHolder.Text>
+                    <Binding Path="ResearchNumberInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <valid:ResearchValidator CanBeEmpty="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </v:TextBoxWithPlaceHolder.Text>
+            </v:TextBoxWithPlaceHolder>
             <CheckBox 
                 IsChecked="{Binding ElementName=Root, Path=CaseSensetiveInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 Style="{StaticResource CheckRegister}" 
