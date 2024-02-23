@@ -118,7 +118,7 @@
                         TextAreaInput="{Binding MicroDescInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         Margin="5" TextBoxHeight="300" PlaceHolderTextArea="Мікро опис" />
 
-                    <Button Height="50" Margin="5" Command="{Binding CreateCommand}" 
+                    <Button Height="50" Margin="5" Command="{Binding PrintCommand}" 
                                 Content="Роздрукувати направлення" Template="{StaticResource DefaultButton}"/>
                 </StackPanel>
             </Grid>

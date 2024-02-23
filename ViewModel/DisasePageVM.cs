@@ -1,6 +1,7 @@
 ﻿using Flurl.Http;
 using GalaSoft.MvvmLight.Command;
 using MedicalPlusFront.Utils;
+using MedicalPlusFront.View;
 using MedicalPlusFront.WebModels;
 using System;
 using System.Collections.Generic;
@@ -200,6 +201,24 @@ namespace MedicalPlusFront.ViewModel
             }
         }
 
+        public RelayCommand PrintCommand
+        {
+            get
+            {
+                return _printCommand ?? (_printCommand = new RelayCommand(() =>
+                {
+                    if (_selectedProblem == null)
+                    {
+                        ShowMessageBox("Оберіть дослідження для друку!", "Помилка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+                    PrintWindow win2 = new PrintWindow(SelectedPatient, _selectedProblem);
+                    win2.ShowDialog();
+                }));
+            }
+        }
+
+
 
 
         private bool _isCreationInteractable;
@@ -222,6 +241,7 @@ namespace MedicalPlusFront.ViewModel
 
         private RelayCommand _createCommand;
         private RelayCommand _clearCommand;
+        private RelayCommand _printCommand;
 
         public Visibility AdminComponentsVisibility
         {
