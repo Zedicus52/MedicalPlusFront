@@ -8,6 +8,10 @@
         Closing="Window_Closing"
         Title="PrintWindow" Height="800" Width="800">
     <Grid >
-        <DocumentViewer x:Name="DocView"/>
+        <DocumentViewer  x:Name="DocView">
+            <DocumentViewer.CommandBindings>
+                <CommandBinding Command="ApplicationCommands.Print" Executed="CommandBinding_Executed_1" />
+            </DocumentViewer.CommandBindings>
+        </DocumentViewer>
     </Grid>
 </Window>

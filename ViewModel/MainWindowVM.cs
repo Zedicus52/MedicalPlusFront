@@ -67,7 +67,7 @@ namespace MedicalPlusFront.ViewModel
         public MainWindowVM()
         {
             _queryDelay = new TimeSpan(0, 1, 0);
-            _adminComponentsVisibility = Visibility.Collapsed;
+            _adminComponentsVisibility = Visibility.Visible;
             _allVms = new HashSet<BaseVM>();
             SetVM<LoginPageVM>();   
         }

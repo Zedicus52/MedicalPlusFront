@@ -6,6 +6,10 @@ using Xceed.Words.NET;
 using System.IO;
 using System.Windows.Xps.Packaging;
 using Spire.Doc;
+using System.Drawing.Printing;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Forms;
 
 namespace MedicalPlusFront.View
 {
@@ -33,6 +37,7 @@ namespace MedicalPlusFront.View
         }
 
 
+
         private void FillDocument()
         {
             using (DocX documentWord = DocX.Load(@"form14.docx"))
@@ -41,7 +46,6 @@ namespace MedicalPlusFront.View
                 documentWord.InsertAtBookmark(GetMonthName(DateTime.Now.Month), "month");
                 documentWord.InsertAtBookmark(DateTime.Now.Year.ToString(), "year");
                 documentWord.InsertAtBookmark(DateTime.Now.ToShortTimeString(), "time");
-                documentWord.InsertAtBookmark("NEED DATA", "department");
                 documentWord.InsertAtBookmark(_selectedPatient.MedicalCardNumber.ToString(), "medicalCardNumber");
                 documentWord.InsertAtBookmark(_selectedPatient.Fio.ToString(), "fio");
                 documentWord.InsertAtBookmark(_selectedPatient.BirthDate.Year.ToString(), "age");
@@ -59,11 +63,12 @@ namespace MedicalPlusFront.View
 
         private void ConvertDocument()
         {
-            Spire.Doc.Document doc = new Spire.Doc.Document();
+            Document doc = new Document();
             doc.LoadFromFile("output/form14Full.docx");
-            doc.SaveToFile("output/form14Xps.XPS", FileFormat.XPS);
+            doc.SaveToFile("output/form14Xps.xps", FileFormat.XPS);
+            doc.Close();    
 
-           _document = new XpsDocument("output/form14Xps.XPS", FileAccess.Read);
+            _document = new XpsDocument("output/form14Xps.xps", FileAccess.ReadWrite);
             DocView.Document = _document.GetFixedDocumentSequence();
         }
 
@@ -93,5 +98,29 @@ namespace MedicalPlusFront.View
                 _ => "",
             };
         }
+
+        private void CommandBinding_Executed_1(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            Document doc = new Document();
+            doc.LoadFromFile("output/form14Full.docx");
+
+            System.Windows.Forms.PrintDialog dialog = new System.Windows.Forms.PrintDialog
+           {
+               Document = doc.PrintDocument,
+               UseEXDialog = true,
+               AllowSomePages = true,
+           };
+
+            doc.PrintDocument.PrinterSettings.Duplex = Duplex.Horizontal;
+            doc.PrintDocument.PrinterSettings.DefaultPageSettings.Landscape = true;
+            doc.PrintDocument.PrinterSettings.DefaultPageSettings.Color = false;
+
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+           {
+               doc.PrintDocument.Print();
+           }
+           doc.Close();
+        }
+
     }
 }

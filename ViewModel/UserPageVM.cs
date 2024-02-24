@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 
+
 namespace MedicalPlusFront.ViewModel
 {
     public class UserPageVM : BaseVM
@@ -394,6 +395,11 @@ namespace MedicalPlusFront.ViewModel
 
         private void TryCreatePatient()
         {
+            var dres = ShowMessageBox("Ви дійсно хочете створити нового пацієнта?", "Підтвердження", 
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (dres == MessageBoxResult.No || dres == MessageBoxResult.Cancel)
+                return;
+
             PatientModel patientModel = new();
             patientModel.Fio.Surname = _surnameInput;
             patientModel.Fio.Name = _nameInput;
