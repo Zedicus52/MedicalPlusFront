@@ -241,11 +241,14 @@ namespace MedicalPlusFront.ViewModel
                     || string.IsNullOrEmpty(_birthDateInput) || _selectedGender == null)
                         return;
 
-                    if (_isUpdating == false)
-                        TryCreatePatient();
-                    else
-                        TryUpdatePatient();
-
+                    MessageBoxResult res = MessageBox.Show("Ви впевнені, що хочете зробити зміни?", "Питання", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (res == MessageBoxResult.Yes)
+                    {
+                        if (_isUpdating == false)
+                            TryCreatePatient();
+                        else
+                            TryUpdatePatient();
+                    }
                 }));
             }
         }
@@ -556,6 +559,7 @@ namespace MedicalPlusFront.ViewModel
                 GetAllPatients();
                 ClearCreatingInputs();
                 _selectedPatient = new PatientModel();
+                DisaseControlVisibility = Visibility.Collapsed;
             }
             else
                 ShowMessageBox($"Шось пішло не так. Статус код: {result.StatusCode}", "Помилка",

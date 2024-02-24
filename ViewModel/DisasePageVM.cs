@@ -180,10 +180,15 @@ namespace MedicalPlusFront.ViewModel
                     || string.IsNullOrEmpty(_clinicalDataInput) || _selectedDifficulty == null)
                         return;
 
-                    if (_isUpdating == false)
-                        TryCreateProblem();
-                    else
-                        TryUpdateProblem();
+                   MessageBoxResult res = MessageBox.Show("Ви впевнені, що хочете зробити зміни?", "Питання", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if(res == MessageBoxResult.Yes)
+                    {
+                        if (_isUpdating == false)
+                            TryCreateProblem();
+                        else
+                            TryUpdateProblem();
+                    }
+
                 }));
             }
         }
