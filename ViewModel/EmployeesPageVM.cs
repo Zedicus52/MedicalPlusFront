@@ -123,17 +123,19 @@ namespace MedicalPlusFront.ViewModel
             {
                 return _createEmployee ?? (_createEmployee = new RelayCommand(() =>
                 {
-                    if (!string.IsNullOrEmpty(_employeeSurname) && !string.IsNullOrEmpty(_employeeName) && !string.IsNullOrEmpty(_employeeEmail) &&
-                    !string.IsNullOrEmpty(_employeePatronymic) && _employeeRole != null && _selectedGender != null && !string.IsNullOrEmpty(_employeeLogin) &&
-                    !string.IsNullOrEmpty(_employeePassword) && IsNotUpdating)
-                        TryCreateEmployee();
-                    else if(IsNotUpdating == false && !string.IsNullOrEmpty(_employeeSurname) && !string.IsNullOrEmpty(_employeeName) 
-                    && !string.IsNullOrEmpty(_employeePatronymic) && _employeeRole != null && _selectedGender != null)
+                    if (string.IsNullOrEmpty(_employeeSurname) && string.IsNullOrEmpty(_employeeName) && string.IsNullOrEmpty(_employeeEmail) &&
+                    string.IsNullOrEmpty(_employeePatronymic) && _employeeRole == null && _selectedGender == null && string.IsNullOrEmpty(_employeeLogin) &&
+                    string.IsNullOrEmpty(_employeePassword))
+                        return;
+
+                    MessageBoxResult res = MessageBox.Show("Ви впевнені, що хочете зробити зміни?", "Питання", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (res == MessageBoxResult.Yes)
                     {
-                        TryUpdateEmployee();
+                        if (IsNotUpdating)
+                            TryCreateEmployee();
+                        else if (IsNotUpdating == false)
+                            TryUpdateEmployee();
                     }
-
-
                 }));
             }
         }

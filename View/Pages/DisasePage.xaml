@@ -91,33 +91,65 @@
                     <vv:TextArea  Margin="5" TextBoxHeight="200" PlaceHolderTextArea="Клінічний дані" >
                         <vv:TextArea.TextAreaInput>
                             <Binding Path="ClinicalDataInput" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <valid:DescriptionValidator/>
+                                </Binding.ValidationRules>
                             </Binding>
                         </vv:TextArea.TextAreaInput>
                     </vv:TextArea>
-                    <vv:TextArea 
-                        TextAreaInput="{Binding DiagnosisInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  
-                        Margin="5" TextBoxHeight="200" PlaceHolderTextArea="Клінічний діагноз" />
+
+                    <vv:TextArea  Margin="5" TextBoxHeight="200" PlaceHolderTextArea="Клінічний діагноз" >
+                        <vv:TextArea.TextAreaInput>
+                            <Binding Path="DiagnosisInput" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <valid:DescriptionValidator/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </vv:TextArea.TextAreaInput>
+                    </vv:TextArea>
 
                     <Button Height="50" Margin="5" Command="{Binding CreateCommand}" 
                                 Content="Зберегти зміни" Template="{StaticResource DefaultButton}"/>
                     <Button Height="50" Margin="5" Command="{Binding ClearCommand}" 
                         Content="Очистити" Template="{StaticResource DefaultButton}"/>
-
                 </StackPanel>
                 <StackPanel Grid.Column="2" Visibility="{Binding AdminComponentsVisibility}">
-                    <vv:TextBoxWithPlaceHolder  Margin="5,10"
-                        Text="{Binding OperationDateInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                        PlaceHolderText="Дата операції"/>
-                    <vv:TextArea 
-                        TextAreaInput="{Binding OperationTypeInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  
-                        Margin="5" TextBoxHeight="100" PlaceHolderTextArea="Вид операції" />
-                    <vv:TextArea  
-                        TextAreaInput="{Binding MacroDescInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                        Margin="5" TextBoxHeight="150" PlaceHolderTextArea="Макро опис" />
-                    <vv:TextArea 
-                        TextAreaInput="{Binding MicroDescInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                        Margin="5" TextBoxHeight="300" PlaceHolderTextArea="Мікро опис" />
-
+                    <vv:TextBoxWithPlaceHolder Margin="5, 10" PlaceHolderText="Дата операції">
+                        <vv:TextBoxWithPlaceHolder.Text>
+                            <Binding Path="OperationDateInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <valid:DateValidator/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </vv:TextBoxWithPlaceHolder.Text>
+                    </vv:TextBoxWithPlaceHolder>
+                    <vv:TextArea  Margin="5" TextBoxHeight="100" PlaceHolderTextArea="Вид операції" >
+                        <vv:TextArea.TextAreaInput>
+                            <Binding Path="OperationTypeInput" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <valid:DescriptionValidator/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </vv:TextArea.TextAreaInput>
+                    </vv:TextArea>
+                    <vv:TextArea  Margin="5" TextBoxHeight="150" PlaceHolderTextArea="Макро опис" >
+                        <vv:TextArea.TextAreaInput>
+                            <Binding Path="MacroDescInput" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <valid:DescriptionValidator/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </vv:TextArea.TextAreaInput>
+                    </vv:TextArea>
+                    <vv:TextArea  Margin="5" TextBoxHeight="300" PlaceHolderTextArea="Мікро опис" >
+                        <vv:TextArea.TextAreaInput>
+                            <Binding Path="MicroDescInput" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <valid:DescriptionValidator/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </vv:TextArea.TextAreaInput>
+                    </vv:TextArea>
                     <Button Height="50" Margin="5" Command="{Binding PrintCommand}" 
                                 Content="Роздрукувати направлення" Template="{StaticResource DefaultButton}"/>
                 </StackPanel>
