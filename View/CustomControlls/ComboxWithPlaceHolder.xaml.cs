@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicalPlusFront.WebModels;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,8 +33,8 @@ namespace MedicalPlusFront.View.CustomControlls
         }
 
         private static readonly DependencyProperty ComboxContentProperty =
-            DependencyProperty.Register("ComboxContent", 
-                typeof(IEnumerable), 
+            DependencyProperty.Register("ComboxContent",
+                typeof(IEnumerable),
                 typeof(ComboxWithPlaceHolder), new PropertyMetadata(default));
 
         public IEnumerable ComboxContent
@@ -45,7 +46,30 @@ namespace MedicalPlusFront.View.CustomControlls
         private static readonly DependencyProperty ComboxSelectedProperty =
             DependencyProperty.Register("ComboxSelectedItem",
                 typeof(object),
-                typeof(ComboxWithPlaceHolder), new PropertyMetadata(default));
+                typeof(ComboxWithPlaceHolder), new PropertyMetadata(default, OnSelectedItemChanged));
+
+        private static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is ComboxWithPlaceHolder item)
+            {
+                if (item.ComboxSelectedItem == default)
+                {
+                    item.ResetSelectedItem();
+                }
+            }
+        }
+
+        private void ResetSelectedItem()
+        {
+            ComboBox box = (ComboBox)FindName("MainComboBox");
+            box.SelectedIndex = -1;
+        }
+
+        public void SetSelectedIndex(int v)
+        {
+            ComboBox box = (ComboBox)FindName("MainComboBox");
+            box.SelectedIndex = v;
+        }
 
         public object ComboxSelectedItem
         {

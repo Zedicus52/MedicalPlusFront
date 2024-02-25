@@ -28,6 +28,15 @@
             <DataTemplate DataType="{x:Type viewModels:UserPageVM}">
                 <views:UsersPage/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:LogbookPageVM}">
+                <views:LogbookPage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:PatientInfoVM}">
+                <views:PatientInfoPage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:SelectUserPageVM}">
+                <views:SelectUsersPage/>
+            </DataTemplate>
 
         </ResourceDictionary>
     </Application.Resources>

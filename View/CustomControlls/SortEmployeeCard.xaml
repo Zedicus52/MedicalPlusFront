@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MedicalPlusFront.View" 
              xmlns:v="clr-namespace:MedicalPlusFront.View.CustomControlls" 
+             xmlns:valid="clr-namespace:MedicalPlusFront.ValidationRules"
              mc:Ignorable="d"
              x:Name="Root"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -18,12 +19,24 @@
             <v:TextBoxWithPlaceHolder 
                     Text="{Binding ElementName=Root, Path=IdNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                     PlaceHolderText="Ідентифікаційний номер"/>
-            <v:TextBoxWithPlaceHolder 
-                    Text="{Binding ElementName=Root, Path=FioInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    PlaceHolderText="ПІБ"/>
+            <v:TextBoxWithPlaceHolder PlaceHolderText="ПІБ">
+                <v:TextBoxWithPlaceHolder.Text>
+                    <Binding Path="FioInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <valid:FioValidator CanBeEmpty="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </v:TextBoxWithPlaceHolder.Text>
+            </v:TextBoxWithPlaceHolder>
             <CheckBox 
                 IsChecked="{Binding ElementName=Root, Path=CaseSensetive, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                 Style="{StaticResource CheckRegister}"/>
+            <Button Content="Знайти" 
+                    Template="{StaticResource DefaultButton}" 
+                    Command="{Binding ElementName=Root, Path=FindCommand}"/>
+            <Button Content="Очистити" 
+                    Template="{StaticResource DefaultButton}"
+                    Command="{Binding ElementName=Root, Path=ClearCommand}"/>
         </StackPanel>
     </Border>
 </UserControl>

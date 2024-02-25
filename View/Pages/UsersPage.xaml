@@ -3,13 +3,19 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:MedicalPlusFront.View" xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:UserPageVM}"
+      xmlns:local="clr-namespace:MedicalPlusFront.View" 
+      xmlns:convertors="clr-namespace:MedicalPlusFront.Convertors"
+      xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" 
+      d:DataContext="{d:DesignInstance Type=viewmodel:UserPageVM}"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="UsersPage">
+    <Page.Resources>
+        <convertors:GenderToImageConvertor x:Key="GenderToImage"/>
+    </Page.Resources>
 
     <Grid Background="#E1EFF0">
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
@@ -17,41 +23,68 @@
         </Grid.ColumnDefinitions>
 
         <Grid Margin="15" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <ScrollViewer>
-                <ListBox  ItemsSource="{Binding ListOfPeople}" HorizontalContentAlignment="Stretch">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <local:UserCard
-                                MainTitleText="{Binding Fio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                AdditionInfo="{Binding Birthday, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                UserIdText="{Binding Id, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                IconPath="../Icons/man.png"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </ScrollViewer>
+            <StackPanel>
+                <Button Command="{Binding BackCommand}" Content="Назад" Template="{StaticResource DefaultButton}"/>
+                <ScrollViewer VerticalAlignment="Stretch" VerticalScrollBarVisibility="Visible">
+                    <ListBox Height="800"  ItemsSource="{Binding PatientsToView}" SelectedItem="{Binding SelectedPatient}" HorizontalContentAlignment="Stretch">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <local:UserCard
+                    MainTitleText="{Binding Fio, UpdateSourceTrigger=PropertyChanged}"
+                    AdditionInfo="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat='{}{0:Дата народження: dd.MM.yyyy}'}"
+                    UserIdText="{Binding MedicalCardNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    IconImage="{Binding Gender.IdGender, Converter={StaticResource GenderToImage}}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+            </StackPanel>
         </Grid>
 
         <Grid Margin="15" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-            <local:SortUserCard
-                Heavines="{Binding Difficulties, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                SelectedHeavines="{Binding SelectedDifficulty, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                CreationTimes="{Binding CreationTimes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                SelectedCreationTime="{Binding SelectedCreationTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                UserNames="{Binding PatientFios, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                SelectedUserName="{Binding SelectedPatientFio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <StackPanel>
+                <local:FindUserCard 
+                    FioInput="{Binding FindInput_Fio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    IdNumberInput="{Binding FindInput_MedicalCardNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    PhoneNumberInput="{Binding FindInput_PhoneNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    CaseSensetiveInput="{Binding FindInput_CaseSensetive, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    AfterDateInput="{Binding FindInput_AfterDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    BeforeDateInput="{Binding FindInput_BeforeDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    FindCommand="{Binding FindCommand}"
+                    ClearCommand="{Binding ClearFindCommand}"/>
+
+                <Border Visibility="{Binding DisaseControlVisibility}" Margin="0,130" Padding="0,35" Background="#B7D5E0"  BorderThickness="1" CornerRadius="5" BorderBrush="#575176" DockPanel.Dock="Top">
+                    <StackPanel Margin="10,0">
+                        <local:UserCard MainTitleText="{Binding SelectedPatient.Fio}"
+                        AdditionInfo="{Binding SelectedPatient.BirthDate, StringFormat='{}{0:Дата народження: dd.MM.yyyy}'}"
+                        UserIdText="{Binding SelectedPatient.MedicalCardNumber}"
+                        IconImage="{Binding SelectedPatient.Gender.IdGender, Converter={StaticResource GenderToImage}}"/>
+                        <Button Command="{Binding CreateNewDisase}" Content="Створити нове дослідження" Height="55" Template="{StaticResource DefaultButton}"/>
+                    </StackPanel>
+
+                </Border>
+            </StackPanel>
+
         </Grid>
 
         <Grid Margin="15" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
-            <local:CreateUserCard 
-                TextIdCreate="Ідентифікаційний номер: 1203"
-                NameInput="{Binding NameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                SurnameInput="{Binding SurnameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                PatronymicInput="{Binding PatronymicInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                PhoneNumberInput="{Binding PhoneFaxInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                BirthdayInput="{Binding BirthDateInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                GenderInput="{Binding GenderInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                SaveCommand="{Binding CreateUserCommand}"/>
+            <StackPanel>
+                <local:CreateUserCard 
+                    IsEnabled="{Binding IsCreationInteractable, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    TextIdCreate="{Binding SelectedPatient.MedicalCardNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    NameInput="{Binding NameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    SurnameInput="{Binding SurnameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    PatronymicInput="{Binding PatronymicInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    MedicalCardNumberInput="{Binding MedicalCardNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    PhoneNumberInput="{Binding PhoneFaxInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    BirthdayInput="{Binding BirthDateInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    AllGenders="{Binding AllGenders, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    SelectedGender="{Binding SelectedGender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    SaveCommand="{Binding CreateUserCommand}"/>
+                <Button Command="{Binding ClearCommand}" Content="Очистити" Template="{StaticResource DefaultButton}"/>
+            </StackPanel>
+
+
         </Grid>
     </Grid>
 </Page>

@@ -1,5 +1,6 @@
 ﻿using MedicalPlusFront.WebModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Linq;
+using MedicalPlusFront.View.CustomControlls;
 
 namespace MedicalPlusFront.View
 {
@@ -27,8 +30,8 @@ namespace MedicalPlusFront.View
 
         public string TextIdCreate
         {
-            get { return (string)GetValue(IdCreateProperty); } 
-            set { SetValue(IdCreateProperty, value);}
+            get { return (string)GetValue(IdCreateProperty); }
+            set { SetValue(IdCreateProperty, value); }
         }
 
         #endregion
@@ -77,6 +80,17 @@ namespace MedicalPlusFront.View
         }
         #endregion
 
+        #region MedicalCardNumberProperty
+        private static readonly DependencyProperty MedicalCardNumberProperty =
+            DependencyProperty.Register("MedicalCardNumberInput", typeof(string), typeof(CreateUserCard));
+
+        public string MedicalCardNumberInput
+        {
+            get { return (string)GetValue(MedicalCardNumberProperty); }
+            set { SetValue(MedicalCardNumberProperty, value); }
+        }
+        #endregion
+
         #region BirthDayProperty
         private static readonly DependencyProperty BirthdayProperty =
             DependencyProperty.Register("BirthdayInput", typeof(string), typeof(CreateUserCard));
@@ -85,6 +99,17 @@ namespace MedicalPlusFront.View
         {
             get { return (string)GetValue(BirthdayProperty); }
             set { SetValue(BirthdayProperty, value); }
+        }
+        #endregion
+
+        #region IsSaveInteractable
+        private static readonly DependencyProperty IsSaveInteractableProperty =
+            DependencyProperty.Register("IsButtonInteractable", typeof(bool), typeof(CreateUserCard));
+
+        public bool IsButtonInteractable
+        {
+            get { return (bool)GetValue(IsSaveInteractableProperty); }
+            set { SetValue(IsSaveInteractableProperty, value); }
         }
         #endregion
 
@@ -116,6 +141,49 @@ namespace MedicalPlusFront.View
             get { return (string)GetValue(GenderProperty); }
             set { SetValue(GenderProperty, value); }
         }
+        #endregion
+
+        #region AllGenders
+        private static readonly DependencyProperty AllGenderProperty =
+            DependencyProperty.Register("AllGenders", typeof(IEnumerable), typeof(CreateUserCard));
+
+        public IEnumerable<GenderModel> AllGenders
+        {
+            get { return (IEnumerable<GenderModel>)GetValue(AllGenderProperty); }
+            set { SetValue(AllGenderProperty, value); }
+        }
+
+
+        #region Selected Gender
+        private static readonly DependencyProperty SelectedGenderProperty =
+            DependencyProperty.Register("SelectedGender", typeof(object), typeof(CreateUserCard), new PropertyMetadata(default, OnGenderChanged));
+
+        private static void OnGenderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as CreateUserCard).SetSelectedGender(e.NewValue as GenderModel);
+        }
+
+        private void SetSelectedGender(GenderModel v)
+        {
+            if (v != null)
+            {
+                ComboxWithPlaceHolder box = (ComboxWithPlaceHolder)FindName("GenderCombox");
+
+                var list = AllGenders.ToList();
+
+                var item = list.FirstOrDefault(x => x.IdGender.Equals(v.IdGender));
+                box.SetSelectedIndex(list.IndexOf(item));
+            }
+        }
+
+        public object SelectedGender
+        {
+            get { return (IEnumerable)GetValue(SelectedGenderProperty); }
+            set { SetValue(SelectedGenderProperty, value); }
+        }
+        #endregion
+
+
         #endregion
 
         #region SaveButtonCommandProperty
@@ -168,17 +236,17 @@ namespace MedicalPlusFront.View
 
         public static IEnumerable<T> FindVisualButton<T>(DependencyObject depObj) where T : DependencyObject
         {
-            if(depObj != null)
+            if (depObj != null)
             {
                 for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
                 {
                     DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
-                    if(child != null && child is T)
+                    if (child != null && child is T)
                     {
                         yield return (T)child;
                     }
 
-                    foreach(T childofChild in FindVisualButton<T>(child))
+                    foreach (T childofChild in FindVisualButton<T>(child))
                     {
                         yield return childofChild;
                     }

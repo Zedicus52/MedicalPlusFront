@@ -13,8 +13,11 @@
         <TextBox   x:Name="TextAreaMainTB"
                   Style="{StaticResource TextArea}" Template="{StaticResource DefaultTextBox}"
                   Text="{Binding ElementName=Root, Path=TextAreaInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        
         <TextBlock  x:Name="TextAreaPlaceholder" VerticalAlignment="Top" Style="{StaticResource TextAreaPlaceHolder}"
                     Margin="5,-220,0,0" 
                     Text="{Binding ElementName=Root, Path=PlaceHolderTextArea, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <TextBlock Text="{Binding ElementName=Root, Path=ErrorText}" HorizontalAlignment="Left" Style="{StaticResource MainErrorText}"/>
+
     </StackPanel>
 </UserControl>

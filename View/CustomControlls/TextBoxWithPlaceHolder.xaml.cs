@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +41,17 @@ namespace MedicalPlusFront.View.CustomControlls
         {
             get { return (string)GetValue(PlaceHolderTextProperty); }
             set { SetValue(PlaceHolderTextProperty, value); }
+        }
+        #endregion
+
+        #region Error Text Property
+        public static readonly DependencyProperty ErrorTextProperty =
+            DependencyProperty.Register("ErrorText", typeof(string), typeof(TextBoxWithPlaceHolder), new PropertyMetadata(string.Empty));
+
+        public string ErrorText
+        {
+            get { return (string)GetValue(ErrorTextProperty); }
+            set { SetValue(ErrorTextProperty, value); }
         }
         #endregion
 

@@ -7,6 +7,7 @@
              xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel"  
              xmlns:v="clr-namespace:MedicalPlusFront.View.CustomControlls"
              xmlns:local="clr-namespace:MedicalPlusFront.View"
+             xmlns:valid="clr-namespace:MedicalPlusFront.ValidationRules" 
              x:Name="Root"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="840">
@@ -14,32 +15,61 @@
         <Border Background="#B7D5E0" BorderBrush="#575176" CornerRadius="4" BorderThickness="2" 
                 DockPanel.Dock="Top">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Orientation="Vertical" Margin="10">
-                <TextBlock Text="{Binding ElementName=Root, Path=TextIdCreate}" Style="{StaticResource IdCreateUser}" Margin="0, 0, 0, 10"/>
-                <v:TextBoxWithPlaceHolder
-                    Text="{Binding ElementName=Root, Path=SurnameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    PlaceHolderText="Прізвище"/>
-                <v:TextBoxWithPlaceHolder
-                    Text="{Binding ElementName=Root, Path=NameInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    PlaceHolderText="Ім'я"/>
-                <v:TextBoxWithPlaceHolder
-                    Text="{Binding ElementName=Root, Path=PatronymicInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    PlaceHolderText="По Батькові"/>
-                <v:ComboxWithPlaceHolder 
+                <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
+                    <TextBlock Margin="0" Text="Ідентифікаційний номер: " Style="{StaticResource IdCreateUser}"/>
+                    <TextBlock Text="{Binding ElementName=Root, Path=TextIdCreate}" Style="{StaticResource IdCreateUser}" Margin="0"/>
+                </StackPanel>
+                <v:TextBoxWithPlaceHolder PlaceHolderText="Прізвище">
+                    <v:TextBoxWithPlaceHolder.Text>
+                        <Binding Path="SurnameInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
+                            <Binding.ValidationRules>
+                                <valid:FioValidator/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </v:TextBoxWithPlaceHolder.Text>
+                </v:TextBoxWithPlaceHolder>
+                <v:TextBoxWithPlaceHolder PlaceHolderText="Ім'я">
+                    <v:TextBoxWithPlaceHolder.Text>
+                        <Binding Path="NameInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
+                            <Binding.ValidationRules>
+                                <valid:FioValidator/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </v:TextBoxWithPlaceHolder.Text>
+                </v:TextBoxWithPlaceHolder>
+                <v:TextBoxWithPlaceHolder PlaceHolderText="По батькові">
+                    <v:TextBoxWithPlaceHolder.Text>
+                        <Binding Path="PatronymicInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
+                            <Binding.ValidationRules>
+                                <valid:FioValidator/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </v:TextBoxWithPlaceHolder.Text>
+                </v:TextBoxWithPlaceHolder>
+                <v:TextBoxWithPlaceHolder IsEnabled="{Binding ElementName=Root, Path=IsUpdating, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Text="{Binding ElementName=Root, Path=EmailInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    PlaceHolderText="Електронна пошта"/>
+                <v:ComboxWithPlaceHolder  x:Name="GenderCombox" Margin="0,0,0,25"
+                    ComboxContent="{Binding ElementName=Root, Path=AllGenders, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    ComboxSelectedItem="{Binding ElementName=Root, Path=SelectedGender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"                    
+                    PlaceHolderText="Стать"/>
+                <v:ComboxWithPlaceHolder x:Name="RolesCombox"
                     PlaceHolderText="Роль" 
                     ComboxContent="{Binding ElementName=Root, Path=UserRoles, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     ComboxSelectedItem="{Binding ElementName=Root, Path=SelectedRole, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                <v:TextBoxWithPlaceHolder Margin="0,25,0,0"
+                <v:TextBoxWithPlaceHolder Margin="0,25,0,0" IsEnabled="{Binding ElementName=Root, Path=IsUpdating, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     Text="{Binding ElementName=Root, Path=LoginInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     PlaceHolderText="Логін"/>
                 <StackPanel Orientation="Vertical">
-                    <PasswordBox assist:PasswordBoxAssistant.BindPassword="True" 
+                    <PasswordBox assist:PasswordBoxAssistant.BindPassword="True" IsEnabled="{Binding ElementName=Root, Path=IsUpdating, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                  x:Name="PasswordEmployeeText" Template="{StaticResource DefaultPasswordBox}" 
                                  PasswordChanged="PasswordText_PasswordChanged">
                     </PasswordBox>
                     <!--<TextBlock x:Name="PasswordPlaceHolder" Text="Пароль" Style="{StaticResource PasswordPlaceHolderEmp}"/>
                     <TextBlock TextWrapping="Wrap" x:Name="PasswordErrorText" Style="{StaticResource PasswordErrorTextWithout}"/>-->
                 </StackPanel>
-                <Grid>
+                
+                <!--<Grid>
                     <Border Style="{StaticResource GenderBorder}" Margin="0, 0, 0, 0">
                         <StackPanel Orientation="Horizontal" >
                             <Button x:Name="Male" Click="ButtonSelect_Click" Style="{StaticResource GenderBtn}">
@@ -55,7 +85,7 @@
                             </Button>
                         </StackPanel>
                     </Border>
-                </Grid>
+                </Grid>-->
 
                 <Button x:Name="SaveEmployeeBtn" Command="{Binding ElementName=Root, Path=SaveCommand}" Content="Зберігти" 
                         Template="{StaticResource DefaultButton}" Style="{StaticResource LoginButton}"

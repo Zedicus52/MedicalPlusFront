@@ -8,15 +8,16 @@ using System.Windows.Media.Imaging;
 
 namespace MedicalPlusFront.Convertors
 {
-    class StringToImageConvertor : IValueConverter
+    public class StringToImageConvertor : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (value != null)
             {
                 string imagename = value as string;
-                //return new BitmapImage(new Uri(string.Format(@"..\..\Image\{0}", imagename), UriKind.Relative));
-                return new BitmapImage(new Uri(imagename, UriKind.Relative));
+
+                BitmapImage image = new BitmapImage(new Uri($"pack://application:,,,/MedicalPlusFront;component/view/icons/{imagename}"));
+                return image;
             }
             return null;
         }

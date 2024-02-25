@@ -1,14 +1,18 @@
-﻿<UserControl x:Class="MedicalPlusFront.View.Pages.LogbookPage"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MedicalPlusFront.View.Pages"
-             xmlns:v="clr-namespace:MedicalPlusFront.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+<Page x:Class="MedicalPlusFront.View.LogbookPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MedicalPlusFront.View"
+      xmlns:v="clr-namespace:MedicalPlusFront.View"
+      xmlns:viewmodel="clr-namespace:MedicalPlusFront.ViewModel" 
+      d:DataContext="{d:DesignInstance Type=viewmodel:LogbookPageVM}"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="LogbookPage">
+
     <Grid Background="#E1EFF0">
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -16,30 +20,53 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
-            <ScrollViewer>
-                <ListBox  ItemsSource="{Binding ListOfPeople}" HorizontalContentAlignment="Stretch">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <v:UserCard
+            <StackPanel>
+                <Button Command="{Binding BackCommand}" Content="Назад" Template="{StaticResource DefaultButton}"/>
+
+                <ScrollViewer>
+                    <ListBox  ItemsSource="{Binding ListOfPeople}" HorizontalContentAlignment="Stretch">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <v:UserCard
+
                                 MainTitleText="{Binding Fio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                 AdditionInfo="{Binding Birthday, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                 UserIdText="{Binding Id, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                 IconPath="../Icons/man.png"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </ScrollViewer>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+            </StackPanel>
         </Grid>
 
         <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
-            <v:SortUserCard/>
-            <v:PatientInfo/>
+            <v:SortUserCard SelectedHeavines="{Binding UserSelectedHeavines, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            Heavines="{Binding Heavines, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            SelectedCreationTime="{Binding UserSelectedCreationTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            CreationTimes="{Binding CreationDates, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            SelectedUserName="{Binding UserSelectedName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            UserNames="{Binding UserNames, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <Border Background="#B7D5E0" BorderBrush="#575176" BorderThickness="1" CornerRadius="6" Margin="0 30 0 0">
+                <StackPanel Orientation="Vertical" Margin="10">
+                    <v:UserCard MainTitleText="Іванов Іван Іванович"
+                                AdditionInfo="Розрив сосідів"
+                                UserIdText="1234-07"
+                                IconPath="../Icons/man.png"/>
+                    <Button Content="Змінити" Template="{StaticResource DefaultButton}" Style="{StaticResource LoginButton}"/>
+                </StackPanel>
+            </Border>
         </StackPanel>
 
         <StackPanel Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
-            <v:FilterUserCard/>
-            <Button Content="Створити нове&#x0a; дослідження" Template="{StaticResource DefaultButton}" Style="{StaticResource LogbookButton}"/>
+            <v:FilterUserCard PatientFioInput="{Binding UserFioInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                              DoctorFioInput="{Binding EmployeeFioInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                              DiagnosisInput="{Binding UserDiagnosisInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                              ResearchNumberInput="{Binding UserResearchNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                              CaseSensetiveInput="{Binding CaseSensetiveInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <Button Content="Створити нове&#x0a; дослідження" Command="{Binding OpenProblem}" 
+                    Template="{StaticResource DefaultButton}" Style="{StaticResource LogbookButton}"/>
         </StackPanel>
-        
+
     </Grid>
-</UserControl>
+</Page>

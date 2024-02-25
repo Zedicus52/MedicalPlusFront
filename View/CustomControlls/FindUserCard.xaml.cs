@@ -87,6 +87,32 @@ namespace MedicalPlusFront.View
         }
         #endregion
 
+        #region FindCommandProperty
+        public static readonly DependencyProperty FindCommandProperty =
+           DependencyProperty.Register("FindCommand", typeof(ICommand),
+               typeof(FindUserCard),
+               new FrameworkPropertyMetadata());
+
+        public ICommand FindCommand
+        {
+            get { return (ICommand)GetValue(FindCommandProperty); }
+            set { SetValue(FindCommandProperty, value); }
+        }
+        #endregion
+
+        #region ClearCommandProperty
+        public static readonly DependencyProperty ClearCommandProperty =
+           DependencyProperty.Register("ClearCommand", typeof(ICommand),
+               typeof(FindUserCard),
+               new FrameworkPropertyMetadata());
+
+        public ICommand ClearCommand
+        {
+            get { return (ICommand)GetValue(ClearCommandProperty); }
+            set { SetValue(ClearCommandProperty, value); }
+        }
+        #endregion
+
         public FindUserCard()
         {
             InitializeComponent();

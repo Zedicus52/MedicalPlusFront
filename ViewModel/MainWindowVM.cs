@@ -12,6 +12,7 @@ namespace MedicalPlusFront.ViewModel
 {
     public class MainWindowVM : BaseVM
     {
+        #region Singelton
         public static MainWindowVM GetInstance()
         {
             if (_instance == null)
@@ -21,12 +22,20 @@ namespace MedicalPlusFront.ViewModel
             return _instance;
         }
         private static MainWindowVM _instance;
+        #endregion
+        public PatientModel SelectedPatient { get; private set; }
+
+        
+        public string JwtToken => _loginResult.Token;
 
         public BaseVM SelectedViewModel
         {
             get => _selectedVM;
             set
             {
+                if (value == null || _selectedVM == value)
+                    return;
+
                 _selectedVM = value;
                 OnPropertyChanged("SelectedViewModel");
             }
@@ -43,6 +52,10 @@ namespace MedicalPlusFront.ViewModel
         }
 
         private BaseVM _selectedVM;
+        private BaseVM _previousVM;
+
+        private readonly HashSet<BaseVM> _allVms;
+        private readonly TimeSpan _queryDelay;
 
         private LoginResult _loginResult;
 
@@ -50,21 +63,43 @@ namespace MedicalPlusFront.ViewModel
 
         private CancellationTokenSource _checkExpirationTokenSource;
         private Task _checkExpirationTask;
-        private TimeSpan _queryDelay;
 
         public MainWindowVM()
         {
             _queryDelay = new TimeSpan(0, 1, 0);
-            _adminComponentsVisibility = Visibility.Collapsed;
-            _selectedVM = new LoginPageVM();
+            _adminComponentsVisibility = Visibility.Visible;
+            _allVms = new HashSet<BaseVM>();
+            SetVM<LoginPageVM>();   
         }
 
-        public void SetViewModel(BaseVM baseVM)
+        public void SetVM<T>() where T : BaseVM, new()
         {
-            if (baseVM == null)
+            BaseVM vm = _allVms.FirstOrDefault(v => v is T);
+            if(vm != null)
+            {
+                _previousVM = _selectedVM;
+                SelectedViewModel = vm;
+                SelectedViewModel.OnModelSelected();
                 return;
-            _selectedVM = baseVM;
-            OnPropertyChanged("SelectedViewModel");
+            }
+
+            T newVm = new();
+            _allVms.Add(newVm);
+            _previousVM = _selectedVM;
+            SelectedViewModel = newVm;
+        }
+
+        public void SetSelectedPatient(PatientModel model) => SelectedPatient = model;
+
+        public void ShowPatientDetails(PatientModel patient)
+        {
+            SelectedPatient = patient;
+            SetVM<SelectUserPageVM>();
+        }
+        public void LogOut()
+        {
+            _checkExpirationTokenSource.Cancel();
+            ShowAuthPageAndResetToken();
         }
 
         public async void SetLoginResult(LoginResult loginResult)
@@ -76,6 +111,8 @@ namespace MedicalPlusFront.ViewModel
             {
                 if (res.StatusCode == 200)
                     AdminComponentsVisibility = Visibility.Visible;
+                else
+                    AdminComponentsVisibility = Visibility.Collapsed;
             }
                 
             _checkExpirationTokenSource = new CancellationTokenSource();
@@ -85,18 +122,37 @@ namespace MedicalPlusFront.ViewModel
 
         private async void CheckExpirationTime()
         {
+            bool cancelFromHere = false;
             while (_checkExpirationTokenSource.Token.IsCancellationRequested == false)
             {
                 DateTime now = DateTime.UtcNow;
                 if (now > _loginResult.Expiration)
                 {
                     _checkExpirationTokenSource.Cancel();
+                    cancelFromHere = true;
                     break;
                 }
                 await Task.Delay(_queryDelay);
             }
-            SetViewModel(new LoginPageVM());
+            if(cancelFromHere)
+                ShowAuthPageAndResetToken();
+        }
+
+        private void ShowAuthPageAndResetToken()
+        {
+            SetVM<LoginPageVM>();
             _loginResult = new LoginResult();
+            AdminComponentsVisibility = Visibility.Collapsed;
+        }
+
+        public void BackToPreviousPage()
+        {
+            if(_previousVM != null)
+                SelectedViewModel = _previousVM;
+        }
+
+        protected override void SendRequests()
+        {
         }
     }
 }

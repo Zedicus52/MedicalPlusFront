@@ -13,12 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MedicalPlusFront.View.Pages
+
+namespace MedicalPlusFront.View
 {
     /// <summary>
-    /// Логика взаимодействия для LogbookCard.xaml
+    /// Логика взаимодействия для LogbookPage.xaml
     /// </summary>
-    public partial class LogbookPage : UserControl
+    public partial class LogbookPage : Page
+
     {
         public LogbookPage()
         {

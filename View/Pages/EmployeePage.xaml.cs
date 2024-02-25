@@ -25,5 +25,10 @@ namespace MedicalPlusFront.View
         {
             InitializeComponent();
         }
+
+        private void SortEmployeeCard_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -38,12 +38,32 @@ namespace MedicalPlusFront.View
             get { return (string)GetValue(CardIconProperty); }
             set  { SetValue(CardIconProperty, value); }
         }
+
+        public static readonly DependencyProperty CardIconImageProperty =
+            DependencyProperty.Register("CardImageIcon", typeof(BitmapImage), typeof(MenuCard));
+        public BitmapImage CardImageIcon
+        {
+            get { return (BitmapImage)GetValue(CardIconImageProperty); }
+            set { SetValue(CardIconImageProperty, value); }
+        }
+        #endregion
+
+        #region ButtonClickProperty
+        public static readonly DependencyProperty ButtonClickProperty =
+           DependencyProperty.Register("ButtonClick", typeof(ICommand),
+               typeof(MenuCard),
+               new FrameworkPropertyMetadata());
+
+        public ICommand ButtonClick
+        {
+            get { return (ICommand)GetValue(ButtonClickProperty); }
+            set { SetValue(ButtonClickProperty, value); }
+        }
         #endregion
 
         public MenuCard()
         {
             InitializeComponent();
-            DataContext = this;
         }
     }
 }
