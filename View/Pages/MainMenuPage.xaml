@@ -22,7 +22,7 @@
 
         <Grid Grid.Column="0" Margin="20, 22, 20, 20">
             <local:MenuCard  ButtonClick="{Binding OpenUsers}"
-               CardIcon="/MedicalPlusFront;component/View/Icons/users.png" Placeholder="Користувачі"/>
+               CardIcon="/MedicalPlusFront;component/View/Icons/users.png" Placeholder="Пацієнти"/>
         </Grid>
 
         <Grid Grid.Column="2">

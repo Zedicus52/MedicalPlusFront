@@ -43,7 +43,8 @@
                         </StackPanel>
                         <TextBlock Text="Всі дослідження пацієнта: " Foreground="#575176" FontSize="16" Margin="0,10"/>
                         <ScrollViewer VerticalAlignment="Stretch" VerticalScrollBarVisibility="Visible">
-                            <ListBox Background="#B7D5E0" Height="800"  ItemsSource="{Binding AllProblems}" SelectedItem="{Binding SelectedProblem}" 
+                            <ListBox Background="#B7D5E0" Height="800"  ItemsSource="{Binding AllProblems}" 
+                                     SelectedItem="{Binding SelectedProblem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                                      HorizontalContentAlignment="Stretch">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
@@ -58,32 +59,18 @@
                             </ListBox>
                         </ScrollViewer>
                     </StackPanel>
-                    <!--<StackPanel Grid.Row="1" Margin="0,15,0,0">
-                        <Grid>
-                            <TextBlock  Text="{Binding CreatedDate}" Style="{StaticResource CreateDate}"/>
-                            <v:UserCard 
-                                IconPath="../Icons/man.png" 
-                                MainTitleText="Іванов Іван Іванович" 
-                                AdditionInfo="Лікар" 
-                                UserIdText="id: 1205" 
-                                Margin="5, 30, 0, 0"/>
-                        </Grid>
-                        <Grid>
-                            <TextBlock Text="{Binding ModifiedDate}" Style="{StaticResource CreateDate}"/>
-                            <v:UserCard 
-                                IconPath="../Icons/woman.png" 
-                                MainTitleText="Івановa Іванна Івановна" 
-                                AdditionInfo="Зав. Відділенням" 
-                                UserIdText="id: 1208" 
-                                Margin="5, 30, 0, 0"/>
-                        </Grid>
-                    </StackPanel>-->
                 </Grid>
                 <StackPanel Grid.Column="1">
 
-                    <vv:TextBoxWithPlaceHolder  Margin="5,10"
-                        Text="{Binding ResearchNumberInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                        PlaceHolderText="Номер дослідження"/>
+                    <vv:TextBoxWithPlaceHolder  Margin="5,10" PlaceHolderText="Номер дослідження">
+                        <vv:TextBoxWithPlaceHolder.Text>
+                            <Binding Path="ResearchNumberInput" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                <Binding.ValidationRules>
+                                    <valid:ResearchValidator/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </vv:TextBoxWithPlaceHolder.Text>
+                    </vv:TextBoxWithPlaceHolder>
                     <vv:ComboxWithPlaceHolder 
                         ComboxContent="{Binding AllDifficults, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         ComboxSelectedItem="{Binding SelectedDifficulty, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
@@ -92,7 +79,7 @@
                         <vv:TextArea.TextAreaInput>
                             <Binding Path="ClinicalDataInput" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                 <Binding.ValidationRules>
-                                    <valid:DescriptionValidator/>
+                                    <valid:DescriptionValidator MinCount="5" MaxCount="200"/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </vv:TextArea.TextAreaInput>
@@ -102,7 +89,7 @@
                         <vv:TextArea.TextAreaInput>
                             <Binding Path="DiagnosisInput" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                 <Binding.ValidationRules>
-                                    <valid:DescriptionValidator/>
+                                    <valid:DescriptionValidator MinCount="5" MaxCount="200"/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </vv:TextArea.TextAreaInput>
@@ -116,7 +103,7 @@
                 <StackPanel Grid.Column="2" Visibility="{Binding AdminComponentsVisibility}">
                     <vv:TextBoxWithPlaceHolder Margin="5, 10" PlaceHolderText="Дата операції">
                         <vv:TextBoxWithPlaceHolder.Text>
-                            <Binding Path="OperationDateInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
+                            <Binding Path="OperationDateInput" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                 <Binding.ValidationRules>
                                     <valid:DateValidator/>
                                 </Binding.ValidationRules>
@@ -127,7 +114,7 @@
                         <vv:TextArea.TextAreaInput>
                             <Binding Path="OperationTypeInput" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                 <Binding.ValidationRules>
-                                    <valid:DescriptionValidator/>
+                                    <valid:DescriptionValidator MinCount="5" MaxCount="150"/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </vv:TextArea.TextAreaInput>
@@ -136,7 +123,7 @@
                         <vv:TextArea.TextAreaInput>
                             <Binding Path="MacroDescInput" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                 <Binding.ValidationRules>
-                                    <valid:DescriptionValidator/>
+                                    <valid:DescriptionValidator MinCount="5" MaxCount="600"/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </vv:TextArea.TextAreaInput>
@@ -145,7 +132,7 @@
                         <vv:TextArea.TextAreaInput>
                             <Binding Path="MicroDescInput" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                                 <Binding.ValidationRules>
-                                    <valid:DescriptionValidator/>
+                                    <valid:DescriptionValidator MinCount="5" MaxCount="600"/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </vv:TextArea.TextAreaInput>

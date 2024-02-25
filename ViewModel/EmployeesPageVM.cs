@@ -384,6 +384,9 @@ namespace MedicalPlusFront.ViewModel
 
         protected override void SendRequests()
         {
+            IsNotUpdating = true;
+            ClearCreatingInputs();
+            ClearFindInputs();  
             IsCreationInteractable = true;
             GetAllEmployees();
             GetAllRoles();

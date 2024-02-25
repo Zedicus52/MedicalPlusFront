@@ -201,7 +201,7 @@ namespace MedicalPlusFront.ViewModel
                 {
                     _isUpdating = false;
                     ClearCreatingInput();
-                    _selectedProblem = new ProblemModel();
+                    SelectedProblem = new ProblemModel();
                 }));
             }
         }
@@ -432,6 +432,9 @@ namespace MedicalPlusFront.ViewModel
 
         protected override void SendRequests()
         {
+            IsCreationInteractable = true;
+            IsEditing = false;
+            ClearCreatingInput();
             GetAllDifficulties();
             GetAllPatientProblems();
         }

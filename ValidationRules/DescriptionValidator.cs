@@ -8,16 +8,20 @@ using System.Windows.Controls;
 
 namespace MedicalPlusFront.ValidationRules
 {
-    class DescriptionValidator : ValidationRule
+    public class DescriptionValidator : ValidationRule
     {
+        public bool CanBeEmpty { get; set; }
+        public int MinCount { get; set; } = 10;
+        public int MaxCount { get; set; } = 200;
+
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             string desc = (string)value;
-            if (string.IsNullOrEmpty(desc))
+            if (!CanBeEmpty && string.IsNullOrEmpty(desc))
                 return new ValidationResult(false, "Обов'язкове для заповнення");
 
-            if (!Validator.SymbolCountsCheck(desc, 800, 10))
-                return new ValidationResult(false, "Поле повинна бути заповненним від 10 до 800 символів");
+            if (!Validator.SymbolCountsCheck(desc, MaxCount, MinCount))
+                return new ValidationResult(false, $"Поле повинна бути заповненним від {MinCount} до {MaxCount} символів");
             
             return ValidationResult.ValidResult;
         }

@@ -12,6 +12,7 @@ namespace MedicalPlusFront.ValidationRules
     {
 
         public bool CanBeEmpty { get; set; }
+        public bool CanBeNotFull{ get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             string phoneNumber = (string)value;
@@ -19,7 +20,7 @@ namespace MedicalPlusFront.ValidationRules
             if (!CanBeEmpty && string.IsNullOrEmpty(phoneNumber))
                 return new ValidationResult(false, "Обов'язкове для заповнення");
 
-            if (!Validator.IsCorrectLength(phoneNumber, 9, 12))
+            if (!CanBeNotFull && !Validator.IsCorrectLength(phoneNumber, 9, 12))
                 return new ValidationResult(false, "Номер має містити від 9 до 12 цифр");
 
             if (!Validator.HasCheckNumber(phoneNumber))

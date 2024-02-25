@@ -241,14 +241,11 @@ namespace MedicalPlusFront.ViewModel
                     || string.IsNullOrEmpty(_birthDateInput) || _selectedGender == null)
                         return;
 
-                    MessageBoxResult res = MessageBox.Show("Ви впевнені, що хочете зробити зміни?", "Питання", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (res == MessageBoxResult.Yes)
-                    {
+                   
                         if (_isUpdating == false)
                             TryCreatePatient();
                         else
                             TryUpdatePatient();
-                    }
                 }));
             }
         }
@@ -294,6 +291,8 @@ namespace MedicalPlusFront.ViewModel
             set
             {
                 _selectedPatient = value;
+                DisaseControlVisibility = Visibility.Collapsed;
+                _isUpdating = false;
                 OnPropertyChanged("SelectedPatient");
                 if(value != default)
                 {
@@ -376,6 +375,9 @@ namespace MedicalPlusFront.ViewModel
 
         protected override void SendRequests()
         {
+            DisaseControlVisibility = Visibility.Collapsed;
+            ClearCreatingInputs();
+            ClearFindInputs();
             IsCreationInteractable = false;
             GetAllGenders();
             GetAllPatients();
@@ -383,6 +385,11 @@ namespace MedicalPlusFront.ViewModel
 
         private void TryUpdatePatient()
         {
+            var dres = ShowMessageBox("Ви дійсно хочете оновити данні пацієнта?", "Підтвердження",
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (dres == MessageBoxResult.No || dres == MessageBoxResult.Cancel)
+                return;
+
             _selectedPatient.Fio.Surname = _surnameInput;
             _selectedPatient.Fio.Name = _nameInput;
             _selectedPatient.Fio.Patronymic = _patronymicInput;

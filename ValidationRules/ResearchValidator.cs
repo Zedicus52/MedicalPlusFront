@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace MedicalPlusFront.ValidationRules
 {
-    internal class ResearchValidator : ValidationRule
+    public class ResearchValidator : ValidationRule
     {
         public bool CanBeEmpty { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)

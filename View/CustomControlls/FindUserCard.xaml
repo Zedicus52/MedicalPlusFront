@@ -16,7 +16,7 @@
                     <v:TextBoxWithPlaceHolder.Text>
                         <Binding Path="PhoneNumberInput" UpdateSourceTrigger="PropertyChanged" ElementName="Root" Mode="TwoWay">
                             <Binding.ValidationRules>
-                                <valid:PhoneNumberValidator CanBeEmpty="True"/>
+                                <valid:PhoneNumberValidator CanBeEmpty="True" CanBeNotFull="True"/>
                             </Binding.ValidationRules>
                         </Binding>
                     </v:TextBoxWithPlaceHolder.Text>

@@ -48,8 +48,9 @@ namespace MedicalPlusFront.View
                 documentWord.InsertAtBookmark(DateTime.Now.ToShortTimeString(), "time");
                 documentWord.InsertAtBookmark(_selectedPatient.MedicalCardNumber.ToString(), "medicalCardNumber");
                 documentWord.InsertAtBookmark(_selectedPatient.Fio.ToString(), "fio");
-                documentWord.InsertAtBookmark(_selectedPatient.BirthDate.Year.ToString(), "age");
-                documentWord.InsertAtBookmark(_selectedProblem.OperationDate.ToLocalTime().ToString() + " " + _selectedProblem.OperationType, "operationDateType");
+                int age = (int)((DateTime.Now- _selectedPatient.BirthDate).Days / 365.25);
+                documentWord.InsertAtBookmark(age.ToString(), "age");
+                documentWord.InsertAtBookmark(_selectedProblem.OperationDate.ToLocalTime().ToShortDateString() + " " + _selectedProblem.OperationType, "operationDateType");
                 documentWord.InsertAtBookmark(_selectedProblem.ClinicalData, "clinicalData");
                 documentWord.InsertAtBookmark(_selectedProblem.Diagnosis, "clinicalDiagnosis");
                 documentWord.InsertAtBookmark(_selectedProblem.MacroDesc + " \n " + _selectedProblem.MicroDesc, "macroMicroDesc");

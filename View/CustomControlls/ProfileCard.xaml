@@ -21,8 +21,8 @@
                     </Border>
 
                     <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0, 0, 0, 10">
-                        <Button Content="Профіль" Template="{StaticResource DefaultButton}"  Height="20" FontSize="10"
-                                Command="{Binding ElementName=Root, Path=ProfileCommand}"/>
+                        <!--<Button Content="Профіль" Template="{StaticResource DefaultButton}"  Height="20" FontSize="10"
+                                Command="{Binding ElementName=Root, Path=ProfileCommand}"/>-->
                         <Button Content="Вийти" Template="{StaticResource DefaultButton}" Height="20"  FontSize="10"
                                 Command="{Binding ElementName=Root, Path=ExitCommand}"/>
                     </StackPanel>
