@@ -1,4 +1,4 @@
-﻿<Page x:Class="MedicalPlusFront.View.LogbookPage"
+<Page x:Class="MedicalPlusFront.View.LogbookPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -28,6 +28,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <v:UserCard
+
                                 MainTitleText="{Binding Fio, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                 AdditionInfo="{Binding Birthday, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                 UserIdText="{Binding Id, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"

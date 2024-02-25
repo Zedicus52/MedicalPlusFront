@@ -21,6 +21,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0" Margin="20, 22, 20, 20">
+
             <local:MenuCard  ButtonClick="{Binding OpenUsers}"
                CardIcon="/MedicalPlusFront;component/View/Icons/users.png" Placeholder="Пацієнти"/>
         </Grid>
@@ -38,9 +39,11 @@
                                    ExitCommand="{Binding ExitCommand}"/>
             </Grid>
 
+
             <Grid Visibility="{Binding AdminComponentsVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="1" Margin="20">
                 <local:MenuCard ButtonClick="{Binding OpenEmployees}"
                     CardIcon="/MedicalPlusFront;component/View/Icons/employes.png" Placeholder="Працівники" Margin="0, 0, 0, 130"/>
+
             </Grid>
 
         </Grid>
