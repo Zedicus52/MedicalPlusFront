@@ -1,9 +1,43 @@
 ﻿<Application x:Class="MedicalPlusFront.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:MedicalPlusFront"
-             StartupUri="MainWindow.xaml">
+              xmlns:viewModels="clr-namespace:MedicalPlusFront.ViewModel"
+             xmlns:views="clr-namespace:MedicalPlusFront.View"
+             xmlns:pages="clr-namespace:MedicalPlusFront.View.Pages"
+             StartupUri="View/MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/AuthWindowStyles.xaml"/>
+                <ResourceDictionary Source="Styles/DefaultStyles.xaml"/>
+                <ResourceDictionary Source="Styles/ComponentStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewModels:LoginPageVM}">
+                <pages:LoginPage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:EmployeesPageVM}">
+                <views:EmployeePage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:DisasePageVM}">
+                <pages:DisasePage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:MainMenuVM}">
+                <views:MainMenuPage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:UserPageVM}">
+                <views:UsersPage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:LogbookPageVM}">
+                <views:LogbookPage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:PatientInfoVM}">
+                <views:PatientInfoPage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:SelectUserPageVM}">
+                <views:SelectUsersPage/>
+            </DataTemplate>
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

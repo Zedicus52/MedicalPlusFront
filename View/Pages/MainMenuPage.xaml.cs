@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MedicalPlusFront
+namespace MedicalPlusFront.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для MainMenuPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainMenuPage : Page
     {
-        public MainWindow()
+        public MainMenuPage()
         {
             InitializeComponent();
         }
